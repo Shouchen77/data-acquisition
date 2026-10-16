@@ -523,3 +523,82 @@ body { background-color: var(--paper); background-image: linear-gradient(90deg, 
 @media (max-width: 900px) {
   .intro .display-copy { font-size: clamp(24px, 5.7vw, 44px); line-height: 1.4; }
 }
+
+/* Contact: a quiet neutral palette and a direct path to the business contact. */
+.contact { display: block; min-height: 0; padding-block: 68px 38px; background: #181a1e; background-image: none; color: #f3f4f5; border-top: 1px solid #393d44; }
+.contact::before { content: none; }
+.contact-section-label { display: flex; justify-content: space-between; align-items: center; gap: 20px; color: #a4aab3; padding-bottom: 34px; border-bottom: 1px solid #393d44; }
+.contact-section-label > span:first-child { font: 10px var(--mono); letter-spacing: .12em; }
+.contact-section-label > span:last-child { font-size: 12px; }
+.contact-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8vw; align-items: start; margin-top: 48px; }
+.contact-copy { display: flex; align-items: start; flex-direction: column; min-width: 0; }
+.contact-copy h2 { font-size: clamp(42px, 4.6vw, 68px); line-height: 1.2; letter-spacing: -.055em; margin: 0 0 24px; font-weight: 600; }
+.contact-copy h2 em { color: #a4abb5; }
+.contact-description { font-size: 14px; line-height: 1.9; color: #b0b6bf; margin-bottom: 0; }
+.contact-company { margin-top: 40px; }
+.contact-company strong { display: block; font-size: 14px; font-weight: 500; color: #d9dde2; }
+.contact-company > span { display: block; font: 9px var(--mono); color: #9199a5; letter-spacing: .08em; margin-top: 10px; }
+.contact-company p { margin: 18px 0 0; font-size: 11px; color: #9aa3af; }
+.contact-company i { font-style: normal; margin-inline: 12px; color: #5e6672; }
+.contact-copy .inquiry-context { padding: 12px 0 12px 14px; border-left: 2px solid #8d98a8; font-size: 12px; line-height: 1.9; color: #c0c7d1; max-width: 400px; margin: 24px 0 0; }
+.contact-panel { min-width: 0; background: #21242a; border: 1px solid #40454e; padding: 0 28px; }
+.contact-field-label { display: block; font-size: 11px; color: #a3acb9; margin-bottom: 10px; }
+.contact-person { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-block: 24px; border-bottom: 1px solid #40454e; }
+.contact-person strong { font-size: 18px; font-weight: 500; }
+.contact-person-note { font-size: 11px; color: #a3acb9; }
+.contact-phone { display: block; padding-block: 24px; border-bottom: 1px solid #40454e; }
+.contact-phone-line { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.contact-phone-line > strong { font: clamp(24px, 2.6vw, 38px) var(--mono); font-weight: 400; letter-spacing: -.055em; color: #f2f4f7; white-space: nowrap; }
+.contact-link-arrow { color: #c5cdd8; font-size: 24px; transition: transform .2s; }
+.contact-phone-hint { display: block; color: #8f99a7; font-size: 10px; margin-top: 12px; }
+.contact-phone:hover .contact-link-arrow { transform: translate(3px, -3px); }
+.contact-phone:hover .contact-phone-line > strong { color: white; }
+.contact-wechat { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding-block: 24px; }
+.contact-wechat strong { display: block; font: 24px var(--mono); color: #e5e9ef; letter-spacing: -.04em; }
+.contact-copy-button { background: transparent; color: #d7dde5; border: 1px solid #646d7b; min-height: 42px; padding: 10px 13px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; font: 11px var(--sans); cursor: pointer; white-space: nowrap; transition: background .2s, border-color .2s; }
+.contact-copy-button:hover { background: #333941; border-color: #a0acbc; }
+.contact-copy-button:focus-visible, .contact-phone:focus-visible { outline: 2px solid #d5dce7; outline-offset: 5px; }
+.contact-location { display: grid; grid-template-columns: 145px minmax(0, 1fr) auto; gap: 28px; align-items: center; border-top: 1px solid #40454e; padding-top: 28px; margin-top: 42px; }
+.contact-location-label { display: flex; gap: 14px; align-items: center; color: #a6afbc; font-size: 12px; }
+.contact-location address { font-style: normal; color: #d3d9e2; font-size: 14px; line-height: 1.9; overflow-wrap: anywhere; }
+.contact-mobile-break { display: none; }
+.contact-action-status { min-height: 19px; margin: 16px 0 0; font-size: 11px; line-height: 1.8; color: #bac6d6; overflow-wrap: anywhere; }
+@media (max-width: 1050px) and (min-width: 761px) {
+  .contact-layout { gap: 5vw; }
+  .contact-panel { padding-inline: 22px; }
+  .contact-person { gap: 10px; }
+  .contact-person-note { font-size: 10px; }
+  .contact-phone-line > strong { font-size: 27px; }
+  .contact-desktop-break { display: none; }
+}
+@media (max-width: 760px) {
+  .contact { padding-block: 48px 24px; }
+  .contact-section-label { padding-bottom: 24px; }
+  .contact-section-label > span:last-child { font-size: 10px; }
+  .contact-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; margin-top: 32px; }
+  .contact-copy h2 { font-size: clamp(38px, 8vw, 54px); margin-bottom: 20px; }
+  .contact-description { font-size: 13px; }
+  .contact-company { margin-top: 26px; }
+  .contact-company > span { font-size: 8px; }
+  .contact-company p { margin-top: 14px; }
+  .contact-panel { padding-inline: 22px; }
+  .contact-person, .contact-phone, .contact-wechat { padding-block: 22px; }
+  .contact-phone-line > strong { font-size: clamp(25px, 6.6vw, 34px); }
+  .contact-person-note { font-size: 10px; }
+  .contact-location { grid-template-columns: minmax(0, 1fr) auto; gap: 16px; margin-top: 30px; padding-top: 24px; align-items: end; }
+  .contact-location-label { grid-column: 1/-1; }
+  .contact-location address { font-size: 12px; }
+  .contact-location > button { padding-inline: 10px; font-size: 10px; }
+  .contact-mobile-break { display: block; }
+  .contact-desktop-break { display: none; }
+}
+.contact-email { display: block; padding-block: 24px; border-top: 1px solid #40454e; }
+.contact-email-line { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.contact-email-line strong { font: 19px var(--mono); font-weight: 400; color: #e5e9ef; letter-spacing: -.04em; overflow-wrap: anywhere; }
+.contact-email .contact-link-arrow { font-size: 20px; flex-shrink: 0; }
+.contact-email:hover .contact-link-arrow { transform: translate(3px, -3px); }
+.contact-email:focus-visible { outline: 2px solid #d5dce7; outline-offset: 5px; }
+@media (max-width: 760px) {
+  .contact-email { padding-block: 22px; }
+  .contact-email-line strong { font-size: clamp(16px, 4.4vw, 21px); }
+}

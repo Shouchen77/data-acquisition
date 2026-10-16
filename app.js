@@ -138,6 +138,8 @@ function readURL() {
 }
 
 async function loadCatalog() {
+  const initialHash = location.hash;
+  const firstLoad = !state.ready;
   try {
     const response = await fetch('data/market_catalog.json?v=20261016-v3-market2');
     if (!response.ok) throw new Error('目录加载失败');
@@ -155,6 +157,10 @@ async function loadCatalog() {
     state.ready = true;
     readURL();
     applyFilters();
+    if (firstLoad && initialHash && location.hash === initialHash) {
+      const anchor = document.getElementById(initialHash.slice(1));
+      if (anchor) requestAnimationFrame(() => anchor.scrollIntoView({ behavior: 'instant', block: 'start' }));
+    }
   } catch {
     state.ready = false;
     grid.innerHTML = '<div class="empty-state" role="alert"><h3>数据目录暂时无法加载</h3><button class="catalog-retry" type="button" id="retry-catalog">重新加载</button></div>';
@@ -218,13 +224,25 @@ document.addEventListener('click', (event) => {
   if (inquiry) {
     if (dialog.open) dialog.close();
     $('#inquiry-context').hidden = false;
-    $('#inquiry-context').textContent = `咨询方向：${inquiry.dataset.inquiry}。欢迎通过下方电话或微信沟通。`;
+    $('#inquiry-context').textContent = `咨询方向：${inquiry.dataset.inquiry}。可通过电话、微信或邮箱沟通。`;
   }
   if (event.target.closest('[data-reset], #reset-filters')) resetFilters();
   const remove = event.target.closest('[data-remove-filter]');
   if (remove) { const key = remove.dataset.removeFilter; state[key] = defaults[key]; if (key === 'scene') state.subscene = 'all'; applyFilters(); }
   if (event.target.closest('#retry-catalog')) loadCatalog();
 });
+document.querySelectorAll('[data-copy-text]').forEach((button) => button.addEventListener('click', async () => {
+  const status = $('#contact-action-status');
+  const label = button.querySelector('[data-copy-label]');
+  try {
+    await navigator.clipboard.writeText(button.dataset.copyText);
+    label.textContent = '已复制';
+    status.textContent = `${button.dataset.copyName}已复制：${button.dataset.copyText}`;
+  } catch {
+    label.textContent = '重新复制';
+    status.textContent = `未能复制，请手动保存${button.dataset.copyName}：${button.dataset.copyText}`;
+  }
+}));
 Object.entries(controls).forEach(([key, select]) => select.addEventListener('change', () => {
   state[key] = select.value;
   if (['scene', 'source'].includes(key)) { state.subscene = 'all'; state.arm = 'all'; }
