@@ -1,10 +1,12 @@
 {
   "source_file": "data/maniformer_data_market.json",
   "catalog_file": "data/market_catalog.json",
-  "imported_at_utc": "2026-10-14T06:43:52+00:00",
+  "imported_at_utc": "2026-10-16T04:12:21+00:00",
   "source_total": 467,
   "imported_records": 466,
   "source_unavailable_count": 1,
+  "stereo_datasets": 0,
+  "reference_records": 466,
   "duplicate_ids": 0,
   "video_links": 466,
   "action_steps": 2963,

@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="视焦科技：面向具身智能的真实世界数据采集、治理与数据市场。" />
+    <meta name="description" content="视焦科技：以 V3 规范为采集与交付基准，面向工厂、医疗、家居等场景提供真人第一视角双目数据采集与定制服务。" />
     <title>视焦科技 · 具身智能数据基础设施</title>
-    <link rel="stylesheet" href="styles.css?v=20261014-catalog1" />
+    <link rel="stylesheet" href="styles.css?v=20261016-v3-market2" />
   </head>
   <body>
     <div class="site-shell">
@@ -17,6 +17,7 @@
         <nav class="desktop-nav" aria-label="主导航">
           <a href="#top">首页</a>
           <a href="#capability">数据采集</a>
+          <a href="#standards">质量标准</a>
           <a href="#market">数据市场</a>
           <a href="#custom">定制服务</a>
           <a href="#about">关于视焦</a>
@@ -26,7 +27,7 @@
       </header>
 
       <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
-        <a href="#top">首页</a><a href="#capability">数据采集</a><a href="#market">数据市场</a><a href="#custom">定制服务</a><a href="#about">关于视焦</a><a href="#contact">联系我们 ↗</a>
+        <a href="#top">首页</a><a href="#capability">数据采集</a><a href="#standards">质量标准</a><a href="#market">数据市场</a><a href="#custom">定制服务</a><a href="#about">关于视焦</a><a href="#contact">联系我们 ↗</a>
       </div>
 
       <main>
@@ -34,63 +35,79 @@
           <div class="hero-copy">
             <p class="eyebrow"><span class="pulse-dot"></span> EMBODIED INTELLIGENCE DATA</p>
             <h1>让真实世界，<br /><em>成为机器人的</em><br />学习现场。</h1>
-            <p class="hero-lede">围绕任务、场景与机器人能力目标，规划数据采集、标注与交付，让每一次操作沉淀为可复用的训练样本。</p>
-            <div class="hero-actions"><a class="button button-dark" href="#market">浏览数据市场 <span>↓</span></a><a class="text-link" href="#custom">定制采集需求 <span>→</span></a></div>
+            <p class="hero-lede">用真人第一视角与双目视觉，记录真实场景中的操作经验。以 V3 规范为采集与交付基准，让数据的清晰度、同步性与完整性都有据可验。</p>
+            <div class="hero-actions"><a class="button button-dark" href="#market">浏览数据市场 <span>↓</span></a><a class="text-link" href="#standards">了解 V3 数据标准 <span>→</span></a></div>
+            <div class="hero-proof"><span>真人第一视角</span><span>左右双目</span><span>V3 交付基准</span></div>
           </div>
-          <div class="hero-visual" aria-label="具身智能数据网络示意图">
-            <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="orbit orbit-three"></div>
-            <div class="core"><span class="core-cross"></span><span class="core-label">EC / DATA</span></div>
-            <div class="data-node node-a"><span>TACTILE DEMOS</span><b data-catalog-stat="tactile">—</b></div><div class="data-node node-b"><span>TASK DEMOS</span><b data-catalog-stat="tasks">—</b></div><div class="data-node node-c"><span>SCENE DOMAINS</span><b data-catalog-stat="scenes">—</b></div>
-            <div class="visual-caption"><span>任务数据关联示意</span><span class="mono">MANIFORMER / DEMO CATALOG</span></div>
+          <div class="hero-visual stereo-hero" aria-label="真人第一视角左右双目采集示意图，非实际采集画面">
+            <div class="stereo-topline"><span><i></i> EGO / STEREO CAPTURE</span><span>V3 STANDARD BASIS</span></div>
+            <div class="stereo-pair" aria-hidden="true">
+              <div class="stereo-eye"><span>LEFT / 01</span><svg viewBox="0 0 240 220" fill="none"><path d="M0 175 120 110 240 175M0 210 120 145 240 210M0 140 120 75 240 140M35 220V120M85 220V92M155 220V92M205 220V120" stroke="currentColor" opacity=".18"/><path d="m76 109 44-25 44 25v53l-44 26-44-26zM76 109l44 25 44-25M120 134v54" stroke="currentColor" stroke-width="1.5"/><path d="m27 174 29-23 14 6 11-5 18 10-4 13-19 9-19-1-20 18M213 174l-29-23-14 6-11-5-18 10 4 13 19 9 19-1 20 18" stroke="currentColor" stroke-width="2"/><path d="M110 50h20M120 40v20" stroke="currentColor"/></svg><small>TOP_LEFT_CAMERA</small></div>
+              <div class="stereo-eye"><span>RIGHT / 02</span><svg viewBox="0 0 240 220" fill="none"><path d="M0 175 110 110 240 175M0 210 110 145 240 210M0 140 110 75 240 140M25 220V120M75 220V92M145 220V92M195 220V120" stroke="currentColor" opacity=".18"/><path d="m66 109 44-25 44 25v53l-44 26-44-26zM66 109l44 25 44-25M110 134v54" stroke="currentColor" stroke-width="1.5"/><path d="m17 174 29-23 14 6 11-5 18 10-4 13-19 9-19-1-20 18M203 174l-29-23-14 6-11-5-18 10 4 13 19 9 19-1 20 18" stroke="currentColor" stroke-width="2"/><path d="M100 50h20M110 40v20" stroke="currentColor"/></svg><small>TOP_RIGHT_CAMERA</small></div>
+            </div>
+            <div class="stereo-timebase"><span>LEFT</span><i></i><span>SHARED CLOCK</span><i></i><span>RIGHT</span></div>
+            <div class="stereo-specs"><div><strong>1080<span>p+</span></strong><small>每目分辨率基准</small></div><div><strong>30<span>FPS+</span></strong><small>视频帧率基准</small></div><div><strong>200<span>Hz+</span></strong><small>头戴 IMU 基准</small></div></div>
+            <p class="stereo-caption">立体采集示意 / 参数为 V3 验收基准</p>
           </div>
-          <div class="hero-stamp"><span>VF—001</span><span>OPEN DATA CATALOG</span></div>
-          <div class="hero-footer"><span>01 / 04</span><span>SCROLL TO DISCOVER</span><span class="scroll-line"></span></div>
+          <div class="hero-stamp"><span>EC—V3</span><span>HUMAN EXPERIENCE / MACHINE LEARNING</span></div>
+          <div class="hero-footer"><span>HUMAN → DATA → INTELLIGENCE</span><span>SCROLL TO DISCOVER</span><span class="scroll-line"></span></div>
         </section>
 
         <div class="ticker" aria-label="视焦科技能力关键词"><div class="ticker-track"><span>COLLECT <i>真实采集</i></span><b>✳</b><span>LABEL <i>动作结构化</i></span><b>✳</b><span>DELIVER <i>按需交付</i></span><b>✳</b><span>COLLECT <i>真实采集</i></span><b>✳</b><span>LABEL <i>动作结构化</i></span><b>✳</b><span>DELIVER <i>按需交付</i></span><b>✳</b></div></div>
 
         <section class="intro section-grid" id="about">
           <div class="section-kicker"><span>01</span><span>ABOUT EYECATCHER</span></div>
-          <div class="intro-content"><p class="display-copy">真实的环境，连续的动作，<br /><span>可以训练的世界。</span></p><p class="body-copy">视焦科技（杭州视焦科技有限公司）关注机器人与真实世界的连接。围绕具身智能数据采集，面向机器人研发团队与科研机构讨论任务设计、场景采集和数据需求。</p><a class="arrow-link" href="#capability">了解采集服务 <span>↗</span></a></div>
-          <div class="intro-stats"><p class="stats-caption">Maniformer 演示目录</p><div><strong data-catalog-stat="tasks">—</strong><span>任务样例</span></div><div><strong data-catalog-stat="scenes">—</strong><span>场景分类</span></div><div><strong data-catalog-stat="tactile">—</strong><span>触觉样例</span></div></div>
+          <div class="intro-content"><p class="display-copy">真实的环境，连续的动作，<br /><span>可以训练的世界。</span></p><p class="body-copy">视焦科技（杭州视焦科技有限公司）围绕真人第一视角双目采集，面向工厂、医疗、家居等场景规划任务、采集和交付。让人的操作经验，成为具身智能学习真实世界的起点。</p><a class="arrow-link" href="#capability">了解采集服务 <span>↗</span></a></div>
+          <div class="intro-stats"><p class="stats-caption">OUR COLLECTION FRAMEWORK</p><div><strong>01</strong><span>真人第一视角</span></div><div><strong>02</strong><span>左右双目视频</span></div><div><strong>V3</strong><span>采集与交付基准</span></div></div>
         </section>
 
         <section class="capability section-grid" id="capability">
           <div class="section-kicker"><span>02</span><span>DATA CAPABILITY</span></div>
-          <div class="capability-heading"><h2>把每一次操作，<br /><em>变成可学习的经验。</em></h2><p>围绕目标任务讨论场景设计、动作标注和交付规格。</p></div>
+          <div class="capability-heading"><h2>把每一次操作，<br /><em>变成可学习的经验。</em></h2><p>从真实人的示范出发，把场景、动作与传感器信息组织成可验证的数据。</p></div>
           <div class="capability-cards">
-            <article class="cap-card"><span class="card-index">01</span><div class="card-icon icon-capture"></div><h3>场景任务采集</h3><p>从物体抓取、物品整理到多步骤操作，根据设备和现场条件设计任务与采集方案。</p><a href="#custom">讨论采集任务 <span>↗</span></a></article>
-            <article class="cap-card cap-card-accent"><span class="card-index">02</span><div class="card-icon icon-label"></div><h3>动作标注与质检</h3><p>围绕任务描述、动作分段和场景标签组织标注，在项目中约定完整性与一致性标准。</p><a href="#market">浏览任务样例 <span>↗</span></a></article>
-            <article class="cap-card"><span class="card-index">03</span><div class="card-icon icon-deliver"></div><h3>数据整理与交付</h3><p>根据训练目标讨论元数据、样例视频与标注的交付方式，明确数据规格和验收口径。</p><a href="#custom">定制数据方案 <span>↗</span></a></article>
+            <article class="cap-card"><span class="card-index">01</span><div class="card-icon icon-capture"></div><h3>真人双目采集</h3><p>以操作者第一视角记录双手与环境，围绕工厂操作、家居任务及医疗辅助等需求设计采集方案。</p><a href="#market" data-select-kind="human_stereo">了解真人数据 <span>↗</span></a></article>
+            <article class="cap-card cap-card-accent"><span class="card-index">02</span><div class="card-icon icon-label"></div><h3>按 V3 基准质检</h3><p>将清晰度、逐帧时间戳、IMU 连续性、标定关联与文件完整性纳入验收，按段保留质检依据。</p><a href="#standards">查看质量标准 <span>↗</span></a></article>
+            <article class="cap-card"><span class="card-index">03</span><div class="card-icon icon-deliver"></div><h3>结构化数据交付</h3><p>以任务段组织双目视频、时间戳、IMU、标定、轨迹和元数据，按项目要求提供动作标注。</p><a href="#custom">定制数据方案 <span>↗</span></a></article>
           </div>
         </section>
 
-        <section class="market section-grid" id="market">
-          <div class="section-kicker"><span>03</span><span>DATA MARKET</span></div>
-          <div class="market-heading"><div><h2>数据市场</h2><p>浏览任务记录，查看样例视频、机器人配置与动作标注。</p></div><a class="button button-outline" href="#custom">咨询同类数据 <span>↗</span></a></div>
-          <div class="catalog-stats" aria-label="目录数据统计"><div><strong data-catalog-stat="tasks">—</strong><span>任务样例</span></div><div><strong data-catalog-stat="real">—</strong><span>真机记录</span></div><div><strong data-catalog-stat="sim">—</strong><span>仿真记录</span></div><div><strong data-catalog-stat="actions">—</strong><span>动作标注</span></div></div>
-          <div class="market-toolbar"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" aria-label="搜索任务、机器人或动作" type="search" placeholder="搜索任务、机器人或动作…" /></label><div class="filter-group"><button class="filter-button is-active" aria-pressed="true" data-filter="all">全部 <span id="count-all">—</span></button><button class="filter-button" aria-pressed="false" data-filter="真机">真机 <span id="count-real">—</span></button><button class="filter-button" aria-pressed="false" data-filter="仿真">仿真 <span id="count-sim">—</span></button><button class="filter-button" aria-pressed="false" data-filter="有触觉">有触觉 <span id="count-tactile">—</span></button></div><div class="catalog-selects"><select id="scene-filter" aria-label="按场景筛选"><option value="all">全部场景</option></select><select id="subscene-filter" aria-label="按细分场景筛选"><option value="all">全部细分场景</option></select><select id="arm-filter" aria-label="按臂型筛选"><option value="all">全部臂型</option></select><button class="reset-filters" id="reset-filters" type="button">清空</button></div></div>
-          <div class="market-meta"><span aria-live="polite">任务样例 <b id="result-count">—</b></span><a class="market-source" href="https://www.maniformer.net/dataShop" target="_blank" rel="noopener noreferrer">MANIFORMER / 原型演示 ↗</a></div>
-          <div class="market-grid" id="market-grid"><div class="loading-state">正在加载数据市场…</div></div>
-          <div class="market-footer"><div class="catalog-pagination"><span id="catalog-progress" aria-live="polite"></span><button class="load-more" id="load-more" type="button" hidden>加载更多 <span>＋</span></button></div><span class="market-note">公开任务参考目录 · 来源 Maniformer</span></div>
+        <section class="standards section-grid" id="standards" aria-labelledby="standards-title">
+          <div class="section-kicker"><span>03</span><span>DATA QUALITY STANDARD</span></div>
+          <div class="standards-heading"><div><p class="standard-eyebrow">以 V3 规范为采集与交付基准</p><h2 id="standards-title">高质量，<br /><em>从可验收开始。</em></h2><p>清晰的画面只是起点。时间、空间和文件完整性，同样需要可核对的依据。</p></div><span class="standard-version" aria-hidden="true">V3<span>COLLECTION BASIS</span></span></div>
+          <div class="standard-metrics" aria-label="V3 采集验收参数"><article><span>01 / IMAGE</span><strong>≥1080<small>p</small></strong><h3>每目视频分辨率</h3></article><article><span>02 / MOTION</span><strong>≥30<small>FPS</small></strong><h3>每目视频帧率</h3></article><article><span>03 / INERTIAL</span><strong>≥200<small>Hz</small></strong><h3>头戴 IMU 采样率</h3></article><article><span>04 / FIELD OF VIEW</span><strong>110°<small>H / 80° V</small></strong><h3>最低水平 / 垂直视场角</h3></article><article><span>05 / EPISODE</span><strong>≥30<small>s</small></strong><h3>单段有效时长</h3></article><article><span>06 / CONTINUITY</span><strong>≤5<small>%</small></strong><h3>IMU 丢包 / 跳变比例</h3></article></div>
+          <div class="quality-evidence"><article><span>01</span><h3>时间可对齐</h3><p>左右目逐帧时间戳与 IMU 使用同一 UTC 时钟；检查帧间隔与传感器连续性。</p></article><article><span>02</span><h3>空间可还原</h3><p>关联相机内外参、相机与 IMU 外参及 VIO 轨迹，统一坐标系与段标识。</p></article><article><span>03</span><h3>交付可追溯</h3><p>逐段元数据、文件哈希与 QA 报告，配合任务审核、操作者授权和匿名处理。</p></article></div>
+          <details class="standard-details"><summary>查看 V3 交付组成与验收口径 <span aria-hidden="true">＋</span></summary><div class="standard-detail-grid"><div><h3>按任务段组织交付</h3><ul><li>左右目 MP4 视频，AV1 / H.265 编码；符合规范的原始 H.264 可保留。</li><li>两路逐帧时间戳、IMU CSV、独立元数据 JSON。</li><li>内外参标定、VIO 系统说明与位姿轨迹、逐段 QA。</li><li>批次索引与交付说明；动作标注按合同要求提供。</li></ul></div><div><h3>质量验收要点</h3><ul><li>全传感器共享时钟；采用无线传输时，延迟小于 10 ms。</li><li>相机帧间隔 P99 与标称帧间隔的偏差不超过 10 ms；逐帧行数与视频帧数一致。</li><li>视频去除拍摄时间、GPS、厂商等描述性内置元数据，描述信息独立保存。</li><li>文件哈希、标定关联与必填元数据逐项核对，异常在报告中披露。</li></ul></div></div></details>
+          <p class="standard-footnote">以上为真人双目项目的采集与验收基准。各数据集的实测规格、质检结果与交付范围，以对应样例和项目验收报告为准。</p>
+        </section>
+
+        <section class="market section-grid market-v2" id="market" aria-labelledby="market-title">
+          <div class="section-kicker"><span>04</span><span>DATA MARKET</span></div>
+          <div class="market-heading"><div><h2 id="market-title">数据市场</h2><p>从人的示范，到机器人的执行。按数据类型与真实场景，找到所需任务。</p></div><a class="button button-outline" href="#contact" data-inquiry="定制场景数据采集">定制数据采集 <span>↗</span></a></div>
+          <div class="market-feature"><div><span class="feature-label">EYECATCHER / EGO DATA</span><h3>真人第一视角 · 双目数据</h3><p>工厂、医疗、家居等场景持续拓展，以 V3 规范组织采集与交付。</p></div><a href="#market-workspace" data-select-kind="human_stereo">浏览真人双目 <span>↗</span></a></div>
+          <div class="market-types" role="group" aria-label="按数据类型筛选"><button type="button" class="type-button is-active" aria-pressed="true" data-kind="all"><span>全部目录</span><strong id="count-all">—</strong><small>自采数据与公开参考</small></button><button type="button" class="type-button" aria-pressed="false" data-kind="human_stereo"><span>真人双目 <i>EGO</i></span><strong id="count-human">—</strong><small>真人 · 第一视角 · 双摄像头</small></button><button type="button" class="type-button" aria-pressed="false" data-kind="robot_real"><span>机器人实采</span><strong id="count-real">—</strong><small>机器人 · 真实环境任务</small></button><button type="button" class="type-button" aria-pressed="false" data-kind="robot_sim"><span>机器人仿真</span><strong id="count-sim">—</strong><small>机器人 · 仿真环境任务</small></button></div>
+          <div class="market-layout" id="market-workspace">
+            <aside class="market-filters" aria-label="数据筛选"><div class="filter-heading"><h3>筛选目录</h3><button class="reset-filters" id="reset-filters" type="button">重置</button></div><label class="filter-field"><span>应用场景</span><select id="scene-filter"><option value="all">全部场景</option></select></label><label class="filter-field"><span>细分场景</span><select id="subscene-filter"><option value="all">全部细分场景</option></select></label><label class="filter-field"><span>数据来源</span><select id="source-filter"><option value="all">全部来源</option><option value="eyecatcher">视焦自采</option><option value="maniformer">Maniformer 公开参考</option></select></label><div id="robot-filters"><p class="filter-section-label">机器人属性</p><label class="filter-field"><span>臂型</span><select id="arm-filter"><option value="all">全部臂型</option></select></label><label class="filter-field"><span>触觉信息</span><select id="tactile-filter"><option value="all">全部触觉配置</option><option value="有触觉">有触觉</option><option value="无触觉">无触觉</option></select></label></div><div class="filter-standard" id="stereo-filter-note" hidden><span>V3 / 采集基准</span><p>双目视频 + IMU<br />标定 + 轨迹 + QA</p><a href="#standards">查看验收参数 ↗</a></div></aside>
+            <div class="market-results"><label class="search-box"><span aria-hidden="true">⌕</span><input id="search-input" aria-label="搜索任务、场景、设备或动作" type="search" placeholder="搜索任务、场景、设备或动作…" /></label><div class="market-meta"><span role="status" id="result-summary">目录条目 <b id="result-count">—</b></span><span id="result-scope">全部类型 / 全部场景</span></div><div id="active-filters" class="active-filters" aria-label="当前筛选条件" hidden></div><p class="catalog-context" id="catalog-context">正在加载目录…</p><div class="market-grid" id="market-grid"><div class="loading-state">正在加载数据市场…</div></div><div class="market-footer"><div class="catalog-pagination"><span id="catalog-progress" aria-live="polite"></span><button class="load-more" id="load-more" type="button" hidden>加载更多 <span>＋</span></button></div></div></div>
+          </div>
+          <p class="market-note market-provenance">机器人记录来自 Maniformer 公开参考目录，保留来源，不代表视焦自有数据或 V3 验收结果。真人双目数据在样例审核后上架，数据集数量与任务段数量分别披露。</p>
         </section>
 
         <section class="workflow section-grid" id="custom">
-          <div class="section-kicker"><span>04</span><span>CUSTOM DATA SERVICE</span></div>
+          <div class="section-kicker"><span>05</span><span>CUSTOM DATA SERVICE</span></div>
           <div class="workflow-heading"><h2>让数据围绕<br /><em>你的任务生长。</em></h2><p>从描述目标开始，共同讨论场景、设备、数据规模与交付规格。</p><a class="button button-dark" href="#contact">讨论定制需求 <span>↗</span></a></div>
           <div class="steps"><div class="step"><span>01</span><h3>需求沟通</h3><p>明确能力目标、场景条件、任务边界和数据规格。</p></div><div class="step"><span>02</span><h3>样例验证</h3><p>通过小批量采集讨论任务方案与验收标准。</p></div><div class="step"><span>03</span><h3>批量采集</h3><p>根据确认的规格组织采集、标注和质检。</p></div><div class="step"><span>04</span><h3>交付反馈</h3><p>交付约定的数据与说明，结合训练反馈讨论补充。</p></div></div>
         </section>
 
         <section class="contact section-grid" id="contact">
           <div class="contact-backdrop">LET'S<br /><span>BUILD.</span></div>
-          <div class="contact-inner"><p class="eyebrow"><span class="pulse-dot"></span> START A CONVERSATION</p><h2>聊聊下一个<br /><em>采集任务。</em></h2><p>欢迎围绕任务设计、采集协作与数据需求，与视焦科技交流。</p><a class="button button-light" href="#contact-info">查看企业信息 <span>↓</span></a></div>
+          <div class="contact-inner"><p class="eyebrow"><span class="pulse-dot"></span> START A CONVERSATION</p><h2>聊聊下一个<br /><em>采集任务。</em></h2><p>欢迎围绕任务设计、采集协作与数据需求，与视焦科技交流。</p><p id="inquiry-context" class="inquiry-context" hidden role="status"></p><a class="button button-light" href="#contact-info">查看企业信息 <span>↓</span></a></div>
           <div class="contact-info" id="contact-info"><div><span>企业名称</span><p>杭州视焦科技有限公司</p><p>EYECATCHER TECHNOLOGY</p></div><div><span>联系人</span><p>首辰</p></div><div><span>商务电话</span><p><a href="tel:13285719508">132 8571 9508</a></p></div><div><span>微信</span><p>sochyf</p></div><div><span>公司地址</span><p>杭州市西湖区振华路210号<br />栖锦云座2号楼539室</p></div></div>
         </section>
       </main>
 
-      <footer class="site-footer"><div class="footer-brand"><span class="brand-mark"><img src="assets/shijiao-mark.png" alt="" /></span><span><strong>视焦科技</strong><small>EYECATCHER TECHNOLOGY</small></span></div><p>面向机器人学习的场景数据采集与定制服务</p><div class="footer-bottom"><span>© 2026 杭州视焦科技有限公司</span><span>网站内容与架构原型</span><a href="#top">返回顶部 ↑</a></div></footer>
+      <footer class="site-footer"><div class="footer-brand"><span class="brand-mark"><img src="assets/shijiao-mark.png" alt="" /></span><span><strong>视焦科技</strong><small>EYECATCHER TECHNOLOGY</small></span></div><p>真人第一视角 · 双目场景数据 · 以 V3 为交付基准</p><div class="footer-bottom"><span>© 2026 杭州视焦科技有限公司</span><a href="#standards">数据质量标准 ↗</a><a href="#top">返回顶部 ↑</a></div></footer>
     </div>
     <dialog class="task-dialog" id="task-dialog" aria-labelledby="task-title"><div class="task-dialog-shell"><div class="task-dialog-bar"><span>TASK RECORD / 任务详情</span><button id="close-task" type="button" aria-label="关闭任务详情" autofocus>关闭 <span aria-hidden="true">×</span></button></div><div id="task-detail"></div></div></dialog>
-    <script src="app.js?v=20261014-catalog1"></script>
+    <script src="app.js?v=20261016-v3-market2"></script>
   </body>
 </html>
