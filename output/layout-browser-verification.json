@@ -1,0 +1,48 @@
+{
+  "alignment": [
+    {
+      "left": 106.234375,
+      "right": 1173.765625,
+      "selector": "#about-title"
+    },
+    {
+      "left": 106.234375,
+      "right": 1173.765625,
+      "selector": ".intro-layout"
+    },
+    {
+      "left": 106.234375,
+      "right": 1173.765625,
+      "selector": ".capability-heading"
+    },
+    {
+      "left": 106.234375,
+      "right": 1173.765625,
+      "selector": ".capability-cards"
+    },
+    {
+      "left": 106.234375,
+      "right": 1173.765625,
+      "selector": ".standard-metrics"
+    },
+    {
+      "left": 106.234375,
+      "right": 1173.765625,
+      "selector": ".market-types"
+    }
+  ],
+  "overflow": false,
+  "sections": [
+    {
+      "height": 586.90625,
+      "id": "about",
+      "top": 839
+    },
+    {
+      "height": 810.40625,
+      "id": "capability",
+      "top": 1425.90625
+    }
+  ],
+  "width": 1280
+}

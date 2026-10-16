@@ -18,7 +18,7 @@
 
 ## 文件与数据位置
 
-- 官网当前版本：`/srv/eyecatcher/current`，指向 `/srv/eyecatcher/releases/20261016T043520Z`。
+- 官网当前版本入口：`/srv/eyecatcher/current`，通过软链接指向最新校验通过的 `/srv/eyecatcher/releases/` 版本目录；各次发布记录见下文。
 - 网站实际读取的目录数据：`/srv/eyecatcher/current/data/market_catalog.json`，采用 schema 2，现有 466 条机器人参考任务、466 个来源视频链接及 2,963 条动作标注；真人双目 0 个数据集，显示待上架。
 - 官网仅部署 `index.html`、`styles.css`、`app.js`、`assets/shijiao-mark.png` 和 `data/market_catalog.json`。
 - 原始采集 JSON、CSV、统计和导入报告已在 GitHub 的两个项目仓库中保存；来源视频为外部链接。
@@ -93,3 +93,14 @@ sudo mv -Tf /srv/eyecatcher/rollback-v3 /srv/eyecatcher/current
 sudo ln -s /srv/eyecatcher/releases/20261016T042032Z /srv/eyecatcher/rollback-contact
 sudo mv -Tf /srv/eyecatcher/rollback-contact /srv/eyecatcher/current
 ```
+
+## 关于与采集服务布局更新（2026-10-16）
+
+关于视焦、采集服务统一为与质量标准和数据市场相同的内容宽度，标签移至标题上方，取消侧栏预留空白。关于区重排为完整标题、企业说明和横向采集框架；采集服务使用三列等宽卡片，按钮底部对齐，手机端改为单列。
+
+- 阿里云命令助手执行 ID：`t-hz0706jot0l4m4g`。
+- 代码版本：公开仓库 `a2f7fea3d739b3d08a463e5c7888a79c3f1aa393`，私有仓库 `818a6783cfb36d77739fcd8b69cfbdc1adb7aaf4`。
+- 五个线上文件与本地构建 SHA-256 一致，官网和 PrintLink HTTPS 请求正常。
+- 本地检查 320、390、1440 像素宽度；线上 1280 像素下，两块内容与质量标准、数据市场左右边界一致，无横向溢出。
+- 验证记录：`output/aliyun-layout-verification.json`、`output/layout-browser-verification.json`。
+- 线上截图：`output/preview/about-capability-live.png`。

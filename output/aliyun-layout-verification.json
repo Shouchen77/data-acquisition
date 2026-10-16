@@ -1,0 +1,42 @@
+{
+  "verified_at": "2026-10-16T04:47:34.872399+00:00",
+  "site": "https://eyecatcher.cn/#about",
+  "command_id": "t-hz0706jot0l4m4g",
+  "code_commit": "a2f7fea3d739b3d08a463e5c7888a79c3f1aa393",
+  "files": {
+    "index.html": {
+      "http_status": 200,
+      "sha256": "7fa4093b8eb17946c35ab4d39dab345562f46880ff405c77b7a7a88ee9b46b5c",
+      "matches_build": true
+    },
+    "styles.css": {
+      "http_status": 200,
+      "sha256": "37966ae66334f7e41fcb63d30c9b136e6dcef64fe8af46a562c4ed70d29944f5",
+      "matches_build": true
+    },
+    "app.js": {
+      "http_status": 200,
+      "sha256": "b912c571326cf48f83ae0fefe1b5959cdb7e9dc2e576fcc84702d112aef996fd",
+      "matches_build": true
+    },
+    "assets/shijiao-mark.png": {
+      "http_status": 200,
+      "sha256": "395c750240fd1114964fcd246ef32cfc6692a2c702ca14b7a9ae6c0d22de1dc3",
+      "matches_build": true
+    },
+    "data/market_catalog.json": {
+      "http_status": 200,
+      "sha256": "a296aeb05535252a7702984a6fb4a54cad8bebfd00174974c6dbc89a9529257f",
+      "matches_build": true
+    }
+  },
+  "printlink": {
+    "http_status": 200,
+    "title_present": true
+  },
+  "local_viewport_widths_checked": [
+    320,
+    390,
+    1440
+  ]
+}
