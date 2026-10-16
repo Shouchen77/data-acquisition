@@ -1,8 +1,10 @@
 # 视焦科技 · 具身智能数据采集与数据市场
 
-网站：<https://shouchen77.github.io/data-acquisition/> · [数据市场](https://shouchen77.github.io/data-acquisition/#market)
+网站：<https://eyecatcher.cn/> · [数据市场](https://eyecatcher.cn/#market)
 
-杭州视焦科技有限公司官网，采用静态 HTML、CSS 和 JavaScript，可通过 GitHub Pages 发布。
+印蛙 PrintLink：<https://3d.eyecatcher.cn/> · GitHub Pages 备用站点：<https://shouchen77.github.io/data-acquisition/>
+
+杭州视焦科技有限公司官网，采用静态 HTML、CSS 和 JavaScript，已部署至阿里云服务器，GitHub Pages 保留作为备用站点。配置、数据位置及回退说明见 [阿里云部署记录](ALIYUN_DEPLOYMENT.md)。
 
 ## 网站内容
 
@@ -39,7 +41,7 @@ python3 import_market.py
 python3 build_public.py
 ```
 
-`build_public.py` 生成 `output/public_site/` 及静态部署包。GitHub Actions 工作流仅发布首页、样式、脚本、Logo 和市场目录。推送至 `main` 后自动部署。详见 [发布说明](GITHUB_PUBLISH.md)。
+`build_public.py` 生成 `output/public_site/` 及静态部署包。GitHub Actions 工作流仅发布首页、样式、脚本、Logo 和市场目录。推送至 `main` 后自动更新 GitHub Pages 备用站点，阿里云站点需单独发布。详见 [发布说明](GITHUB_PUBLISH.md) 与 [阿里云部署记录](ALIYUN_DEPLOYMENT.md)。
 
 ## 联系我们
 
