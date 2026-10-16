@@ -1,5 +1,9 @@
 # 公网访问与发布
 
+长期在线地址：<https://shouchen77.github.io/data-acquisition/>。网站已由 GitHub Pages 托管，不依赖本地电脑开机。
+
+以下为此前的本机临时预览方式，可按需使用。
+
 当前公网预览：
 
 <https://difficulties-impact-cabinet-jets.trycloudflare.com/>
