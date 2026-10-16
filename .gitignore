@@ -1,0 +1,13 @@
+.tools/
+.runtime/
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+!.env.example
+output/public_site/
+output/*.zip
+output/public_build_manifest.json
+output/project-package-manifest.json
+/PROJECT_PACKAGE_MANIFEST.json
