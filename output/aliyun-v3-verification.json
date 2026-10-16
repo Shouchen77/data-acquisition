@@ -1,0 +1,51 @@
+{
+  "website": "https://eyecatcher.cn/",
+  "files": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "sha256": "b5a303e3797a1866767a8b20f69143baaca82e04db8ebdc2f184e29b44ecc085",
+      "match": true
+    },
+    {
+      "file": "styles.css",
+      "status": 200,
+      "sha256": "b75285305ed43651daceccd93f45ae6a8ef6d2071337cf2e02684ba83c26e18e",
+      "match": true
+    },
+    {
+      "file": "app.js",
+      "status": 200,
+      "sha256": "624603652f398e6a5112a7561ab7a1ddffc83795c30dfa771c5a7b67e781e4a8",
+      "match": true
+    },
+    {
+      "file": "assets/shijiao-mark.png",
+      "status": 200,
+      "sha256": "395c750240fd1114964fcd246ef32cfc6692a2c702ca14b7a9ae6c0d22de1dc3",
+      "match": true
+    },
+    {
+      "file": "data/market_catalog.json",
+      "status": 200,
+      "sha256": "a296aeb05535252a7702984a6fb4a54cad8bebfd00174974c6dbc89a9529257f",
+      "match": true
+    }
+  ],
+  "printlink": {
+    "status": 200,
+    "url": "https://3d.eyecatcher.cn/"
+  },
+  "catalog": {
+    "schema_version": 2,
+    "human_stereo": 0,
+    "robot_real": 411,
+    "robot_sim": 55
+  },
+  "validation": [
+    "Five importer tests passed",
+    "JavaScript syntax passed",
+    "Desktop and 390px mobile UI verified",
+    "Isolated stereo fixture rendered; not published"
+  ]
+}
