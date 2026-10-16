@@ -1,0 +1,14 @@
+{
+  "status": "UPDATED",
+  "release": "/srv/eyecatcher/releases/20261016T043520Z",
+  "previous_release": "/srv/eyecatcher/releases/20261016T042032Z",
+  "total": 466,
+  "collections": {
+    "human_stereo": 0,
+    "robot_real": 411,
+    "robot_sim": 55
+  },
+  "caddy_unchanged": true,
+  "printlink_healthy": true,
+  "command_id": "t-hz0706in2wkk45c"
+}

@@ -1,0 +1,49 @@
+{
+  "verified_at": "2026-10-16T04:37:24.791385+00:00",
+  "site": "https://eyecatcher.cn/#contact",
+  "files": {
+    "index.html": {
+      "http_status": 200,
+      "sha256": "a6bc7b8e1d93b6e9d470315418c4ffd3cd543c64f20cec43484af81b9d429c2d",
+      "matches_build": true
+    },
+    "styles.css": {
+      "http_status": 200,
+      "sha256": "2128f6725b77d110357bd608ee96aed3a3ec8f61cfecd6e589aee5c60b90c7a0",
+      "matches_build": true
+    },
+    "app.js": {
+      "http_status": 200,
+      "sha256": "b912c571326cf48f83ae0fefe1b5959cdb7e9dc2e576fcc84702d112aef996fd",
+      "matches_build": true
+    },
+    "assets/shijiao-mark.png": {
+      "http_status": 200,
+      "sha256": "395c750240fd1114964fcd246ef32cfc6692a2c702ca14b7a9ae6c0d22de1dc3",
+      "matches_build": true
+    },
+    "data/market_catalog.json": {
+      "http_status": 200,
+      "sha256": "a296aeb05535252a7702984a6fb4a54cad8bebfd00174974c6dbc89a9529257f",
+      "matches_build": true
+    }
+  },
+  "printlink": {
+    "http_status": 200,
+    "title_present": true
+  },
+  "email_href": "mailto:fzlunar@hotmail.com",
+  "phone_href": "tel:13285719508",
+  "contact_background": "rgb(24, 26, 30)",
+  "browser_errors": [],
+  "desktop_width": 1280,
+  "desktop_overflow": false,
+  "local_mobile_widths_checked": [
+    320,
+    390
+  ],
+  "clipboard_actions_checked": [
+    "wechat",
+    "address"
+  ]
+}

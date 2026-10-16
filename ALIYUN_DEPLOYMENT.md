@@ -18,7 +18,7 @@
 
 ## 文件与数据位置
 
-- 官网当前版本：`/srv/eyecatcher/current`，指向 `/srv/eyecatcher/releases/20261016T042032Z`。
+- 官网当前版本：`/srv/eyecatcher/current`，指向 `/srv/eyecatcher/releases/20261016T043520Z`。
 - 网站实际读取的目录数据：`/srv/eyecatcher/current/data/market_catalog.json`，采用 schema 2，现有 466 条机器人参考任务、466 个来源视频链接及 2,963 条动作标注；真人双目 0 个数据集，显示待上架。
 - 官网仅部署 `index.html`、`styles.css`、`app.js`、`assets/shijiao-mark.png` 和 `data/market_catalog.json`。
 - 原始采集 JSON、CSV、统计和导入报告已在 GitHub 的两个项目仓库中保存；来源视频为外部链接。
@@ -72,4 +72,24 @@ sudo systemctl reload caddy
 ```sh
 sudo ln -s /srv/eyecatcher/releases/20261016T033500Z /srv/eyecatcher/rollback-v3
 sudo mv -Tf /srv/eyecatcher/rollback-v3 /srv/eyecatcher/current
+```
+
+## 联系区与邮箱更新（2026-10-16）
+
+联系区采用石墨黑与灰白配色，将合作说明、商务联系方式和公司地址分组。新增联系邮箱 `fzlunar@hotmail.com`，支持点击发起邮件；电话支持点击拨打，微信和地址支持复制。
+
+- 本次发布：`/srv/eyecatcher/releases/20261016T043520Z`。
+- 先前发布：`/srv/eyecatcher/releases/20261016T042032Z`，保留可恢复。
+- 阿里云命令助手执行 ID：`t-hz0706in2wkk45c`，退出码 0。
+- 代码版本：公开仓库 `9c22e036cfdfb23deffcc4b133c0afb781acd216`，私有仓库 `09dd930`。
+- 五个线上文件与本地构建 SHA-256 一致；官网及 PrintLink HTTPS 检查通过，Caddy 配置未修改。
+- 已检查桌面及 320、390 像素手机布局，复制微信和地址、电话及邮件链接可用，浏览器无错误。
+
+本地回执：`output/aliyun-contact-deployment-result.json`；验证记录：`output/aliyun-contact-verification.json`；线上截图：`output/preview/contact-redesign-live.png`。
+
+仅撤回此次联系区更新时，可在服务器执行：
+
+```sh
+sudo ln -s /srv/eyecatcher/releases/20261016T042032Z /srv/eyecatcher/rollback-contact
+sudo mv -Tf /srv/eyecatcher/rollback-contact /srv/eyecatcher/current
 ```
