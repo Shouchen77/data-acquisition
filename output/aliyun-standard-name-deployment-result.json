@@ -1,0 +1,16 @@
+{
+  "status": "UPDATED",
+  "release": "/srv/eyecatcher/releases/20261103T131620Z",
+  "previous_release": "/srv/eyecatcher/releases/20261016T044705Z",
+  "total": 466,
+  "collections": {
+    "human_stereo": 0,
+    "robot_real": 411,
+    "robot_sim": 55
+  },
+  "caddy_unchanged": true,
+  "printlink_healthy": true,
+  "execution_id": "t-hz0720160rdmn7k",
+  "source_commit": "1936b0f923de49d2fef95ac70de312dcbb7670d5",
+  "standard_name": "视焦数据标准V3规范"
+}

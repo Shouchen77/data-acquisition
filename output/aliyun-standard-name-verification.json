@@ -1,0 +1,35 @@
+{
+  "full_name_occurrences": 11,
+  "horizontal_overflow": false,
+  "script": [
+    "app.js?v=20261103-eyecatcher-data-standard-v3"
+  ],
+  "shorter_name_present": false,
+  "standard_eyebrow": "以视焦数据标准V3规范为采集与交付基准",
+  "url": "https://eyecatcher.cn/#standards",
+  "human_market_note": "以视焦数据标准V3规范为采集基准，具体交付范围由项目约定。",
+  "deployment": {
+    "status": "UPDATED",
+    "release": "/srv/eyecatcher/releases/20261103T131620Z",
+    "previous_release": "/srv/eyecatcher/releases/20261016T044705Z",
+    "total": 466,
+    "collections": {
+      "human_stereo": 0,
+      "robot_real": 411,
+      "robot_sim": 55
+    },
+    "caddy_unchanged": true,
+    "printlink_healthy": true,
+    "execution_id": "t-hz0720160rdmn7k",
+    "source_commit": "1936b0f923de49d2fef95ac70de312dcbb7670d5",
+    "standard_name": "视焦数据标准V3规范"
+  },
+  "verified_files": [
+    "app.js",
+    "assets/shijiao-mark.png",
+    "data/market_catalog.json",
+    "index.html",
+    "styles.css"
+  ],
+  "file_hash_verification": "server-side HTTPS verification passed"
+}

@@ -104,3 +104,17 @@ sudo mv -Tf /srv/eyecatcher/rollback-contact /srv/eyecatcher/current
 - 本地检查 320、390、1440 像素宽度；线上 1280 像素下，两块内容与质量标准、数据市场左右边界一致，无横向溢出。
 - 验证记录：`output/aliyun-layout-verification.json`、`output/layout-browser-verification.json`。
 - 线上截图：`output/preview/about-capability-live.png`。
+
+## 视焦数据标准V3规范名称更新（2026-11-03）
+
+官网首页、采集能力、质量标准和数据市场中的相关文案统一为「视焦数据标准V3规范」，并更新脚本缓存版本。采集参数、目录和样式保持本次构建校验结果。
+
+- 当前发布：`/srv/eyecatcher/releases/20261103T131620Z`。
+- 先前发布：`/srv/eyecatcher/releases/20261016T044705Z`，保留可恢复。
+- 阿里云命令助手执行 ID：`t-hz0720160rdmn7k`，退出码 0。
+- 代码版本：公开仓库 `1936b0f923de49d2fef95ac70de312dcbb7670d5`，私有仓库 `0aa92be0961a36ae52aa5d782f1899bdae8c0da5`。
+- 服务器通过 HTTPS 校验五个线上文件 SHA-256；目录 466 条（机器人实采 411、机器人仿真 55、真人双目 0）。
+- 浏览器确认质量标准与真人双目市场说明使用完整名称，无横向溢出。
+- Caddy 配置校验通过，PrintLink 健康检查通过。
+
+部署回执：`output/aliyun-standard-name-deployment-result.json`；验证记录：`output/aliyun-standard-name-verification.json`；线上截图：`output/preview/shijiao-data-standard-v3-live.png`。
