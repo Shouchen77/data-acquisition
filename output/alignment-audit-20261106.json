@@ -1,0 +1,665 @@
+{
+  "before": {
+    "custom": [
+      {
+        "class": "section-kicker",
+        "left": 159.359375,
+        "right": 495.625
+      },
+      {
+        "class": "workflow-heading",
+        "left": 495.625,
+        "right": 1760.6328125
+      },
+      {
+        "class": "steps",
+        "left": 495.625,
+        "right": 1760.6328125
+      },
+      {
+        "class": "",
+        "left": 240,
+        "right": 652.5625
+      },
+      {
+        "class": "footer-brand",
+        "left": 159.359375,
+        "right": 1760.640625
+      }
+    ],
+    "sections": [
+      {
+        "first": 159.359375,
+        "id": "hero",
+        "paddingLeft": "159.36px",
+        "paddingRight": "159.36px"
+      },
+      {
+        "first": 159.359375,
+        "id": "about",
+        "paddingLeft": "159.36px",
+        "paddingRight": "159.36px"
+      },
+      {
+        "first": 159.359375,
+        "id": "capability",
+        "paddingLeft": "159.36px",
+        "paddingRight": "159.36px"
+      },
+      {
+        "first": 159.359375,
+        "id": "standards",
+        "paddingLeft": "159.36px",
+        "paddingRight": "159.36px"
+      },
+      {
+        "first": 240,
+        "id": "market",
+        "paddingLeft": "240px",
+        "paddingRight": "240px"
+      },
+      {
+        "first": 159.359375,
+        "id": "custom",
+        "paddingLeft": "159.36px",
+        "paddingRight": "159.36px"
+      },
+      {
+        "first": 240,
+        "id": "contact",
+        "paddingLeft": "240px",
+        "paddingRight": "240px"
+      }
+    ],
+    "width": 1920
+  },
+  "checks": [
+    {
+      "custom": [
+        {
+          "class": "section-kicker",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "workflow-heading",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "steps",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "",
+          "left": 240,
+          "right": 652.5625
+        },
+        {
+          "class": "footer-brand",
+          "left": 240,
+          "right": 1680
+        }
+      ],
+      "overflow": false,
+      "page": "home",
+      "sections": [
+        {
+          "id": "hero",
+          "left": "240px",
+          "right": "240px"
+        },
+        {
+          "id": "about",
+          "left": "240px",
+          "right": "240px"
+        },
+        {
+          "id": "capability",
+          "left": "240px",
+          "right": "240px"
+        },
+        {
+          "id": "standards",
+          "left": "240px",
+          "right": "240px"
+        },
+        {
+          "id": "market",
+          "left": "240px",
+          "right": "240px"
+        },
+        {
+          "id": "custom",
+          "left": "240px",
+          "right": "240px"
+        },
+        {
+          "id": "contact",
+          "left": "240px",
+          "right": "240px"
+        }
+      ],
+      "width": 1920
+    },
+    {
+      "custom": [
+        {
+          "class": "section-kicker",
+          "left": 106.234375,
+          "right": 1173.765625
+        },
+        {
+          "class": "workflow-heading",
+          "left": 106.234375,
+          "right": 1173.765625
+        },
+        {
+          "class": "steps",
+          "left": 106.234375,
+          "right": 1173.765625
+        },
+        {
+          "class": "step",
+          "left": 640,
+          "right": 906.8828125
+        },
+        {
+          "class": "",
+          "left": 106.234375,
+          "right": 491.296875
+        }
+      ],
+      "overflow": false,
+      "page": "home",
+      "sections": [
+        {
+          "id": "hero section-grid",
+          "left": "106.234px",
+          "right": "106.234px"
+        },
+        {
+          "id": "about",
+          "left": "106.234px",
+          "right": "106.234px"
+        },
+        {
+          "id": "capability",
+          "left": "106.234px",
+          "right": "106.234px"
+        },
+        {
+          "id": "standards",
+          "left": "106.234px",
+          "right": "106.234px"
+        },
+        {
+          "id": "market",
+          "left": "106.234px",
+          "right": "106.234px"
+        },
+        {
+          "id": "custom",
+          "left": "106.234px",
+          "right": "106.234px"
+        },
+        {
+          "id": "contact",
+          "left": "106.234px",
+          "right": "106.234px"
+        },
+        {
+          "id": "site-footer",
+          "left": "106.234px",
+          "right": "106.234px"
+        }
+      ],
+      "width": 1280
+    },
+    {
+      "custom": [
+        {
+          "class": "section-kicker",
+          "left": 63,
+          "right": 837
+        },
+        {
+          "class": "workflow-heading",
+          "left": 63,
+          "right": 837
+        },
+        {
+          "class": "steps",
+          "left": 63,
+          "right": 837
+        },
+        {
+          "class": "step",
+          "left": 63,
+          "right": 450
+        },
+        {
+          "class": "",
+          "left": 63,
+          "right": 399
+        }
+      ],
+      "overflow": false,
+      "page": "home",
+      "sections": [
+        {
+          "id": "hero section-grid",
+          "left": "63px",
+          "right": "63px"
+        },
+        {
+          "id": "about",
+          "left": "63px",
+          "right": "63px"
+        },
+        {
+          "id": "capability",
+          "left": "63px",
+          "right": "63px"
+        },
+        {
+          "id": "standards",
+          "left": "63px",
+          "right": "63px"
+        },
+        {
+          "id": "market",
+          "left": "63px",
+          "right": "63px"
+        },
+        {
+          "id": "custom",
+          "left": "63px",
+          "right": "63px"
+        },
+        {
+          "id": "contact",
+          "left": "63px",
+          "right": "63px"
+        },
+        {
+          "id": "site-footer",
+          "left": "63px",
+          "right": "63px"
+        }
+      ],
+      "width": 900
+    },
+    {
+      "custom": [
+        {
+          "class": "section-kicker",
+          "left": 27.296875,
+          "right": 362.703125
+        },
+        {
+          "class": "workflow-heading",
+          "left": 27.296875,
+          "right": 362.703125
+        },
+        {
+          "class": "steps",
+          "left": 27.296875,
+          "right": 362.703125
+        },
+        {
+          "class": "step",
+          "left": 27.296875,
+          "right": 195
+        },
+        {
+          "class": "",
+          "left": 27.296875,
+          "right": 362.703125
+        }
+      ],
+      "overflow": false,
+      "page": "home",
+      "sections": [
+        {
+          "id": "hero section-grid",
+          "left": "27.3px",
+          "right": "27.3px"
+        },
+        {
+          "id": "about",
+          "left": "27.3px",
+          "right": "27.3px"
+        },
+        {
+          "id": "capability",
+          "left": "27.3px",
+          "right": "27.3px"
+        },
+        {
+          "id": "standards",
+          "left": "27.3px",
+          "right": "27.3px"
+        },
+        {
+          "id": "market",
+          "left": "27.3px",
+          "right": "27.3px"
+        },
+        {
+          "id": "custom",
+          "left": "27.3px",
+          "right": "27.3px"
+        },
+        {
+          "id": "contact",
+          "left": "27.3px",
+          "right": "27.3px"
+        },
+        {
+          "id": "site-footer",
+          "left": "27.3px",
+          "right": "27.3px"
+        }
+      ],
+      "width": 390
+    },
+    {
+      "custom": [
+        {
+          "class": "section-kicker",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "workflow-heading",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "steps",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "step",
+          "left": 22.3984375,
+          "right": 160
+        },
+        {
+          "class": "",
+          "left": 22.3984375,
+          "right": 297.6015625
+        }
+      ],
+      "overflow": false,
+      "page": "home",
+      "sections": [
+        {
+          "id": "hero section-grid",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "about",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "capability",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "standards",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "market",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "custom",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "contact",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "site-footer",
+          "left": "22.4px",
+          "right": "22.4px"
+        }
+      ],
+      "width": 320
+    },
+    {
+      "edges": [
+        {
+          "class": "breadcrumbs",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "market-heading",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "market-layout",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "footer-brand",
+          "left": 240,
+          "right": 1680
+        }
+      ],
+      "overflow": false,
+      "page": "market",
+      "sections": [
+        {
+          "id": "market",
+          "left": "240px",
+          "right": "240px"
+        },
+        {
+          "id": "site-footer",
+          "left": "240px",
+          "right": "240px"
+        }
+      ],
+      "width": 1920
+    },
+    {
+      "edges": [
+        {
+          "class": "breadcrumbs",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "market-heading",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "market-layout",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "footer-brand",
+          "left": 22.3984375,
+          "right": 297.6015625
+        }
+      ],
+      "overflow": false,
+      "page": "market",
+      "sections": [
+        {
+          "id": "market",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "site-footer",
+          "left": "22.4px",
+          "right": "22.4px"
+        }
+      ],
+      "width": 320
+    },
+    {
+      "edges": [
+        {
+          "class": "breadcrumbs",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "contact-page-heading",
+          "left": 240,
+          "right": 1040
+        },
+        {
+          "class": "business-grid",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "company-information",
+          "left": 240,
+          "right": 1680
+        },
+        {
+          "class": "footer-brand",
+          "left": 240,
+          "right": 1680
+        }
+      ],
+      "overflow": false,
+      "page": "contact",
+      "sections": [
+        {
+          "id": "contact-page section-grid",
+          "left": "240px",
+          "right": "240px"
+        },
+        {
+          "id": "site-footer",
+          "left": "240px",
+          "right": "240px"
+        }
+      ],
+      "width": 1920
+    },
+    {
+      "edges": [
+        {
+          "class": "breadcrumbs",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "contact-page-heading",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "business-grid",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "company-information",
+          "left": 22.3984375,
+          "right": 297.6015625
+        },
+        {
+          "class": "footer-brand",
+          "left": 22.3984375,
+          "right": 297.6015625
+        }
+      ],
+      "overflow": false,
+      "page": "contact",
+      "sections": [
+        {
+          "id": "contact-page section-grid",
+          "left": "22.4px",
+          "right": "22.4px"
+        },
+        {
+          "id": "site-footer",
+          "left": "22.4px",
+          "right": "22.4px"
+        }
+      ],
+      "width": 320
+    }
+  ],
+  "summary": [
+    {
+      "page": "home",
+      "width": 1920,
+      "consistentGutters": true,
+      "overflow": false
+    },
+    {
+      "page": "home",
+      "width": 1280,
+      "consistentGutters": true,
+      "overflow": false
+    },
+    {
+      "page": "home",
+      "width": 900,
+      "consistentGutters": true,
+      "overflow": false
+    },
+    {
+      "page": "home",
+      "width": 390,
+      "consistentGutters": true,
+      "overflow": false
+    },
+    {
+      "page": "home",
+      "width": 320,
+      "consistentGutters": true,
+      "overflow": false
+    },
+    {
+      "page": "market",
+      "width": 1920,
+      "consistentGutters": true,
+      "overflow": false
+    },
+    {
+      "page": "market",
+      "width": 320,
+      "consistentGutters": true,
+      "overflow": false
+    },
+    {
+      "page": "contact",
+      "width": 1920,
+      "consistentGutters": true,
+      "overflow": false
+    },
+    {
+      "page": "contact",
+      "width": 320,
+      "consistentGutters": true,
+      "overflow": false
+    }
+  ]
+}
