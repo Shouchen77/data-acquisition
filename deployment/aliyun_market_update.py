@@ -1,5 +1,5 @@
 """Deploy the reviewed multipage website and stereo media, with atomic rollback."""
-import concurrent.futures,datetime,hashlib,json,os,shutil,sys,urllib.request
+import concurrent.futures,datetime,hashlib,json,os,shutil,sys,urllib.request,zipfile
 from pathlib import Path,PurePosixPath
 SITE=Path('/srv/eyecatcher')
 CORE={'index.html','market.html','contact.html','styles.css','app.js','site.js','assets/shijiao-mark.png','data/market_catalog.json'}
@@ -29,6 +29,10 @@ def update(c):
     (backup/'previous-release.txt').write_text(previous+'\n')
     def core_file(name):
         errors=[]
+        if c.get('core_cache'):
+            cached=Path(c['core_cache'])/name
+            if cached.is_file() and digest_file(cached)==c['core'][name]:
+                p=release/name;p.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(str(cached),str(p));p.chmod(0o644);return
         for base in c['source_bases']:
             try:
                 data=get(base+name)
@@ -43,6 +47,18 @@ def update(c):
     shared.mkdir(parents=True,exist_ok=True)
     manifest=c['media']
     ready=all((shared/n).is_file() and digest_file(shared/n)==entry['sha256'] for n,entry in manifest.items())
+    if not ready and c.get('local_archive'):
+        archive=Path(c['local_archive'])
+        if not archive.is_file() or archive.stat().st_size>600*1024*1024 or digest_file(archive)!=c['archive_sha256']:raise ValueError('Uploaded archive hash mismatch')
+        with zipfile.ZipFile(archive) as z:
+            if set(z.namelist())!=set(manifest) or len(z.infolist())!=len(manifest):raise ValueError('Uploaded archive contents mismatch')
+            for info in z.infolist():
+                n=info.filename
+                if not n.startswith('media/stereo/20261106/') or '..' in PurePosixPath(n).parts or info.file_size!=manifest[n]['bytes'] or (info.external_attr>>16)&0o170000==0o120000:raise ValueError('Unsafe archive entry')
+                p=shared/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(z.read(n));p.chmod(0o644)
+                if digest_file(p)!=manifest[n]['sha256']:raise ValueError('Media file hash mismatch: '+n)
+        ready=True
+        print('UPLOADED_MEDIA_VERIFIED',len(manifest),flush=True)
     if not ready:
         def media_file(item):
             name,entry=item

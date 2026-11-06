@@ -1,0 +1,82 @@
+{
+  "site": "https://eyecatcher.cn/",
+  "market": "https://eyecatcher.cn/market.html",
+  "contact": "https://eyecatcher.cn/contact.html",
+  "homepage_preview_records": 6,
+  "homepage_mobile": {
+    "width": 320,
+    "document_width": 320
+  },
+  "market_counts": {
+    "human_stereo": 4,
+    "robot_real": 60,
+    "robot_sim": 55,
+    "total": 119
+  },
+  "contact_order": [
+    "陈先生",
+    "方先生"
+  ],
+  "contact_phone_links": [
+    "tel:13750899295",
+    "tel:13285719508"
+  ],
+  "contact_wechat": [
+    "cfj19960208pw",
+    "sochyf"
+  ],
+  "wechat_copy_confirmed": true,
+  "stereo_video_playback": {
+    "left": {
+      "width": 1280,
+      "height": 800,
+      "time": 0.276,
+      "paused": false,
+      "error": null
+    },
+    "right": {
+      "width": 1280,
+      "height": 800,
+      "time": 0.276,
+      "paused": false,
+      "error": null
+    }
+  },
+  "sensor_data": {
+    "frames_per_eye": 901,
+    "imu_samples": 9002,
+    "timestamp_table": true,
+    "imu_table": true,
+    "imu_curves": 2,
+    "calibration_status": "candidate_unverified"
+  },
+  "timestamp_csv_download": {
+    "bytes": 167527,
+    "sha256": "5b9561b8c44b987b03fcfa0239b74dbc2e94a5468e45cf07734bdc34234062ff"
+  },
+  "core_and_media_server_verification": {
+    "status": "UPDATED",
+    "release": "/srv/eyecatcher/releases/20261106T065143Z",
+    "previous_release": "/srv/eyecatcher/releases/20261103T131620Z",
+    "backup": "/var/backups/eyecatcher/20261106T065143Z",
+    "collections": {
+      "human_stereo": 4,
+      "robot_real": 60,
+      "robot_sim": 55
+    },
+    "total": 119,
+    "core_files_verified": 8,
+    "media_files_verified": 52,
+    "media_range_requests_verified": 16,
+    "caddy_unchanged": true,
+    "printlink_healthy": true,
+    "execution_id": "t-hz0729s797wd3pc",
+    "core_commit": "adabbdb18bbe3842ad401b2c14bfe720b4df69fe",
+    "sample_release": "https://github.com/Shouchen77/data-acquisition/releases/tag/stereo-samples-20261106"
+  },
+  "screenshots": [
+    "output/preview/contact-page-live-20261106.png",
+    "output/preview/market-page-live-20261106.png",
+    "output/preview/stereo-sensor-live-20261106.png"
+  ]
+}

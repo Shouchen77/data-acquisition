@@ -118,3 +118,32 @@ sudo mv -Tf /srv/eyecatcher/rollback-contact /srv/eyecatcher/current
 - Caddy 配置校验通过，PrintLink 健康检查通过。
 
 部署回执：`output/aliyun-standard-name-deployment-result.json`；验证记录：`output/aliyun-standard-name-verification.json`；线上截图：`output/preview/shijiao-data-standard-v3-live.png`。
+
+
+## 独立数据市场、真人双目样例与商务咨询（2026-11-06）
+
+官网新增 `market.html` 与 `contact.html` 独立页面；首页保留 6 条精选数据，查看更多和合作咨询分别进入独立页。商务对接按陈先生、方先生排序，保留公司地址和邮箱。
+
+- 当前发布：`/srv/eyecatcher/releases/20261106T065143Z`。
+- 先前发布：`/srv/eyecatcher/releases/20261103T131620Z`，保留可恢复。
+- 部署回执：`/var/backups/eyecatcher/20261106T065143Z/deployment.json`。
+- 阿里云命令助手执行 ID：`t-hz0729s797wd3pc`，退出码 0。
+- 官网核心文件版本：公开仓库 `adabbdb18bbe3842ad401b2c14bfe720b4df69fe`，私有仓库 `0849718ef638926a46f4862df8c1c957e6753cf2`。后续部署脚本和记录提交不改变该组静态文件。
+- 当前目录 119 条：真人双目 4 组、机器人实采 60 条、机器人仿真 55 条。其余 351 条实采记录已从当前源 JSON、CSV、统计和运行目录移除。
+- 8 个核心文件和 52 个样例文件均通过 SHA-256 校验；16 个 MP4 均通过 HTTP Range 检查。数据在阿里云共享目录 `/srv/eyecatcher/shared/stereo-20261106-280167a1bef3/media/`，由当前版本的 `media` 软链接提供访问。
+- 浏览器核对左右目视频播放、时间戳/IMU/候选标定展示、真实 CSV 下载、联系人顺序与微信复制；首页 320 像素下无横向溢出。
+- 样例保留原始工程状态披露，UTC 对齐、SI 单位、轴向及候选标定尚待验证，未声称通过完整 V3 验收。
+- Caddy 配置未修改，PrintLink 健康检查通过。
+
+样例通过 Workbench 上传到 `/tmp/stereo-samples-20261106.zip` 后校验并解包。`deployment/aliyun_market_update.py` 支持已校验的本地上传包，也支持从已发布静态镜像逐文件下载；先校验文件，再原子切换官网软链接，线上检查失败自动回退。下载源使用 HTTPS 并保留证书校验。
+
+公开备份位于 [真人双目样例 Release](https://github.com/Shouchen77/data-acquisition/releases/tag/stereo-samples-20261106)，使用 8 个分片传输；`fetch_stereo_samples.py` 自动拼接并校验，不需要手工合并。
+
+本地回执：`output/aliyun-market-pages-deployment-result.json`；验证记录：`output/aliyun-market-pages-verification.json`、`output/market-pages-local-verification.json`、`output/stereo-release-verification.json`；线上截图：`output/preview/contact-page-live-20261106.png`、`output/preview/market-page-live-20261106.png`、`output/preview/stereo-sensor-live-20261106.png`。
+
+仅恢复之前官网版本时，在服务器执行：
+
+```sh
+sudo ln -s /srv/eyecatcher/releases/20261103T131620Z /srv/eyecatcher/rollback-market-pages
+sudo mv -Tf /srv/eyecatcher/rollback-market-pages /srv/eyecatcher/current
+```

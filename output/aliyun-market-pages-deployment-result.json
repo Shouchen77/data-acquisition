@@ -1,0 +1,24 @@
+{
+  "status": "UPDATED",
+  "release": "/srv/eyecatcher/releases/20261106T065143Z",
+  "previous_release": "/srv/eyecatcher/releases/20261103T131620Z",
+  "backup": "/var/backups/eyecatcher/20261106T065143Z",
+  "collections": {
+    "human_stereo": 4,
+    "robot_real": 60,
+    "robot_sim": 55
+  },
+  "total": 119,
+  "core_files_verified": 8,
+  "media_files_verified": 52,
+  "media_range_requests_verified": 16,
+  "caddy_unchanged": true,
+  "printlink_healthy": true,
+  "execution_id": "t-hz0729s797wd3pc",
+  "core_commit": "adabbdb18bbe3842ad401b2c14bfe720b4df69fe",
+  "sample_release": "https://github.com/Shouchen77/data-acquisition/releases/tag/stereo-samples-20261106",
+  "transfer_cleanup": {
+    "temporary_files_removed": 10,
+    "published_media_files": 52
+  }
+}

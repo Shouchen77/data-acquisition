@@ -1,0 +1,61 @@
+{
+  "release_id": 436134988,
+  "assets_verified": 9,
+  "archive_bytes": 464503573,
+  "parts": [
+    {
+      "name": "stereo-samples-20261106.zip.part01",
+      "size": 58062947,
+      "digest": "sha256:5aa0322fd561959493193da63f8f192baae99b82fc26c42d77cceff815257295",
+      "state": "uploaded"
+    },
+    {
+      "name": "stereo-samples-20261106.zip.part02",
+      "size": 58062947,
+      "digest": "sha256:139e6134ad2b7d58a5ce0e6e7b3c9744b92a5089bd6b803c8b082fce8592c9cf",
+      "state": "uploaded"
+    },
+    {
+      "name": "stereo-samples-20261106.zip.part03",
+      "size": 58062947,
+      "digest": "sha256:aedb08dc5aec1fc29ae15541e1fc86b58cc5468b48cef37ee7162caffca89ef6",
+      "state": "uploaded"
+    },
+    {
+      "name": "stereo-samples-20261106.zip.part04",
+      "size": 58062947,
+      "digest": "sha256:5bf3681ebc358e426da76d8e4e248101ef4cd4b85874442f85e94cf7002d3cb8",
+      "state": "uploaded"
+    },
+    {
+      "name": "stereo-samples-20261106.zip.part05",
+      "size": 58062947,
+      "digest": "sha256:17a64a3bd87be6a132a0385e3b418ac1ab4ed67ae2caedb3476c914aba8a135a",
+      "state": "uploaded"
+    },
+    {
+      "name": "stereo-samples-20261106.zip.part06",
+      "size": 58062947,
+      "digest": "sha256:ee6e37755b9423e4c3d0ecd4e05d761d2c6f24a1d49ae1fabfc32c2a28bb99e6",
+      "state": "uploaded"
+    },
+    {
+      "name": "stereo-samples-20261106.zip.part07",
+      "size": 58062947,
+      "digest": "sha256:6cd55628afec34f23ad49d0bfa9bc61e1ec7c935eb307df649fd3697f85bc633",
+      "state": "uploaded"
+    },
+    {
+      "name": "stereo-samples-20261106.zip.part08",
+      "size": 58062944,
+      "digest": "sha256:439cc3c01588c9b808ab0469db6d3f66ae44f82c7659d938226cd9bcc89024c5",
+      "state": "uploaded"
+    },
+    {
+      "name": "stereo_sample_manifest.json",
+      "size": 11048,
+      "digest": "sha256:bb4c3eceb8e91292a2e586811b636974377c85b63522d812cfe5237288915207",
+      "state": "uploaded"
+    }
+  ]
+}

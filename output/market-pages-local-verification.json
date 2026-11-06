@@ -1,0 +1,53 @@
+{
+  "tests": {
+    "market_import_and_samples": {
+      "passed": 8
+    },
+    "node_syntax": [
+      "app.js",
+      "site.js"
+    ],
+    "sample_release_restore": {
+      "files_verified": 52,
+      "method": "Reassembled all release parts in a temporary directory; checked every file size and SHA-256."
+    }
+  },
+  "browser_local": {
+    "homepage_preview_records": 6,
+    "market_records": 119,
+    "robot_real_filter": 60,
+    "stereo_sample_tabs": [
+      "双目视频",
+      "传感器数据",
+      "文件下载"
+    ],
+    "stereo_playback": {
+      "left": {
+        "width": 1280,
+        "height": 800,
+        "paused": false,
+        "error": null
+      },
+      "right": {
+        "width": 1280,
+        "height": 800,
+        "paused": false,
+        "error": null
+      }
+    },
+    "contact_order": [
+      "陈先生",
+      "方先生"
+    ],
+    "responsive_widths_checked": [
+      320,
+      1280
+    ]
+  },
+  "robot_sources": {
+    "retained_real": 60,
+    "removed_real": 351,
+    "retained_sim": 55
+  },
+  "release_assets_verified": "output/stereo-release-verification.json"
+}
