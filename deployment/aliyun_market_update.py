@@ -45,15 +45,24 @@ def update(c):
     ready=all((shared/n).is_file() and digest_file(shared/n)==entry['sha256'] for n,entry in manifest.items())
     if not ready:
         archive=backup/'stereo-samples.zip'
-        req=urllib.request.Request(c['archive_url'],headers={'User-Agent':'Eyecatcher-Deployment/3.0'})
-        with urllib.request.urlopen(req,timeout=180) as r,archive.open('wb') as out:
-            copied=0
-            while True:
-                block=r.read(1024*1024)
-                if not block:break
-                copied+=len(block)
-                if copied>600*1024*1024:raise ValueError('Archive exceeds limit')
-                out.write(block)
+        def part_file(part):
+            if PurePosixPath(part['name']).name!=part['name'] or part['bytes']>80*1024*1024:raise ValueError('Invalid archive part')
+            p=backup/part['name'];req=urllib.request.Request(c['archive_base']+part['name'],headers={'User-Agent':'Eyecatcher-Deployment/3.0'})
+            with urllib.request.urlopen(req,timeout=180) as r,p.open('wb') as out:
+                copied=0
+                while True:
+                    block=r.read(1024*1024)
+                    if not block:break
+                    copied+=len(block)
+                    if copied>part['bytes']:raise ValueError('Archive part exceeds limit')
+                    out.write(block)
+            if p.stat().st_size!=part['bytes'] or digest_file(p)!=part['sha256']:raise ValueError('Archive part hash mismatch')
+            return p
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:parts=list(pool.map(part_file,c['archive_parts']))
+        with archive.open('wb') as out:
+            for p in parts:
+                with p.open('rb') as source:shutil.copyfileobj(source,out)
+                p.unlink()
         if digest_file(archive)!=c['archive_sha256']:raise ValueError('Archive hash mismatch')
         print('MEDIA_ARCHIVE_VERIFIED',archive.stat().st_size,flush=True)
         with zipfile.ZipFile(archive) as z:

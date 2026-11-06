@@ -8,6 +8,7 @@ __pycache__/
 !.env.example
 output/public_site/
 output/*.zip
+output/*.zip.part*
 output/episodes/
 output/public_build_manifest.json
 output/project-package-manifest.json

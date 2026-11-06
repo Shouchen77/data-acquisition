@@ -208,5 +208,52 @@
       "sha256": "171eba6aba1510cda5df112b5b91617babfc2be930d58c6d3cfed02e4c0b2362",
       "bytes": 48098514
     }
+  },
+  "archive": {
+    "name": "stereo-samples-20261106.zip",
+    "bytes": 464503573,
+    "sha256": "280167a1bef33151b149c52ec5f0ca1dfa116b2531d4a1c1dcd11887da1a6290",
+    "parts": [
+      {
+        "name": "stereo-samples-20261106.zip.part01",
+        "bytes": 58062947,
+        "sha256": "5aa0322fd561959493193da63f8f192baae99b82fc26c42d77cceff815257295"
+      },
+      {
+        "name": "stereo-samples-20261106.zip.part02",
+        "bytes": 58062947,
+        "sha256": "139e6134ad2b7d58a5ce0e6e7b3c9744b92a5089bd6b803c8b082fce8592c9cf"
+      },
+      {
+        "name": "stereo-samples-20261106.zip.part03",
+        "bytes": 58062947,
+        "sha256": "aedb08dc5aec1fc29ae15541e1fc86b58cc5468b48cef37ee7162caffca89ef6"
+      },
+      {
+        "name": "stereo-samples-20261106.zip.part04",
+        "bytes": 58062947,
+        "sha256": "5bf3681ebc358e426da76d8e4e248101ef4cd4b85874442f85e94cf7002d3cb8"
+      },
+      {
+        "name": "stereo-samples-20261106.zip.part05",
+        "bytes": 58062947,
+        "sha256": "17a64a3bd87be6a132a0385e3b418ac1ab4ed67ae2caedb3476c914aba8a135a"
+      },
+      {
+        "name": "stereo-samples-20261106.zip.part06",
+        "bytes": 58062947,
+        "sha256": "ee6e37755b9423e4c3d0ecd4e05d761d2c6f24a1d49ae1fabfc32c2a28bb99e6"
+      },
+      {
+        "name": "stereo-samples-20261106.zip.part07",
+        "bytes": 58062947,
+        "sha256": "6cd55628afec34f23ad49d0bfa9bc61e1ec7c935eb307df649fd3697f85bc633"
+      },
+      {
+        "name": "stereo-samples-20261106.zip.part08",
+        "bytes": 58062944,
+        "sha256": "439cc3c01588c9b808ab0469db6d3f66ae44f82c7659d938226cd9bcc89024c5"
+      }
+    ]
   }
 }
