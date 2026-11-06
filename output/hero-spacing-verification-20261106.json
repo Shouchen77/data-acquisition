@@ -1,0 +1,26 @@
+{
+  "checks": [
+    {
+      "css": "styles.css?v=20261106-alignment2",
+      "gap": 92.1328125,
+      "overflow": false,
+      "padding": "100px",
+      "width": 1920
+    },
+    {
+      "css": "styles.css?v=20261106-alignment2",
+      "gap": 56.03125,
+      "overflow": false,
+      "padding": "100px",
+      "width": 1280
+    },
+    {
+      "css": "styles.css?v=20261106-alignment2",
+      "gap": 476.9609375,
+      "overflow": false,
+      "padding": "100px",
+      "width": 320
+    }
+  ],
+  "passed": true
+}
