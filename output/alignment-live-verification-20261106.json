@@ -1,0 +1,71 @@
+{
+  "css": "styles.css?v=20261106-alignment2",
+  "custom": [
+    {
+      "left": 240,
+      "name": "section-kicker",
+      "right": 1680
+    },
+    {
+      "left": 240,
+      "name": "workflow-heading",
+      "right": 1680
+    },
+    {
+      "left": 240,
+      "name": "steps",
+      "right": 1680
+    },
+    {
+      "left": 240,
+      "name": "",
+      "right": 652.5625
+    }
+  ],
+  "heroBottomGap": 92.1328125,
+  "overflow": false,
+  "sections": [
+    {
+      "name": "hero section-grid",
+      "paddingLeft": "240px",
+      "paddingRight": "240px"
+    },
+    {
+      "name": "about",
+      "paddingLeft": "240px",
+      "paddingRight": "240px"
+    },
+    {
+      "name": "capability",
+      "paddingLeft": "240px",
+      "paddingRight": "240px"
+    },
+    {
+      "name": "standards",
+      "paddingLeft": "240px",
+      "paddingRight": "240px"
+    },
+    {
+      "name": "market",
+      "paddingLeft": "240px",
+      "paddingRight": "240px"
+    },
+    {
+      "name": "custom",
+      "paddingLeft": "240px",
+      "paddingRight": "240px"
+    },
+    {
+      "name": "contact",
+      "paddingLeft": "240px",
+      "paddingRight": "240px"
+    },
+    {
+      "name": "site-footer",
+      "paddingLeft": "240px",
+      "paddingRight": "240px"
+    }
+  ],
+  "width": 1920,
+  "consoleErrors": []
+}

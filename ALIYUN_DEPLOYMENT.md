@@ -161,3 +161,17 @@ sudo mv -Tf /srv/eyecatcher/rollback-market-pages /srv/eyecatcher/current
 - Caddy 配置保持原样，PrintLink 健康检查通过。
 
 发布回执：`output/aliyun-controls-deployment-result.json`；本地与线上验证：`output/market-controls-verification.json`、`output/market-controls-live-verification.json`；线上效果：`output/preview/market-controls-live.png`。
+
+## 全站内容边界与定制服务缩进（2026-11-06）
+
+统一首页、独立数据市场、合作咨询及页脚的左右边界：宽屏内容最大宽度 1440 像素，桌面沿用 8.3vw 边距，900 像素及以下使用 7vw。定制服务取消旧的双列侧栏，标签、标题、说明和流程共用左边界；手机流程每行第一项取消额外内边距。首屏底部分隔线预留 100 像素，避免说明文字与线条重叠。
+
+- 当前发布：`/srv/eyecatcher/releases/20261106T090820Z`；上次发布：`/srv/eyecatcher/releases/20261106T084557Z`；更新前官网：`/srv/eyecatcher/releases/20261106T081710Z`。
+- 阿里云命令助手执行 ID：`t-hz072a4dy4vcmww`，退出码 0。
+- 核心代码提交：公开仓库 `e05f270d6ad5d64f3f8d6c94f1b87ac52bb872a6`，私有仓库 `6ceaa62fe737664adbc16fa20ac9bf7c6570feff`。
+- 11 个核心文件、52 个样例文件和 16 个视频 Range 请求通过校验，数据目录保持 119 条。
+- 首页检查 1920、1280、900、390、320 像素；市场和咨询页检查 1920、320 像素，内容边界一致且无横向溢出。补充核对首屏在 1920、1280、320 像素下的底部间距。
+- 线上 1920 像素各板块左右边距均为 240 像素，定制服务标题与下方咨询提示左边界一致，浏览器无错误。
+- Caddy 配置未修改，PrintLink 健康检查通过。
+
+发布回执：`output/aliyun-alignment-deployment-result.json`；验证记录：`output/alignment-audit-20261106.json`、`output/hero-spacing-verification-20261106.json`、`output/alignment-live-verification-20261106.json`；线上截图：`output/preview/workflow-alignment-live.png`。
