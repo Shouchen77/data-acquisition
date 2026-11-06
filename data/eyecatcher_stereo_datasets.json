@@ -1,4 +1,169 @@
 {
   "schema_version": 1,
-  "datasets": []
+  "datasets": [
+    {
+      "dataset_id": "orange-picking",
+      "title": "橘子采摘",
+      "description": "第一视角记录橘子采摘过程中的观察、伸手与摘取。",
+      "scene_id": "agriculture",
+      "subscene": "果园",
+      "availability": "available",
+      "episode_count": 1,
+      "duration_seconds": 29.985,
+      "capture": {
+        "width": 1920,
+        "height": 1200,
+        "fps": 30.048,
+        "imu_hz": 300.03
+      },
+      "previews": {
+        "left": "media/stereo/20261106/orange-picking/preview/top_left.mp4",
+        "right": "media/stereo/20261106/orange-picking/preview/top_right.mp4"
+      },
+      "poster": "media/stereo/20261106/orange-picking/poster.jpg",
+      "sample_data_url": "media/stereo/20261106/orange-picking/summary.json",
+      "quality_status": "engineering_sample",
+      "task_tags": [
+        "双目",
+        "第一视角",
+        "IMU",
+        "橘子采摘"
+      ],
+      "delivery_contents": [
+        "左右目原始视频（HEVC）",
+        "左右目预览视频（H.264）",
+        "逐帧时间戳 CSV",
+        "IMU 原始 counts CSV",
+        "相机内外参候选文件",
+        "IMU 配置信息"
+      ],
+      "sample_stats": {
+        "frames_per_eye": 901,
+        "imu_samples": 9002
+      }
+    },
+    {
+      "dataset_id": "raspberry-picking",
+      "title": "树莓采摘",
+      "description": "第一视角记录树莓采摘过程中的近距离观察与手部操作。",
+      "scene_id": "agriculture",
+      "subscene": "果园",
+      "availability": "available",
+      "episode_count": 1,
+      "duration_seconds": 29.985,
+      "capture": {
+        "width": 1920,
+        "height": 1200,
+        "fps": 30.048,
+        "imu_hz": 300.03
+      },
+      "previews": {
+        "left": "media/stereo/20261106/raspberry-picking/preview/top_left.mp4",
+        "right": "media/stereo/20261106/raspberry-picking/preview/top_right.mp4"
+      },
+      "poster": "media/stereo/20261106/raspberry-picking/poster.jpg",
+      "sample_data_url": "media/stereo/20261106/raspberry-picking/summary.json",
+      "quality_status": "engineering_sample",
+      "task_tags": [
+        "双目",
+        "第一视角",
+        "IMU",
+        "树莓采摘"
+      ],
+      "delivery_contents": [
+        "左右目原始视频（HEVC）",
+        "左右目预览视频（H.264）",
+        "逐帧时间戳 CSV",
+        "IMU 原始 counts CSV",
+        "相机内外参候选文件",
+        "IMU 配置信息"
+      ],
+      "sample_stats": {
+        "frames_per_eye": 901,
+        "imu_samples": 9002
+      }
+    },
+    {
+      "dataset_id": "kumquat-picking",
+      "title": "金桔采摘",
+      "description": "第一视角记录金桔采摘过程中的目标选择与摘取动作。",
+      "scene_id": "agriculture",
+      "subscene": "果园",
+      "availability": "available",
+      "episode_count": 1,
+      "duration_seconds": 29.985,
+      "capture": {
+        "width": 1920,
+        "height": 1200,
+        "fps": 30.048,
+        "imu_hz": 300.03
+      },
+      "previews": {
+        "left": "media/stereo/20261106/kumquat-picking/preview/top_left.mp4",
+        "right": "media/stereo/20261106/kumquat-picking/preview/top_right.mp4"
+      },
+      "poster": "media/stereo/20261106/kumquat-picking/poster.jpg",
+      "sample_data_url": "media/stereo/20261106/kumquat-picking/summary.json",
+      "quality_status": "engineering_sample",
+      "task_tags": [
+        "双目",
+        "第一视角",
+        "IMU",
+        "金桔采摘"
+      ],
+      "delivery_contents": [
+        "左右目原始视频（HEVC）",
+        "左右目预览视频（H.264）",
+        "逐帧时间戳 CSV",
+        "IMU 原始 counts CSV",
+        "相机内外参候选文件",
+        "IMU 配置信息"
+      ],
+      "sample_stats": {
+        "frames_per_eye": 901,
+        "imu_samples": 9002
+      }
+    },
+    {
+      "dataset_id": "auto-repair",
+      "title": "汽修",
+      "description": "第一视角记录车辆维修场景中的工具使用与操作过程。",
+      "scene_id": "factory",
+      "subscene": "汽修工位",
+      "availability": "available",
+      "episode_count": 1,
+      "duration_seconds": 29.985,
+      "capture": {
+        "width": 1920,
+        "height": 1200,
+        "fps": 30.048,
+        "imu_hz": 300.03
+      },
+      "previews": {
+        "left": "media/stereo/20261106/auto-repair/preview/top_left.mp4",
+        "right": "media/stereo/20261106/auto-repair/preview/top_right.mp4"
+      },
+      "poster": "media/stereo/20261106/auto-repair/poster.jpg",
+      "sample_data_url": "media/stereo/20261106/auto-repair/summary.json",
+      "quality_status": "engineering_sample",
+      "task_tags": [
+        "双目",
+        "第一视角",
+        "IMU",
+        "汽修"
+      ],
+      "delivery_contents": [
+        "左右目原始视频（HEVC）",
+        "左右目预览视频（H.264）",
+        "逐帧时间戳 CSV",
+        "IMU 原始 counts CSV",
+        "相机内外参候选文件",
+        "IMU 配置信息"
+      ],
+      "sample_stats": {
+        "frames_per_eye": 901,
+        "imu_samples": 9002
+      }
+    }
+  ]
 }

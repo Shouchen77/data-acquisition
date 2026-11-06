@@ -1,46 +1,39 @@
-# 真人双目数据市场录入
+# 数据市场维护
 
-网站运行时读取 `data/market_catalog.json`（schema 2）。通过 `import_market.py` 合并两类来源：既有 Maniformer 机器人参考任务，以及 `data/eyecatcher_stereo_datasets.json` 中的视焦真人双目公开摘要。
+运行目录为 `data/market_catalog.json`（schema 2），由 `import_market.py` 合并机器人参考源与真人双目摘要。
 
-当前真人摘要源为 `{"schema_version":1,"datasets":[]}`。没有真实已审核的公开数据时，保持空数组；页面显示“待上架”和场景定制入口。
+## 当前记录
 
-## 录入字段
+- 真人双目：4 组工程样例（橘子、树莓、金桔采摘与汽修），各 1 段。
+- 机器人实采：60 条，每个既有来源场景保留 12 条，覆盖不同设备、细分场景和触觉配置。
+- 机器人仿真：55 条。
 
-每个 `datasets` 元素使用下列字段：
+其余 351 条实采记录已从当前 JSON、CSV、源统计和运行目录移除。`data/robot_curation.json` 记录保留 ID 和筛选方法。Git 历史保留正常版本记录，不重写提交历史。
 
-| 字段 | 要求 | 含义 |
-| --- | --- | --- |
-| dataset_id | 必填、唯一字符串 | 视焦数据集编号，导入后自动加 `ec:` 命名空间 |
-| title / description | 必填字符串 | 数据集标题、范围与任务说明 |
-| scene_id | 必填 | factory / medical / home / logistics / retail / office / food |
-| subscene | 必填字符串 | 如装配工位、器械准备区、厨房 |
-| availability | 必填 | sampling（样例采集中）或 available（可咨询交付） |
-| episode_count | 可空整数 | 实际任务段数；available 必须大于 0 |
-| duration_seconds | 可空非负数 | 实际总时长，单位秒 |
-| task_tags | 字符串数组 | 任务标签，如分拣、收纳；默认空数组 |
-| capture | 对象 | 实测 width、height、fps、imu_hz、fov_h、fov_v；未测填 null 或省略 |
-| previews | 对象 | left / right 为已审核公开 HTTPS 视频地址，两路同时填写或同时省略 |
-| qa_report_url | 可选字符串 | 已审核公开的 HTTPS 质检报告地址 |
-| delivery_contents | 字符串数组 | 此数据集确认可提供的内容；不填写未知内容 |
+## 真人样例字段
 
-`capture` 是实测值，不能用官网 V3 最低参数自动补齐。报告存在只展示“报告可查看”，不自动认定验收通过。缺失规格显示“待披露”。
+`data/eyecatcher_stereo_datasets.json` 使用 `schema_version: 1` 和 `datasets` 数组。
 
-数据集可区分不同场景，机器人专有字段（机械臂、手型、触觉）不要求真人填写。已有机器人详情与动作步骤保持独立。
+| 字段 | 内容 |
+| --- | --- |
+| dataset_id / title / description | 唯一编号、名称与场景描述 |
+| scene_id / subscene | 一级与细分场景；新增 agriculture（农业） |
+| availability / episode_count | available 或 sampling；实际任务段数 |
+| duration_seconds / capture | 真实时长及分辨率、帧率、IMU 频率等；缺失项不自动补造 |
+| previews.left / right | 两路公开 HTTPS 或 `media/stereo/` 下的站内视频 |
+| poster | 真实样例视频截帧 |
+| sample_data_url | 传感器与文件清单摘要 JSON |
+| delivery_contents / sample_stats | 包内实际内容、帧数和 IMU 样本数 |
+| qa_report_url | 如有正式公开 QA 报告再填写 |
 
-## 发布步骤
+样例详情分为双目视频、传感器数据、文件下载。传感器摘要展示原始 CSV 前 8 行、抽样 IMU 曲线、完整候选标定内容；每个原始文件可下载并查看 SHA-256，另提供不含视频的传感器与标定 ZIP。
 
-1. 确认实际样例、公开授权和摘要内容；填写真人摘要源中的真实记录。
-2. 执行 `python3 import_market.py`，检查 `data/market_import_report.json` 中真人数据集数、机器人参考数和总数。
-3. 执行 `python3 -m unittest discover -s tests -v` 与 `node --check app.js`。
-4. 执行 `python3 build_public.py`，通过 HTTP 预览 `output/public_site/`；验证真人卡片、双目预览与质检入口。
-5. 发布构建文件到官网，保留旧版本，核对文件哈希与线上结果。
+## 文件生成与发布
 
-不需要修改前端代码来增加普通真人数据集。新增一级场景时，在 `import_market.py` 的 `SCENES` 统一维护，再重新导入。
+`prepare_market_samples.py` 从用户提供的四个样例目录复制 MP4、CSV、YAML，生成截图、实测统计和展示用摘要。视频原始文件与 CSV 不改写；网页预览使用样例包中已有的 H.264 版本。IMU 曲线单位为 counts，不把空白 SI 列当作有效物理量。
 
-## 公开目录与原始交付
+原始视频每目 1920 × 1200，预览 1280 × 800。每组实际有 901 帧/目、9,002 个 IMU 样本。时间频率按设备计数器测算；主机 Unix 时间只是估计值。候选标定、UTC、量程与轴向验证状态保持原始文件结论；VIO 和完整 QA 报告未包含。
 
-导入程序只将规定的公开摘要字段写入运行时目录。操作者身份、原始 GPS、设备本地路径等额外字段不会进入官网。原始录像、IMU、标定、VIO 与逐帧文件不放入网站或 GitHub，公开预览和报告使用单独审核后的文件地址。
+52 个公开文件打包在 GitHub Release `stereo-samples-20261106`，并部署到阿里云网站。二进制媒体不进入 Git 历史；`fetch_stereo_samples.py` 根据 `output/stereo_sample_manifest.json` 校验恢复。用户原始微信 ZIP 和其他采集目录不修改。
 
-`data/eyecatcher_stereo_datasets.json` 本身是版本库中的**公开摘要源**，不要在其中写入秘密、操作者信息或未经审核的链接。白名单是导入时的防线，不替代源文件管理。
-
-既有 Maniformer 记录保留 `mf:` 命名空间与公开参考属性，不改变为自有数据或真人数据。不要把参考视频链接当作本站可交付原始文件。
+普通摘要改动后执行 `python3 import_market.py` 与 `python3 build_public.py`。具体发布和回退见 `ALIYUN_DEPLOYMENT.md`。

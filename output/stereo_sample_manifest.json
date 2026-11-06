@@ -1,0 +1,212 @@
+{
+  "files": {
+    "media/stereo/20261106/auto-repair/calibration/extrinsics.yaml": {
+      "sha256": "026cf64972aee0df8ca57206b2ab6817c9537d7a1ca305eadb9fdfc9dff5fb73",
+      "bytes": 5139
+    },
+    "media/stereo/20261106/auto-repair/calibration/intrinsics.yaml": {
+      "sha256": "647622196fe7ff3bb0cd4841b6903fc6bb0f8d7e41ed6041ff47aa43e8bb25d3",
+      "bytes": 1729
+    },
+    "media/stereo/20261106/auto-repair/data-files.zip": {
+      "sha256": "3fb97a3d33868005a9826e66d696ed1947f47113bbf2d2967aa9699e4da04189",
+      "bytes": 472803
+    },
+    "media/stereo/20261106/auto-repair/imu/imu.csv": {
+      "sha256": "dd7d080e957015983a617b1593a3bb3f48b3dc1a2adedd075d1c644b7cc04d17",
+      "bytes": 1553588
+    },
+    "media/stereo/20261106/auto-repair/imu/imu_info.yaml": {
+      "sha256": "222a4a2e58879875c2b56fd4432870cdce695279f4cef49ea923ae8657f19071",
+      "bytes": 1031
+    },
+    "media/stereo/20261106/auto-repair/poster.jpg": {
+      "sha256": "ca7750f76ce82e6fb901ea8cf64e2a8a676953228248396887184a92e276098a",
+      "bytes": 50360
+    },
+    "media/stereo/20261106/auto-repair/preview/top_left.mp4": {
+      "sha256": "52b80f4f1070748b33033e3e756301dd1949a2de568478e5fef918d9bfcdb540",
+      "bytes": 11309043
+    },
+    "media/stereo/20261106/auto-repair/preview/top_right.mp4": {
+      "sha256": "3a44f1a1f70cf7849d534798cb6c8bd480073c3cc6a28545343aefbc3667c233",
+      "bytes": 11316658
+    },
+    "media/stereo/20261106/auto-repair/summary.json": {
+      "sha256": "f095ad0fd92ec0175890bad48fa75cbe066bb3a9f7dcfd7102ac06b704e3ea31",
+      "bytes": 61597
+    },
+    "media/stereo/20261106/auto-repair/timestamps/top_left_camera.csv": {
+      "sha256": "b25cc55c21cc3fd563524c7bffc26a7f3d27edaffaf39fc070b7d83bef80f7e6",
+      "bytes": 167717
+    },
+    "media/stereo/20261106/auto-repair/timestamps/top_right_camera.csv": {
+      "sha256": "b25cc55c21cc3fd563524c7bffc26a7f3d27edaffaf39fc070b7d83bef80f7e6",
+      "bytes": 167717
+    },
+    "media/stereo/20261106/auto-repair/videos/top_left.mp4": {
+      "sha256": "3dad98030cf8bd978be099ac037b6281927169a1f7b32db4c8233510936c462b",
+      "bytes": 46383453
+    },
+    "media/stereo/20261106/auto-repair/videos/top_right.mp4": {
+      "sha256": "dbbdc65122ef498da1edcc03971e285971189dd672fbe62c026e6fbeb14a4328",
+      "bytes": 45615785
+    },
+    "media/stereo/20261106/kumquat-picking/calibration/extrinsics.yaml": {
+      "sha256": "994f440367dd4a5301113372e2a1471fe5d06da2dffa81b62f487522d7036b97",
+      "bytes": 5139
+    },
+    "media/stereo/20261106/kumquat-picking/calibration/intrinsics.yaml": {
+      "sha256": "98f5d0c5fcd9e2a3b2eb1991abf9dd7b47f71615e23858eead182e3303abc6cc",
+      "bytes": 1729
+    },
+    "media/stereo/20261106/kumquat-picking/data-files.zip": {
+      "sha256": "5df803cb4d171a84fa4dd4ced128ca5da7ebdac8c445bc26d30e94a825ae071e",
+      "bytes": 497553
+    },
+    "media/stereo/20261106/kumquat-picking/imu/imu.csv": {
+      "sha256": "58b39f75aaadce8c721a96c0e2d487d2d1519e514ec8a287adb2a75e59afeb43",
+      "bytes": 1562399
+    },
+    "media/stereo/20261106/kumquat-picking/imu/imu_info.yaml": {
+      "sha256": "222a4a2e58879875c2b56fd4432870cdce695279f4cef49ea923ae8657f19071",
+      "bytes": 1031
+    },
+    "media/stereo/20261106/kumquat-picking/poster.jpg": {
+      "sha256": "916cf994f4a0e9ca6de5e6247aa404efa7ad29201866a2ab9b660950eeb15954",
+      "bytes": 115648
+    },
+    "media/stereo/20261106/kumquat-picking/preview/top_left.mp4": {
+      "sha256": "e79391e51f311f85604c17a723d9f4956970ef8f5b51f61b0305de56cfdcc7dc",
+      "bytes": 11386008
+    },
+    "media/stereo/20261106/kumquat-picking/preview/top_right.mp4": {
+      "sha256": "e2ef38653687b0950f9e039efdbdc1f8e2b4ecf89b1b726185a3703a88b18d47",
+      "bytes": 11371952
+    },
+    "media/stereo/20261106/kumquat-picking/summary.json": {
+      "sha256": "396cb35b832f0797fafc3766eb310494ecf05d2137c283b7f39f5252fe2d6166",
+      "bytes": 61859
+    },
+    "media/stereo/20261106/kumquat-picking/timestamps/top_left_camera.csv": {
+      "sha256": "fe193e19996382f5d7567d8eab60660003a96c3a075967aced1f788545f5af3f",
+      "bytes": 169752
+    },
+    "media/stereo/20261106/kumquat-picking/timestamps/top_right_camera.csv": {
+      "sha256": "fe193e19996382f5d7567d8eab60660003a96c3a075967aced1f788545f5af3f",
+      "bytes": 169752
+    },
+    "media/stereo/20261106/kumquat-picking/videos/top_left.mp4": {
+      "sha256": "1d82ab3a7d46f50c5ca312ff2c47be3e20d383638dc16d9b48f54a0ab4ca6361",
+      "bytes": 43670997
+    },
+    "media/stereo/20261106/kumquat-picking/videos/top_right.mp4": {
+      "sha256": "367e4066cbbe58da485ca7163623e2dc1d89ce1174fc2c717d81ebae2ba4d4ed",
+      "bytes": 43329079
+    },
+    "media/stereo/20261106/orange-picking/calibration/extrinsics.yaml": {
+      "sha256": "660cc6bf1c7c36cfe2608f48b0302741139306ba8ce91c0c21f352b9069c2a98",
+      "bytes": 5139
+    },
+    "media/stereo/20261106/orange-picking/calibration/intrinsics.yaml": {
+      "sha256": "dcca20295be90d07fe0340fbae287a91f8d072fd1f7ac45991ba0eed016f4d11",
+      "bytes": 1729
+    },
+    "media/stereo/20261106/orange-picking/data-files.zip": {
+      "sha256": "8692ba9f92c143aa8393ace549725997c3418c138f75dd3245d3cdd8d556e4ac",
+      "bytes": 490921
+    },
+    "media/stereo/20261106/orange-picking/imu/imu.csv": {
+      "sha256": "f021c26cc9c6776132a81d22ef97853147c042683559956a211ac9046dcb1385",
+      "bytes": 1550707
+    },
+    "media/stereo/20261106/orange-picking/imu/imu_info.yaml": {
+      "sha256": "222a4a2e58879875c2b56fd4432870cdce695279f4cef49ea923ae8657f19071",
+      "bytes": 1031
+    },
+    "media/stereo/20261106/orange-picking/poster.jpg": {
+      "sha256": "7cb15b43c0e091262ed843a348fc3a645d60796295b28b8ed468ef47367854ee",
+      "bytes": 124579
+    },
+    "media/stereo/20261106/orange-picking/preview/top_left.mp4": {
+      "sha256": "a532c8047d345a86001283c82b7e0eb5a9edea7159d2f3ccc29deb045bc3d391",
+      "bytes": 11413331
+    },
+    "media/stereo/20261106/orange-picking/preview/top_right.mp4": {
+      "sha256": "8524c02ac14a23bee46995b384ba5c491a95a1c8f3d4fda2317fe5bbb5680c70",
+      "bytes": 11398198
+    },
+    "media/stereo/20261106/orange-picking/summary.json": {
+      "sha256": "9ade0e5a09633728918ac7471d76583a9b557a24ffa9e66225c213700ad966aa",
+      "bytes": 61793
+    },
+    "media/stereo/20261106/orange-picking/timestamps/top_left_camera.csv": {
+      "sha256": "5b9561b8c44b987b03fcfa0239b74dbc2e94a5468e45cf07734bdc34234062ff",
+      "bytes": 167527
+    },
+    "media/stereo/20261106/orange-picking/timestamps/top_right_camera.csv": {
+      "sha256": "5b9561b8c44b987b03fcfa0239b74dbc2e94a5468e45cf07734bdc34234062ff",
+      "bytes": 167527
+    },
+    "media/stereo/20261106/orange-picking/videos/top_left.mp4": {
+      "sha256": "f12dcec75a31ed3b175e7cf92b8715fd90138a3d12cba8b368bd4ae2ddedf809",
+      "bytes": 43638430
+    },
+    "media/stereo/20261106/orange-picking/videos/top_right.mp4": {
+      "sha256": "b8e8643119d83a3c59fe470363cdb134ed91d8e803b16aa25fd9e4caca3ee8cf",
+      "bytes": 44551396
+    },
+    "media/stereo/20261106/raspberry-picking/calibration/extrinsics.yaml": {
+      "sha256": "b2caccd0a35196007547ff82f3bb09d033ceb0fa58aa785851c0c3f7b208d834",
+      "bytes": 5139
+    },
+    "media/stereo/20261106/raspberry-picking/calibration/intrinsics.yaml": {
+      "sha256": "93d93ca7ccd522c926fdf33efe8512edf4a2de4fc9adf080386fd2737491bfdf",
+      "bytes": 1729
+    },
+    "media/stereo/20261106/raspberry-picking/data-files.zip": {
+      "sha256": "8ca36d956671e528caf2ed2e4472bcebed6e422fbb4aaed8003f395387e223a2",
+      "bytes": 493583
+    },
+    "media/stereo/20261106/raspberry-picking/imu/imu.csv": {
+      "sha256": "1676636be242f767ab35e1d406cabb17afaac72e0eda7123426b37d96a5eef08",
+      "bytes": 1575311
+    },
+    "media/stereo/20261106/raspberry-picking/imu/imu_info.yaml": {
+      "sha256": "222a4a2e58879875c2b56fd4432870cdce695279f4cef49ea923ae8657f19071",
+      "bytes": 1031
+    },
+    "media/stereo/20261106/raspberry-picking/poster.jpg": {
+      "sha256": "64e53c579fd4ec421eea088ebeb5c3688ec52aa587dea3e4064a6bb30f8fabbc",
+      "bytes": 99060
+    },
+    "media/stereo/20261106/raspberry-picking/preview/top_left.mp4": {
+      "sha256": "04e4a8f59945bf7407a4f8cd9b5f23f4b101f5250cb86825ef33ce5b695cba97",
+      "bytes": 11323999
+    },
+    "media/stereo/20261106/raspberry-picking/preview/top_right.mp4": {
+      "sha256": "e2cd22e4e8897918d36845dff0ad74b2ff5f6f5f096aa59f8c3343a2a578c101",
+      "bytes": 11331033
+    },
+    "media/stereo/20261106/raspberry-picking/summary.json": {
+      "sha256": "0cebbfc4ab1e29566e53dac6c7d318144fa3114631034238c72d51140ef93dee",
+      "bytes": 61984
+    },
+    "media/stereo/20261106/raspberry-picking/timestamps/top_left_camera.csv": {
+      "sha256": "01369a9b63db342ae471d544a298392dce821b048e894ece8647ae6086ab27d9",
+      "bytes": 171967
+    },
+    "media/stereo/20261106/raspberry-picking/timestamps/top_right_camera.csv": {
+      "sha256": "01369a9b63db342ae471d544a298392dce821b048e894ece8647ae6086ab27d9",
+      "bytes": 171967
+    },
+    "media/stereo/20261106/raspberry-picking/videos/top_left.mp4": {
+      "sha256": "3bf2dfe64fa08bdc8a3479589f03242c15de94ecfadaf2b3af2b44b50e9dcd4b",
+      "bytes": 48136510
+    },
+    "media/stereo/20261106/raspberry-picking/videos/top_right.mp4": {
+      "sha256": "171eba6aba1510cda5df112b5b91617babfc2be930d58c6d3cfed02e4c0b2362",
+      "bytes": 48098514
+    }
+  }
+}

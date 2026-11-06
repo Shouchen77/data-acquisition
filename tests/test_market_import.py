@@ -62,8 +62,8 @@ class StereoIntakeTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         catalog = json.loads((root / "data/market_catalog.json").read_text())
         reference = [row for row in catalog["records"] if row["source_id"] == "maniformer"]
-        self.assertEqual(len(reference), 466)
-        self.assertEqual(sum(row["dataset_kind"] == "robot_real" for row in reference), 411)
+        self.assertEqual(len(reference), 115)
+        self.assertEqual(sum(row["dataset_kind"] == "robot_real" for row in reference), 60)
         self.assertEqual(sum(row["dataset_kind"] == "robot_sim" for row in reference), 55)
         self.assertTrue(all(row["standard_basis"] is None and row["catalog_stage"] == "reference" for row in reference))
         self.assertEqual(len({row["catalog_id"] for row in catalog["records"]}), catalog["total"])

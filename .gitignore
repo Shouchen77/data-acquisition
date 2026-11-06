@@ -8,6 +8,10 @@ __pycache__/
 !.env.example
 output/public_site/
 output/*.zip
+output/episodes/
 output/public_build_manifest.json
 output/project-package-manifest.json
 /PROJECT_PACKAGE_MANIFEST.json
+
+# Raw stereo media ships as a GitHub release asset and on Aliyun.
+/media/

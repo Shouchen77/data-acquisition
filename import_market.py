@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 import math
 from urllib.parse import urlparse
+from pathlib import PurePosixPath
 
 
 ROOT = Path(__file__).resolve().parent
@@ -20,6 +21,7 @@ DIMENSIONS = (
     "tactile_info", "collection_method", "robot_body_type", "arm_model", "hand_type",
 )
 SCENES = [
+    {"id": "agriculture", "label": "农业", "description": "果蔬采摘、田间操作、农产品处理", "subscenes": ["果园", "农田", "分选台"]},
     {"id": "factory", "label": "工厂", "description": "装配、质检、设备操作", "subscenes": ["装配工位", "质检台", "产线"]},
     {"id": "medical", "label": "医疗", "description": "器械整理、物资准备、护理辅助", "subscenes": ["器械准备区", "物资间", "护理实训区"]},
     {"id": "home", "label": "家居", "description": "厨房操作、收纳、清洁", "subscenes": ["厨房", "客厅", "卧室"]},
@@ -39,6 +41,8 @@ def public_url(value):
     if not isinstance(value, str):
         raise ValueError("Public preview/report URL must be a string")
     parsed = urlparse(value)
+    if not parsed.scheme and not parsed.netloc and value.startswith("media/stereo/") and ".." not in PurePosixPath(value).parts and "?" not in value and "#" not in value:
+        return value
     if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password:
         raise ValueError("Public preview/report URLs must use HTTPS without credentials")
     return value
@@ -101,6 +105,9 @@ def import_stereo_datasets(payload):
             "previews": previews, "qa_report_url": qa_url,
             "quality_status": "report_available" if qa_url else "pending",
             "delivery_contents": [str(item) for item in dataset.get("delivery_contents", [])],
+            "poster": public_url(dataset.get("poster", "")),
+            "sample_data_url": public_url(dataset.get("sample_data_url", "")),
+            "sample_stats": {key: dataset.get("sample_stats", {}).get(key) for key in ("frames_per_eye", "imu_samples")},
             "action_steps": [],
         })
     return records

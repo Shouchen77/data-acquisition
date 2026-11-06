@@ -25,6 +25,8 @@ jobs:
     steps:
       - name: Check out project
         uses: actions/checkout@v6
+      - name: Fetch reviewed stereo samples
+        run: python3 fetch_stereo_samples.py
       - name: Build standalone website
         run: python3 build_public.py
       - name: Configure GitHub Pages
