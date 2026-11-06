@@ -1,0 +1,63 @@
+{
+  "checks": [
+    {
+      "check": "scene-home",
+      "count": "46"
+    },
+    {
+      "check": "home-kitchen",
+      "count": "15"
+    },
+    {
+      "check": "escape-closes",
+      "closed": true
+    },
+    {
+      "check": "reset",
+      "count": "119",
+      "openLists": 0
+    },
+    {
+      "check": "human",
+      "count": "4",
+      "robotFiltersVisible": false
+    },
+    {
+      "check": "planned-empty",
+      "count": "0",
+      "subsceneEnabled": false
+    },
+    {
+      "check": "mobile-320",
+      "nativeSelects": 0,
+      "overflow": false,
+      "rect": {
+        "bottom": 729.8046875,
+        "height": 300,
+        "left": 166,
+        "right": 297.6015625,
+        "top": 429.8046875,
+        "width": 131.6015625,
+        "x": 166,
+        "y": 429.8046875
+      },
+      "scrollable": true,
+      "sourceFilter": false,
+      "width": 320
+    },
+    {
+      "check": "keyboard-end-enter",
+      "value": "客厅",
+      "count": "3"
+    },
+    {
+      "check": "one-list-at-a-time",
+      "openLists": 1
+    },
+    {
+      "check": "outside-closes",
+      "openLists": 0
+    }
+  ],
+  "consoleErrors": []
+}

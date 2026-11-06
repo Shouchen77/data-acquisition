@@ -2,7 +2,7 @@
 import concurrent.futures,datetime,hashlib,json,os,shutil,sys,urllib.request,zipfile
 from pathlib import Path,PurePosixPath
 SITE=Path('/srv/eyecatcher')
-CORE={'index.html','market.html','contact.html','styles.css','app.js','site.js','assets/shijiao-mark.png','data/market_catalog.json'}
+CORE={'index.html','market.html','contact.html','styles.css','app.js','site.js','assets/shijiao-mark.png','data/market_catalog.json','favicon.ico','assets/favicon-32.png','assets/apple-touch-icon.png'}
 def digest_file(path):
     h=hashlib.sha256()
     with path.open('rb') as f:

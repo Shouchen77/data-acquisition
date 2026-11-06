@@ -11,6 +11,7 @@ PUBLIC = ROOT / "output" / "public_site"
 FILES = (
     "index.html", "market.html", "contact.html", "styles.css", "app.js", "site.js",
     "assets/shijiao-mark.png", "data/market_catalog.json",
+    "favicon.ico", "assets/favicon-32.png", "assets/apple-touch-icon.png",
 )
 
 

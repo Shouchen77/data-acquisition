@@ -3,16 +3,125 @@ const isMarketPage = document.body.dataset.page === 'market';
 let activeTaskId = '';
 const sampleCache = new Map();
 const KINDS = { all: '全部类型', human_stereo: '真人双目', robot_real: '机器人实采', robot_sim: '机器人仿真' };
-const SOURCES = { all: '全部来源', eyecatcher: '视焦自采', maniformer: 'Maniformer 公开参考' };
-const defaults = { kind: 'all', scene: 'all', subscene: 'all', source: 'all', arm: 'all', tactile: 'all', query: '' };
+const defaults = { kind: 'all', scene: 'all', subscene: 'all', arm: 'all', tactile: 'all', query: '' };
 const state = { ...defaults, all: [], byId: new Map(), scenes: [], filtered: [], visible: PAGE_SIZE, sourceURL: '', ready: false };
 const $ = (selector) => document.querySelector(selector);
 const grid = $('#market-grid');
 const loadMore = $('#load-more');
 const dialog = $('#task-dialog');
 const detail = $('#task-detail');
-const controls = { scene: $('#scene-filter'), subscene: $('#subscene-filter'), source: $('#source-filter'), arm: $('#arm-filter'), tactile: $('#tactile-filter') };
 const escapeHTML = (value = '') => String(value).replace(/[&<>'"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#039;', '"': '&quot;' }[char]));
+// Keep focus on the combobox while its custom list supports mouse, touch and keyboard.
+class FilterSelect {
+  static opened = null;
+  constructor(root, onChange) {
+    this.root = root;
+    this.onChange = onChange;
+    this.options = [];
+    this.value = 'all';
+    this.active = 0;
+    this.typeahead = '';
+    root.innerHTML = `<button type="button" class="filter-trigger" role="combobox" aria-haspopup="listbox" aria-expanded="false" aria-controls="${root.id}-list" aria-labelledby="${root.id}-label ${root.id}-value" disabled><span id="${root.id}-value">加载中…</span><svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg></button><div class="filter-popup" id="${root.id}-list" role="listbox" aria-labelledby="${root.id}-label" hidden></div>`;
+    this.button = root.querySelector('button');
+    this.caption = root.querySelector('.filter-trigger > span');
+    this.list = root.querySelector('.filter-popup');
+    this.button.addEventListener('click', () => this.list.hidden ? this.open() : this.close());
+    this.button.addEventListener('keydown', event => this.keydown(event));
+    this.list.addEventListener('pointerdown', event => event.preventDefault());
+    this.list.addEventListener('click', event => {
+      const option = event.target.closest('[role="option"]');
+      if (option) this.choose(Number(option.dataset.index));
+    });
+    root.addEventListener('focusout', event => { if (!root.contains(event.relatedTarget)) this.close(); });
+  }
+  setOptions(options, value, disabled = false) {
+    this.close();
+    this.options = options;
+    this.value = value;
+    this.button.disabled = disabled;
+    this.caption.textContent = options.find(option => option.value === value)?.label || options[0].label;
+    this.list.innerHTML = options.map((option, index) => `<div class="filter-option" id="${this.root.id}-option-${index}" role="option" aria-selected="${option.value === value}" data-index="${index}"><span class="filter-option-check" aria-hidden="true">${option.value === value ? '✓' : ''}</span><span class="filter-option-label">${escapeHTML(option.label)}</span>${option.count == null ? '' : `<span class="filter-option-count">${option.count}</span>`}</div>`).join('');
+  }
+  open() {
+    if (this.button.disabled) return;
+    FilterSelect.opened?.close();
+    FilterSelect.opened = this;
+    this.list.hidden = false;
+    this.root.classList.add('is-open');
+    this.button.setAttribute('aria-expanded', 'true');
+    this.position();
+    this.highlight(Math.max(0, this.options.findIndex(option => option.value === this.value)));
+  }
+  position() {
+    const rect = this.button.getBoundingClientRect();
+    const below = window.innerHeight - rect.bottom - 16;
+    const above = rect.top - 16;
+    const upward = below < Math.min(this.list.scrollHeight, 300) && above > below;
+    this.root.classList.toggle('opens-up', upward);
+    this.list.style.maxHeight = `${Math.max(48, Math.min(300, upward ? above : below))}px`;
+  }
+  close() {
+    this.list.hidden = true;
+    this.root.classList.remove('is-open', 'opens-up');
+    this.button.setAttribute('aria-expanded', 'false');
+    this.button.removeAttribute('aria-activedescendant');
+    this.typeahead = '';
+    if (FilterSelect.opened === this) FilterSelect.opened = null;
+  }
+  highlight(index) {
+    this.active = index;
+    [...this.list.children].forEach((node, i) => node.classList.toggle('is-focused', i === index));
+    const node = this.list.children[index];
+    this.button.setAttribute('aria-activedescendant', node.id);
+    // Scroll the list itself, without moving the page around the filters.
+    if (node.offsetTop < this.list.scrollTop) this.list.scrollTop = node.offsetTop;
+    else if (node.offsetTop + node.offsetHeight > this.list.scrollTop + this.list.clientHeight) this.list.scrollTop = node.offsetTop + node.offsetHeight - this.list.clientHeight;
+  }
+  choose(index) {
+    const value = this.options[index].value;
+    this.close();
+    this.button.focus({ preventScroll: true });
+    if (value !== this.value) this.onChange(value);
+  }
+  keydown(event) {
+    const key = event.key;
+    if (key === 'Tab') { this.close(); return; }
+    if (key === 'Escape') { if (!this.list.hidden) event.preventDefault(); this.close(); return; }
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End', 'Enter', ' '].includes(key)) {
+      event.preventDefault();
+      if (this.list.hidden) {
+        this.open();
+        if (key === 'Home') this.highlight(0);
+        if (key === 'End') this.highlight(this.options.length - 1);
+      } else if (key === 'Enter' || key === ' ') this.choose(this.active);
+      else this.highlight(key === 'Home' ? 0 : key === 'End' ? this.options.length - 1 : Math.max(0, Math.min(this.options.length - 1, this.active + (key === 'ArrowDown' ? 1 : -1))));
+    } else if (key.length === 1 && !event.metaKey && !event.ctrlKey && !event.altKey) {
+      event.preventDefault();
+      if (this.list.hidden) this.open();
+      clearTimeout(this.typeaheadTimer);
+      this.typeahead += key.toLocaleLowerCase();
+      const index = this.options.findIndex(option => option.label.toLocaleLowerCase().startsWith(this.typeahead));
+      if (index >= 0) this.highlight(index);
+      this.typeaheadTimer = setTimeout(() => { this.typeahead = ''; }, 600);
+    }
+  }
+}
+const controls = {};
+if (isMarketPage) {
+  for (const key of ['scene', 'subscene', 'arm', 'tactile']) {
+    controls[key] = new FilterSelect($(`#${key}-filter`), value => {
+      state[key] = value;
+      if (key === 'scene') { state.subscene = 'all'; state.arm = 'all'; }
+      applyFilters();
+    });
+  }
+  document.addEventListener('pointerdown', event => {
+    const opened = FilterSelect.opened;
+    if (opened && !opened.root.contains(event.target)) opened.close();
+  });
+  window.addEventListener('resize', () => FilterSelect.opened?.position());
+}
+
 function publicURL(value, sourceOnly = false) {
   try {
     if (!value) return '';
@@ -37,7 +146,7 @@ function cardTemplate(item) {
 }
 
 function emptyTemplate() {
-  const humanScope = state.kind === 'human_stereo' || state.source === 'eyecatcher';
+  const humanScope = state.kind === 'human_stereo';
   if (humanScope && !state.query && state.subscene === 'all') {
     const scenes = state.scene === 'all' ? state.scenes.filter((scene) => ['factory', 'medical', 'home'].includes(scene.id)) : state.scenes.filter((scene) => scene.id === state.scene);
     return `<div class="stereo-empty"><span class="empty-kicker">HUMAN EXPERIENCE / STEREO DATA</span><h3>${state.scene === 'all' ? '从真实操作，开始采集。' : escapeHTML(sceneLabel(state.scene)) + '场景，开放定制采集。'}</h3><p>真人双目数据集正在筹备，审核后的样例将在这里上架。可先沟通任务、设备规格与交付要求。</p><div class="planned-scenes">${scenes.map((scene, index) => `<article><span>0${index + 1} / ${escapeHTML(scene.label)}</span><h4>${escapeHTML(scene.description)}</h4><p>可沟通的采集方向 · 非已上架数据</p><a href="contact.html" data-inquiry="真人双目 · ${escapeHTML(scene.label)}场景定制采集">讨论${escapeHTML(scene.label)}任务 <span>↗</span></a></article>`).join('')}</div><div class="empty-delivery"><strong>计划交付内容</strong><span>左右目视频</span><span>逐帧时间戳</span><span>IMU</span><span>标定</span><span>VIO 轨迹</span><span>QA 报告</span></div><p class="empty-footnote">以视焦数据标准V3规范为采集基准，具体交付范围由项目约定。</p></div>`;
@@ -48,7 +157,6 @@ function emptyTemplate() {
 function matches(item, excluded = []) {
   const skip = new Set(excluded);
   return (skip.has('kind') || state.kind === 'all' || item.dataset_kind === state.kind)
-    && (skip.has('source') || state.source === 'all' || item.source_id === state.source)
     && (skip.has('scene') || state.scene === 'all' || item.scene_id === state.scene)
     && (skip.has('subscene') || state.subscene === 'all' || item.secondary_scene === state.subscene)
     && (skip.has('arm') || state.arm === 'all' || item.arm_type === state.arm)
@@ -60,28 +168,20 @@ function fillOptions(select, values, allLabel, key) {
   const counts = new Map();
   values.filter(Boolean).forEach((value) => counts.set(value, (counts.get(value) || 0) + 1));
   if (state[key] !== 'all' && !counts.has(state[key])) state[key] = 'all';
-  select.innerHTML = `<option value="all">${allLabel}</option>` + [...counts].map(([value, count]) => `<option value="${escapeHTML(value)}">${escapeHTML(value)} (${count})</option>`).join('');
-  select.value = state[key];
-  select.disabled = !counts.size;
+  select.setOptions([{ value: 'all', label: allLabel }, ...[...counts].map(([value, count]) => ({ value, label: value, count }))], state[key], !counts.size);
 }
 
 function syncControls() {
-  const humanScope = state.kind === 'human_stereo' || state.source === 'eyecatcher';
+  const humanScope = state.kind === 'human_stereo';
   if (humanScope) { state.arm = 'all'; state.tactile = 'all'; }
   $('#robot-filters').hidden = humanScope;
   $('#stereo-filter-note').hidden = !humanScope;
   const scopeRecords = state.all.filter((item) => matches(item, ['scene', 'subscene', 'arm', 'tactile', 'query']));
-  controls.scene.innerHTML = '<option value="all">全部场景</option>' + state.scenes.map((scene) => {
-    const count = scopeRecords.filter((item) => item.scene_id === scene.id).length;
-    return `<option value="${escapeHTML(scene.id)}">${escapeHTML(scene.label)} (${count})</option>`;
-  }).join('');
-  controls.scene.value = state.scene;
+  controls.scene.setOptions([{ value: 'all', label: '全部场景', count: scopeRecords.length }, ...state.scenes.map(scene => ({ value: scene.id, label: scene.label, count: scopeRecords.filter(item => item.scene_id === scene.id).length }))], state.scene);
   const context = scopeRecords.filter((item) => state.scene === 'all' || item.scene_id === state.scene);
   fillOptions(controls.subscene, context.map((item) => item.secondary_scene), '全部细分场景', 'subscene');
   fillOptions(controls.arm, context.filter((item) => !isHuman(item)).map((item) => item.arm_type), '全部臂型', 'arm');
-  controls.source.value = state.source;
-  for (const option of controls.source.options) option.disabled = (state.kind === 'human_stereo' && option.value === 'maniformer') || (state.kind.startsWith('robot_') && option.value === 'eyecatcher');
-  controls.tactile.value = state.tactile;
+  fillOptions(controls.tactile, context.filter(item => !isHuman(item)).map(item => item.tactile_info), '全部触觉配置', 'tactile');
   $('#search-input').value = state.query;
   document.querySelectorAll('[data-kind]').forEach((button) => {
     const active = button.dataset.kind === state.kind;
@@ -92,6 +192,7 @@ function syncControls() {
 
 function updateURL() {
   const url = new URL(location.href);
+  url.searchParams.delete('source');
   for (const key of Object.keys(defaults)) {
     if (state[key] !== defaults[key]) url.searchParams.set(key, state[key]);
     else url.searchParams.delete(key);
@@ -114,10 +215,10 @@ function render() {
   loadMore.hidden = state.visible >= state.filtered.length;
   const humanCount = state.filtered.filter(isHuman).length;
   const references = state.filtered.length - humanCount;
-  $('#catalog-context').textContent = state.kind === 'human_stereo' || state.source === 'eyecatcher'
+  $('#catalog-context').textContent = state.kind === 'human_stereo'
     ? `真人双目 · ${humanCount} 个数据集。实测规格、任务段数量与质检信息在数据集详情中披露。`
     : `${humanCount} 个真人双目数据集 · ${references} 条机器人参考任务。参考任务按来源展示，可用于了解任务与动作结构。`;
-  const labels = { kind: KINDS[state.kind], scene: sceneLabel(state.scene), subscene: state.subscene, source: SOURCES[state.source], arm: state.arm, tactile: state.tactile, query: `搜索：${state.query}` };
+  const labels = { kind: KINDS[state.kind], scene: sceneLabel(state.scene), subscene: state.subscene, arm: state.arm, tactile: state.tactile, query: `搜索：${state.query}` };
   const active = Object.keys(defaults).filter((key) => state[key] !== defaults[key]);
   $('#active-filters').hidden = !active.length;
   $('#active-filters').innerHTML = active.map((key) => `<button type="button" data-remove-filter="${key}" aria-label="移除筛选：${escapeHTML(labels[key])}">${escapeHTML(labels[key])}<span aria-hidden="true">×</span></button>`).join('');
@@ -136,17 +237,14 @@ function resetFilters() { Object.assign(state, defaults); applyFilters(); }
 function selectKind(kind) {
   state.kind = Object.hasOwn(KINDS, kind) ? kind : 'all';
   state.arm = 'all'; state.tactile = 'all'; state.subscene = 'all';
-  if ((kind === 'human_stereo' && state.source === 'maniformer') || (kind.startsWith('robot_') && state.source === 'eyecatcher')) state.source = 'all';
   applyFilters();
 }
 function readURL() {
   const params = new URLSearchParams(location.search);
   for (const key of Object.keys(defaults)) state[key] = params.get(key) || defaults[key];
   if (!Object.hasOwn(KINDS, state.kind)) state.kind = 'all';
-  if (!Object.hasOwn(SOURCES, state.source)) state.source = 'all';
   if (!state.scenes.some((scene) => scene.id === state.scene)) state.scene = 'all';
   if (!['all', '有触觉', '无触觉'].includes(state.tactile)) state.tactile = 'all';
-  if ((state.kind === 'human_stereo' && state.source === 'maniformer') || (state.kind.startsWith('robot_') && state.source === 'eyecatcher')) state.source = 'all';
 }
 
 async function loadCatalog() {
@@ -291,11 +389,6 @@ document.addEventListener('click', (event) => {
   if (remove) { const key = remove.dataset.removeFilter; state[key] = defaults[key]; if (key === 'scene') state.subscene = 'all'; applyFilters(); }
   if (event.target.closest('#retry-catalog')) loadCatalog();
 });
-Object.entries(controls).forEach(([key, select]) => select?.addEventListener('change', () => {
-  state[key] = select.value;
-  if (['scene', 'source'].includes(key)) { state.subscene = 'all'; state.arm = 'all'; }
-  applyFilters();
-}));
 $('#search-input')?.addEventListener('input', (event) => { state.query = event.target.value; applyFilters(); });
 $('#close-task')?.addEventListener('click', () => dialog.close());
 dialog?.addEventListener('click', (event) => { if (event.target === dialog) dialog.close(); });
