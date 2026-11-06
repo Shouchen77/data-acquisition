@@ -1,5 +1,5 @@
 """Deploy the reviewed multipage website and stereo media, with atomic rollback."""
-import concurrent.futures,datetime,hashlib,json,os,shutil,sys,urllib.request,zipfile
+import concurrent.futures,datetime,hashlib,json,os,shutil,sys,urllib.request
 from pathlib import Path,PurePosixPath
 SITE=Path('/srv/eyecatcher')
 CORE={'index.html','market.html','contact.html','styles.css','app.js','site.js','assets/shijiao-mark.png','data/market_catalog.json'}
@@ -44,35 +44,29 @@ def update(c):
     manifest=c['media']
     ready=all((shared/n).is_file() and digest_file(shared/n)==entry['sha256'] for n,entry in manifest.items())
     if not ready:
-        archive=backup/'stereo-samples.zip'
-        def part_file(part):
-            if PurePosixPath(part['name']).name!=part['name'] or part['bytes']>80*1024*1024:raise ValueError('Invalid archive part')
-            p=backup/part['name'];req=urllib.request.Request(c['archive_base']+part['name'],headers={'User-Agent':'Eyecatcher-Deployment/3.0'})
-            with urllib.request.urlopen(req,timeout=180) as r,p.open('wb') as out:
-                copied=0
-                while True:
-                    block=r.read(1024*1024)
-                    if not block:break
-                    copied+=len(block)
-                    if copied>part['bytes']:raise ValueError('Archive part exceeds limit')
-                    out.write(block)
-            if p.stat().st_size!=part['bytes'] or digest_file(p)!=part['sha256']:raise ValueError('Archive part hash mismatch')
-            return p
-        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:parts=list(pool.map(part_file,c['archive_parts']))
-        with archive.open('wb') as out:
-            for p in parts:
-                with p.open('rb') as source:shutil.copyfileobj(source,out)
-                p.unlink()
-        if digest_file(archive)!=c['archive_sha256']:raise ValueError('Archive hash mismatch')
-        print('MEDIA_ARCHIVE_VERIFIED',archive.stat().st_size,flush=True)
-        with zipfile.ZipFile(archive) as z:
-            if set(z.namelist())!=set(manifest):raise ValueError('Archive contents mismatch')
-            for info in z.infolist():
-                n=info.filename
-                if not n.startswith('media/stereo/20261106/') or '..' in PurePosixPath(n).parts or info.file_size!=manifest[n]['bytes'] or (info.external_attr>>16)&0o170000==0o120000:raise ValueError('Unsafe archive entry')
-                p=shared/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(z.read(n));p.chmod(0o644)
-                if digest_file(p)!=manifest[n]['sha256']:raise ValueError('Media file hash mismatch: '+n)
-        archive.unlink() # Verified media remains in shared storage; remove only this temporary download.
+        def media_file(item):
+            name,entry=item
+            if not name.startswith('media/stereo/20261106/') or '..' in PurePosixPath(name).parts or entry['bytes']>80*1024*1024:raise ValueError('Invalid media file')
+            path=shared/name
+            if path.is_file() and digest_file(path)==entry['sha256']:return
+            path.parent.mkdir(parents=True,exist_ok=True);pending=path.with_name(path.name+'.partial');errors=[]
+            for base in c['media_bases']:
+                try:
+                    req=urllib.request.Request(base+name,headers={'User-Agent':'Eyecatcher-Deployment/3.0'})
+                    with urllib.request.urlopen(req,timeout=180) as response,pending.open('wb') as out:
+                        copied=0
+                        while True:
+                            block=response.read(1024*1024)
+                            if not block:break
+                            copied+=len(block)
+                            if copied>entry['bytes']:raise ValueError('Media file exceeds expected size')
+                            out.write(block)
+                    if pending.stat().st_size!=entry['bytes'] or digest_file(pending)!=entry['sha256']:raise ValueError('Media file hash mismatch')
+                    pending.chmod(0o644);os.replace(str(pending),str(path));return
+                except Exception as e:errors.append(str(e))
+            raise RuntimeError('Cannot download '+name+': '+'; '.join(errors))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:list(pool.map(media_file,manifest.items()))
+        print('MEDIA_FILES_VERIFIED',len(manifest),flush=True)
     (release/'media').symlink_to(shared/'media',target_is_directory=True)
     switched=False
     try:
