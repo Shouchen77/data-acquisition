@@ -147,3 +147,17 @@ sudo mv -Tf /srv/eyecatcher/rollback-contact /srv/eyecatcher/current
 sudo ln -s /srv/eyecatcher/releases/20261103T131620Z /srv/eyecatcher/rollback-market-pages
 sudo mv -Tf /srv/eyecatcher/rollback-market-pages /srv/eyecatcher/current
 ```
+
+
+## 网站图标与自定义筛选控件（2026-11-06）
+
+首页、独立数据市场和合作咨询页使用用户提供的图标，包含多尺寸 `favicon.ico`、32 像素 PNG 和 Apple Touch Icon。数据市场四个下拉筛选改为自定义浅色面板，使用橄榄绿选中状态、数量徽标和可滚动列表；移除“数据来源”筛选以及旧链接中的 `source` 筛选参数，保留记录本身的来源说明。
+
+- 当前发布：`/srv/eyecatcher/releases/20261106T081710Z`，先前发布：`/srv/eyecatcher/releases/20261106T065143Z`。
+- 阿里云命令助手执行 ID：`t-hz0729ztnq9d88w`，退出码 0。
+- 核心代码提交：公开仓库 `78b5a325d0254bbd5510da74133cc65256aa3ece`，私有仓库 `f4c1475`。
+- 11 个核心文件和 52 个样例文件通过校验；16 个视频 Range 检查通过，目录保持 119 条。
+- 验证桌面和 320 像素布局、场景与细分场景联动、方向键/End/Enter/Escape、单面板展开、点击外部关闭、重置及空场景。线上“果园”返回 3 条，浏览器无错误。
+- Caddy 配置保持原样，PrintLink 健康检查通过。
+
+发布回执：`output/aliyun-controls-deployment-result.json`；本地与线上验证：`output/market-controls-verification.json`、`output/market-controls-live-verification.json`；线上效果：`output/preview/market-controls-live.png`。

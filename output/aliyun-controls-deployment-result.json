@@ -1,0 +1,23 @@
+{
+  "status": "UPDATED",
+  "release": "/srv/eyecatcher/releases/20261106T081710Z",
+  "previous_release": "/srv/eyecatcher/releases/20261106T065143Z",
+  "backup": "/var/backups/eyecatcher/20261106T081710Z",
+  "collections": {
+    "human_stereo": 4,
+    "robot_real": 60,
+    "robot_sim": 55
+  },
+  "total": 119,
+  "core_files_verified": 11,
+  "media_files_verified": 52,
+  "media_range_requests_verified": 16,
+  "caddy_unchanged": true,
+  "printlink_healthy": true,
+  "execution_id": "t-hz0729ztnq9d88w",
+  "exit_code": 0,
+  "code_commits": {
+    "public": "78b5a325d0254bbd5510da74133cc65256aa3ece",
+    "private": "f4c1475"
+  }
+}
