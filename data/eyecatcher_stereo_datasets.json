@@ -58,8 +58,8 @@
         "imu_hz": 300.03
       },
       "previews": {
-        "left": "media/stereo/20261124/tailoring/videos/top_left.mp4",
-        "right": "media/stereo/20261124/tailoring/videos/top_right.mp4"
+        "left": "media/stereo/20261124/tailoring/preview/top_left.mp4",
+        "right": "media/stereo/20261124/tailoring/preview/top_right.mp4"
       },
       "poster": "media/stereo/20261124/tailoring/poster.jpg",
       "sample_data_url": "media/stereo/20261124/tailoring/summary.json",
@@ -222,8 +222,8 @@
         "imu_hz": 300.03
       },
       "previews": {
-        "left": "media/stereo/20261124/welding/videos/top_left.mp4",
-        "right": "media/stereo/20261124/welding/videos/top_right.mp4"
+        "left": "media/stereo/20261124/welding/preview/top_left.mp4",
+        "right": "media/stereo/20261124/welding/preview/top_right.mp4"
       },
       "poster": "media/stereo/20261124/welding/poster.jpg",
       "sample_data_url": "media/stereo/20261124/welding/summary.json",

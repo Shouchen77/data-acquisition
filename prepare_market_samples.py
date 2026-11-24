@@ -1,6 +1,6 @@
 """Prepare the reviewed stereo sample packages used by the website."""
 from collections import Counter, defaultdict
-import argparse, csv, hashlib, json, shutil, statistics, zipfile
+import argparse, csv, hashlib, json, shutil, statistics, subprocess, zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -61,7 +61,7 @@ def source_and_mapping(title, source_dir, external):
     if title == "电焊": return source, {"left":"headcam.mp4", "right":"headcam_view_b.mp4", "left_ts":"headcam_camera.csv", "right_ts":"headcam_view_b_camera.csv"}
     return source, {"left":"top_left.mp4", "right":"top_right.mp4", "left_ts":"top_left_camera.csv", "right_ts":"top_right_camera.csv"}
 
-def prepare(title, slug, scene, subscene, description, external, source_dir):
+def prepare(title, slug, scene, subscene, description, external, source_dir, ffmpeg=""):
     src, mapping = source_and_mapping(title, source_dir, external)
     if not src.is_dir(): raise FileNotFoundError(src)
     relative = Path("media/stereo/20261124") / slug; dest = ROOT / relative
@@ -81,6 +81,12 @@ def prepare(title, slug, scene, subscene, description, external, source_dir):
         for path in legacy_preview.glob("*.mp4"):
             (dest / "preview").mkdir(parents=True, exist_ok=True)
             shutil.copy2(path, dest / "preview" / path.name)
+        shutil.copy2(legacy_preview.parent / "poster.jpg", dest / "poster.jpg")
+    elif ffmpeg:
+        (dest / "preview").mkdir(exist_ok=True)
+        subprocess.run([ffmpeg, "-y", "-v", "error", "-ss", "3", "-i", str(dest / "videos/top_left.mp4"), "-frames:v", "1", "-vf", "scale=960:600", "-q:v", "3", str(dest / "poster.jpg")], check=True)
+        for eye in ("left", "right"):
+            subprocess.run([ffmpeg, "-y", "-v", "error", "-i", str(dest / ("videos/top_" + eye + ".mp4")), "-vf", "scale=1280:800", "-c:v", "libx264", "-preset", "veryfast", "-crf", "25", "-pix_fmt", "yuv420p", "-an", "-movflags", "+faststart", str(dest / ("preview/top_" + eye + ".mp4"))], check=True)
     if (src / "handpose").is_dir():
         for eye in ("left", "right"):
             path = src / "handpose" / ("top_" + eye + ".json")
@@ -140,7 +146,7 @@ def curate():
 
 def main():
     parser=argparse.ArgumentParser(); parser.add_argument("source_dir",type=Path); parser.add_argument("--ffmpeg",default=""); args=parser.parse_args(); curate()
-    datasets=[prepare(*sample,args.source_dir) for sample in SAMPLES]; write_json(ROOT/"data/eyecatcher_stereo_datasets.json",{"schema_version":1,"datasets":datasets})
+    datasets=[prepare(*sample,args.source_dir,args.ffmpeg) for sample in SAMPLES]; write_json(ROOT/"data/eyecatcher_stereo_datasets.json",{"schema_version":1,"datasets":datasets})
     for item in datasets: print(item["title"],item["capture"],item["sample_stats"])
 
 if __name__=="__main__": main()

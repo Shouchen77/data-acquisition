@@ -310,7 +310,9 @@ function initHandPoseViewer(root, pose) {
   const frameInput = root.querySelector('[data-handpose-frame]');
   const frameLabel = root.querySelector('[data-handpose-frame-label]');
   const status = root.querySelector('[data-handpose-status]');
-  const state = { eye: Object.keys(pose.eyes)[0], frame: 0, yaw: 0.35, pitch: -0.2, zoom: 1, dragging: false, x: 0, y: 0 };
+  const firstEye = Object.keys(pose.eyes)[0];
+  const firstDetectedFrame = eye => Math.max(0, pose.eyes[eye].frames.findIndex(frame => frame.hands?.length));
+  const state = { eye: firstEye, frame: firstDetectedFrame(firstEye), yaw: 0.35, pitch: -0.2, zoom: 1, dragging: false, x: 0, y: 0 };
   const resize = () => { const rect = canvas.getBoundingClientRect(); const ratio = window.devicePixelRatio || 1; canvas.width = Math.max(1, Math.round(rect.width * ratio)); canvas.height = Math.max(1, Math.round(rect.height * ratio)); draw(); };
   const pointsFor = (hand) => (hand.world || hand.image || []).map(point => [Number(point[0]) || 0, Number(point[1]) || 0, Number(point[2]) || 0]);
   function draw() {
@@ -318,6 +320,7 @@ function initHandPoseViewer(root, pose) {
     const ratio = window.devicePixelRatio || 1; const width = canvas.width / ratio; const height = canvas.height / ratio;
     context.setTransform(ratio, 0, 0, ratio, 0, 0); context.clearRect(0, 0, width, height); context.fillStyle = '#101114'; context.fillRect(0, 0, width, height);
     const track = pose.eyes[state.eye] || pose.eyes[Object.keys(pose.eyes)[0]]; const frame = track.frames[Math.min(state.frame, track.frames.length - 1)] || { hands: [] }; const hands = frame.hands || [];
+    frameLabel.textContent = String(state.frame + 1);
     const all = hands.flatMap(pointsFor); if (!all.length) { context.fillStyle = '#a9aaa5'; context.font = '12px sans-serif'; context.fillText('当前帧未检出手部', 24, 32); status.textContent = `帧 ${state.frame + 1} · 未检出`; return; }
     const center = all.reduce((sum, p) => [sum[0] + p[0], sum[1] + p[1], sum[2] + p[2]], [0, 0, 0]).map(value => value / all.length); const span = Math.max(...all.map(p => Math.max(Math.abs(p[0] - center[0]), Math.abs(p[1] - center[1]), Math.abs(p[2] - center[2]))), 0.001); const scale = Math.min(width, height) * 0.37 * state.zoom / span;
     const project = (point) => { let x = point[0] - center[0], y = point[1] - center[1], z = point[2] - center[2]; const cy = Math.cos(state.yaw), sy = Math.sin(state.yaw); [x, z] = [x * cy - z * sy, x * sy + z * cy]; const cp = Math.cos(state.pitch), sp = Math.sin(state.pitch); [y, z] = [y * cp - z * sp, y * sp + z * cp]; return { x: width / 2 + x * scale, y: height / 2 - y * scale, depth: z }; };
@@ -325,11 +328,13 @@ function initHandPoseViewer(root, pose) {
     const connections = pose.connections || []; hands.forEach((hand) => { const points = pointsFor(hand).map(project); context.strokeStyle = hand.side === 'Left' ? '#dfff4f' : '#ff7048'; context.globalAlpha = .8; context.lineWidth = 2; context.beginPath(); connections.forEach(([a, b], index) => { if (!points[a] || !points[b]) return; if (index) context.moveTo(points[a].x, points[a].y); else context.moveTo(points[a].x, points[a].y); context.lineTo(points[b].x, points[b].y); }); context.stroke(); context.globalAlpha = 1; points.forEach(point => { context.beginPath(); context.fillStyle = hand.side === 'Left' ? '#dfff4f' : '#ff7048'; context.arc(point.x, point.y, 4, 0, Math.PI * 2); context.fill(); }); });
     frameLabel.textContent = String(state.frame + 1); status.textContent = `帧 ${state.frame + 1} · ${hands.length} 只手`;
   }
-  const setEye = eye => { if (!pose.eyes[eye]) return; state.eye = eye; state.frame = 0; frameInput.max = Math.max(0, pose.eyes[eye].frames.length - 1); frameInput.value = '0'; root.querySelectorAll('[data-handpose-eye]').forEach(button => { const active = button.dataset.handposeEye === eye; button.classList.toggle('is-active', active); button.setAttribute('aria-pressed', String(active)); }); draw(); };
+  const setEye = eye => { if (!pose.eyes[eye]) return; state.eye = eye; state.frame = firstDetectedFrame(eye); frameInput.max = Math.max(0, pose.eyes[eye].frames.length - 1); frameInput.value = String(state.frame); root.querySelectorAll('[data-handpose-eye]').forEach(button => { const active = button.dataset.handposeEye === eye; button.classList.toggle('is-active', active); button.setAttribute('aria-pressed', String(active)); }); draw(); };
   root.querySelectorAll('[data-handpose-eye]').forEach(button => button.addEventListener('click', () => setEye(button.dataset.handposeEye)));
   frameInput.addEventListener('input', () => { state.frame = Number(frameInput.value); draw(); }); root.querySelector('[data-handpose-reset]').addEventListener('click', () => { state.yaw = .35; state.pitch = -.2; state.zoom = 1; draw(); });
   canvas.addEventListener('pointerdown', event => { state.dragging = true; state.x = event.clientX; state.y = event.clientY; canvas.setPointerCapture(event.pointerId); }); canvas.addEventListener('pointermove', event => { if (!state.dragging) return; state.yaw += (event.clientX - state.x) * .012; state.pitch = Math.max(-1.4, Math.min(1.4, state.pitch + (event.clientY - state.y) * .012)); state.x = event.clientX; state.y = event.clientY; draw(); }); canvas.addEventListener('pointerup', event => { state.dragging = false; canvas.releasePointerCapture(event.pointerId); }); canvas.addEventListener('wheel', event => { event.preventDefault(); state.zoom = Math.max(.45, Math.min(3, state.zoom * (event.deltaY > 0 ? .9 : 1.1))); draw(); }, { passive: false });
-  window.addEventListener('resize', resize); resize();
+  frameInput.value = String(state.frame);
+  const observer = new ResizeObserver(() => { if (!root.isConnected) observer.disconnect(); else resize(); });
+  observer.observe(canvas); resize();
 }
 
 async function loadHandPose(item, data, root) {

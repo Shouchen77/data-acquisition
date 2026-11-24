@@ -8,6 +8,7 @@ def fetch():
     release=json.loads((ROOT/'output/stereo_sample_manifest.json').read_text())
     manifest=release['files']
     if all((ROOT/n).is_file() and hashlib.sha256((ROOT/n).read_bytes()).hexdigest()==v['sha256'] for n,v in manifest.items()):return
+    archive_manifest=release.get('archive_files',manifest)
     with tempfile.TemporaryDirectory() as temp:
         archive=Path(temp)/'samples.zip'
         def part_file(part):
@@ -22,13 +23,20 @@ def fetch():
                 with p.open('rb') as source:shutil.copyfileobj(source,f)
         if hashlib.sha256(archive.read_bytes()).hexdigest()!=release['archive']['sha256']:raise ValueError('Archive hash mismatch')
         with zipfile.ZipFile(archive) as z:
-            if set(z.namelist())!=set(manifest):raise ValueError('Archive file list mismatch')
+            if set(z.namelist())!=set(archive_manifest):raise ValueError('Archive file list mismatch')
             for info in z.infolist():
                 name=info.filename
-                if not name.startswith('media/stereo/20261124/') or '..' in PurePosixPath(name).parts or info.file_size!=manifest[name]['bytes']:raise ValueError('Unexpected archive path/size')
+                if not name.startswith('media/stereo/20261124/') or '..' in PurePosixPath(name).parts or info.file_size!=archive_manifest[name]['bytes']:raise ValueError('Unexpected archive path/size')
                 data=z.read(name)
-                if hashlib.sha256(data).hexdigest()!=manifest[name]['sha256']:raise ValueError('Sample hash mismatch: '+name)
+                if hashlib.sha256(data).hexdigest()!=archive_manifest[name]['sha256']:raise ValueError('Sample hash mismatch: '+name)
                 out=ROOT/name;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(data)
+        for name,asset in release.get('supplements',{}).items():
+            if name not in manifest or PurePosixPath(asset).name!=asset:raise ValueError('Invalid supplement')
+            out=ROOT/name
+            with urllib.request.urlopen(BASE+asset,timeout=180) as response: data=response.read(manifest[name]['bytes']+1)
+            if len(data)!=manifest[name]['bytes'] or hashlib.sha256(data).hexdigest()!=manifest[name]['sha256']:raise ValueError('Supplement hash mismatch: '+name)
+            out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(data)
+    if not all((ROOT/n).is_file() and hashlib.sha256((ROOT/n).read_bytes()).hexdigest()==v['sha256'] for n,v in manifest.items()):raise ValueError('Final media manifest mismatch')
     print('Stereo sample media ready:',len(manifest),'files')
 
 if __name__=='__main__':fetch()

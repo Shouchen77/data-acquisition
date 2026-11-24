@@ -1,7 +1,7 @@
 {
   "source_file": "data/maniformer_data_market.json",
   "catalog_file": "data/market_catalog.json",
-  "imported_at_utc": "2026-11-24T06:19:17+00:00",
+  "imported_at_utc": "2026-11-24T06:26:16+00:00",
   "source_total": 115,
   "imported_records": 121,
   "source_unavailable_count": 0,
