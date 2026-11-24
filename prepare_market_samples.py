@@ -1,75 +1,146 @@
-"""Prepare the user-provided stereo samples and a curated robot reference catalog."""
-from pathlib import Path
+"""Prepare the reviewed stereo sample packages used by the website."""
 from collections import Counter, defaultdict
-import csv, hashlib, io, json, shutil, statistics, subprocess, zipfile
+import argparse, csv, hashlib, json, shutil, statistics, zipfile
+from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SAMPLES = [('橘子采摘','orange-picking','agriculture','果园','第一视角记录橘子采摘过程中的观察、伸手与摘取。'),('树莓采摘','raspberry-picking','agriculture','果园','第一视角记录树莓采摘过程中的近距离观察与手部操作。'),('金桔采摘','kumquat-picking','agriculture','果园','第一视角记录金桔采摘过程中的目标选择与摘取动作。'),('汽修','auto-repair','factory','汽修工位','第一视角记录车辆维修场景中的工具使用与操作过程。')]
+SAMPLES = [
+    ("汽修", "auto-repair", "factory", "汽修工位", "第一视角记录车辆维修场景中的工具使用与操作过程。", False),
+    ("裁缝", "tailoring", "factory", "缝纫工位", "第一视角记录裁缝工位中的布料整理、工具使用与手部操作。", True),
+    ("树莓采摘", "raspberry-picking", "agriculture", "果园", "第一视角记录树莓采摘过程中的近距离观察与手部操作。", False),
+    ("橘子采摘", "orange-picking", "agriculture", "果园", "第一视角记录橘子采摘过程中的观察、伸手与摘取。", False),
+    ("金桔采摘", "kumquat-picking", "agriculture", "果园", "第一视角记录金桔采摘过程中的目标选择与摘取动作。", False),
+    ("电焊", "welding", "factory", "焊接工位", "第一视角记录电焊工位中的工具操作、工件处理与连续动作。", True),
+]
+LANDMARKS = ["wrist","thumb_cmc","thumb_mcp","thumb_ip","thumb_tip","index_mcp","index_pip","index_dip","index_tip","middle_mcp","middle_pip","middle_dip","middle_tip","ring_mcp","ring_pip","ring_dip","ring_tip","pinky_mcp","pinky_pip","pinky_dip","pinky_tip"]
+CONNECTIONS = [[0,1],[1,2],[2,3],[3,4],[0,5],[5,6],[6,7],[7,8],[5,9],[9,10],[10,11],[11,12],[9,13],[13,14],[14,15],[15,16],[13,17],[0,17],[17,18],[18,19],[19,20]]
+
 def write_json(path, value):
-    path.parent.mkdir(parents=True,exist_ok=True)
-    path.write_text(json.dumps(value,ensure_ascii=False,indent=2)+'\n')
-def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
 def rows(path):
-    with path.open() as f:return list(csv.DictReader(f))
+    with path.open(encoding="utf-8", newline="") as f: return list(csv.DictReader(f))
+
+def sha(path): return hashlib.sha256(path.read_bytes()).hexdigest()
+
+def num(row, *keys):
+    for key in keys:
+        value = row.get(key)
+        if value not in (None, ""):
+            try: return float(value)
+            except ValueError: pass
+    return None
+
+def poster(path, title, subscene):
+    from PIL import Image, ImageDraw
+    image = Image.new("RGB", (960, 600), "#101114")
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((40, 40, 920, 560), outline="#dfff4f", width=2)
+    draw.text((82, 92), "EYECATCHER / EGO DATA", fill="#dfff4f")
+    draw.text((82, 230), title, fill="#ffffff")
+    draw.text((82, 330), subscene + " · 双目采集样例", fill="#a9aaa5")
+    draw.text((82, 500), "REAL PERSON · STEREO CAPTURE", fill="#ff7048")
+    image.save(path, quality=88, optimize=True)
+
+def handpose_info(dest, relative):
+    eyes, stats = {}, {}
+    for eye in ("left", "right"):
+        path = dest / "handpose" / ("top_" + eye + ".json")
+        if not path.is_file(): continue
+        value = json.loads(path.read_text(encoding="utf-8")); frames = value.get("frames") or []
+        raw = value.get("stats") or {}; count = raw.get("frames_with_hands")
+        if count is None: count = sum(bool(frame.get("hands")) for frame in frames)
+        stats[eye] = {"frames": len(frames), "frames_with_hands": count, "hand_ratio": round(count / len(frames), 4) if frames else 0}
+        eyes[eye] = str(relative / "handpose" / ("top_" + eye + ".json"))
+    if not eyes: return {"available": False, "notes": "本样例包尚未提供手部关键点文件。"}
+    return {"available": True, "model": "mediapipe_hand_landmarker", "landmarks": LANDMARKS, "connections": CONNECTIONS, "eyes": eyes, "stats": stats, "notes": "3D 位置使用关键点 world 坐标；不是相机坐标系中的绝对手位姿。"}
+
+def source_and_mapping(title, source_dir, external):
+    source = Path("/Users/sochy/Downloads") / title if external else source_dir / title
+    if title == "电焊": return source, {"left":"headcam.mp4", "right":"headcam_view_b.mp4", "left_ts":"headcam_camera.csv", "right_ts":"headcam_view_b_camera.csv"}
+    return source, {"left":"top_left.mp4", "right":"top_right.mp4", "left_ts":"top_left_camera.csv", "right_ts":"top_right_camera.csv"}
+
+def prepare(title, slug, scene, subscene, description, external, source_dir):
+    src, mapping = source_and_mapping(title, source_dir, external)
+    if not src.is_dir(): raise FileNotFoundError(src)
+    relative = Path("media/stereo/20261124") / slug; dest = ROOT / relative
+    if dest.exists(): shutil.rmtree(dest)
+    dest.mkdir(parents=True)
+    for folder in ("calibration", "imu", "videos", "timestamps", "handpose"):
+        (dest / folder).mkdir(parents=True, exist_ok=True)
+    for folder in ("calibration", "imu"):
+        for path in (src / folder).glob("*"):
+            if path.is_file(): shutil.copy2(path, dest / folder / path.name)
+    shutil.copy2(src / "videos" / mapping["left"], dest / "videos/top_left.mp4")
+    shutil.copy2(src / "videos" / mapping["right"], dest / "videos/top_right.mp4")
+    shutil.copy2(src / "timestamps" / mapping["left_ts"], dest / "timestamps/top_left_camera.csv")
+    shutil.copy2(src / "timestamps" / mapping["right_ts"], dest / "timestamps/top_right_camera.csv")
+    legacy_preview = ROOT / "media/stereo/20261106" / slug / "preview"
+    if legacy_preview.is_dir():
+        for path in legacy_preview.glob("*.mp4"):
+            (dest / "preview").mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, dest / "preview" / path.name)
+    if (src / "handpose").is_dir():
+        for eye in ("left", "right"):
+            path = src / "handpose" / ("top_" + eye + ".json")
+            if path.is_file(): shutil.copy2(path, dest / "handpose" / path.name)
+    left, right, imu = rows(dest / "timestamps/top_left_camera.csv"), rows(dest / "timestamps/top_right_camera.csv"), rows(dest / "imu/imu.csv")
+    lt = [num(row, "device_timestamp_unwrapped_us", "exposure_end_device_us", "driver_timestamp_us") for row in left]
+    it = [num(row, "device_timestamp_unwrapped_us", "exposure_end_device_us", "driver_timestamp_us") for row in imu]
+    lt, it = [x for x in lt if x is not None], [x for x in it if x is not None]
+    vd = [b-a for a,b in zip(lt, lt[1:]) if b > a]; md = [b-a for a,b in zip(it, it[1:]) if b > a]
+    fps = 1_000_000 / statistics.median(vd) if vd else None; imu_hz = 1_000_000 / statistics.median(md) if md else None
+    duration = ((lt[-1]-lt[0]) + statistics.median(vd)) / 1_000_000 if vd else None
+    for row, value in zip(left, lt): row.setdefault("device_timestamp_unwrapped_us", str(int(value)))
+    for row in right:
+        value = num(row, "device_timestamp_unwrapped_us", "exposure_end_device_us", "driver_timestamp_us")
+        if value is not None: row.setdefault("device_timestamp_unwrapped_us", str(int(value)))
+    for row, value in zip(imu, it): row.setdefault("device_timestamp_unwrapped_us", str(int(value)))
+    intrinsics = json.loads((dest / "calibration/intrinsics.yaml").read_text(encoding="utf-8")); extrinsics = json.loads((dest / "calibration/extrinsics.yaml").read_text(encoding="utf-8"))
+    info_path = dest / "imu/imu_info.yaml"; imu_info = json.loads(info_path.read_text(encoding="utf-8")) if info_path.exists() else {}
+    keys = ["gyro_x_counts","gyro_y_counts","gyro_z_counts","accel_x_counts","accel_y_counts","accel_z_counts"]; plot=[]; step=max(1,len(imu)//180)
+    for index in range(0,len(imu),step):
+        row=imu[index]; item={"t":round((num(row,"device_timestamp_unwrapped_us")-it[0])/1_000_000,4) if it else 0}
+        for key in keys:
+            try: item[key]=int(float(row.get(key,0) or 0))
+            except ValueError: item[key]=0
+        plot.append(item)
+    if not (dest / "poster.jpg").exists(): poster(dest / "poster.jpg", title, subscene)
+    handpose = handpose_info(dest, relative); files=[]
+    for path in sorted(dest.rglob("*")):
+        if path.is_file() and path.name not in ("summary.json","data-files.zip","poster.jpg"):
+            files.append({"path":str(path.relative_to(dest)),"url":str(relative/path.relative_to(dest)),"bytes":path.stat().st_size,"sha256":sha(path)})
+    with zipfile.ZipFile(dest / "data-files.zip","w",zipfile.ZIP_DEFLATED) as archive:
+        for entry in files:
+            if not entry["path"].endswith(".mp4"): archive.write(dest/entry["path"],entry["path"])
+    summary={"dataset_id":slug,"title":title,"frames":{"left":len(left),"right":len(right)},"imu_samples":len(imu),"duration_seconds":round(duration,3) if duration else None,"fps":round(fps,3) if fps else None,"imu_hz":round(imu_hz,3) if imu_hz else None,"paired_timestamp_max_delta_us":max((abs(float(a.get("device_timestamp_unwrapped_us",0))-float(b.get("device_timestamp_unwrapped_us",0))) for a,b in zip(left,right)),default=0),"timestamp_monotonic":all(b>a for a,b in zip(lt,lt[1:])),"imu_monotonic":all(b>a for a,b in zip(it,it[1:])),"timestamp_status":"设备曝光计数；主机 Unix 时间为估计值，UTC 对齐待验证","imu_status":"原始 counts；SI 单位与坐标轴待验证","calibration_status":"候选标定，尚未验收","intrinsics":intrinsics,"extrinsics":extrinsics,"imu_info":imu_info,"tables":{"timestamps":{"headers":list(left[0]),"rows":left[:8]},"imu":{"headers":list(imu[0]),"rows":imu[:8]}},"imu_plot":plot,"handpose":handpose,"files":files,"data_archive":str(relative/"data-files.zip")}
+    write_json(dest/"summary.json",summary)
+    preview_left=str(relative/"preview/top_left.mp4") if (dest/"preview/top_left.mp4").exists() else str(relative/"videos/top_left.mp4"); preview_right=str(relative/"preview/top_right.mp4") if (dest/"preview/top_right.mp4").exists() else str(relative/"videos/top_right.mp4")
+    return {"dataset_id":slug,"title":title,"description":description,"scene_id":scene,"subscene":subscene,"availability":"available","episode_count":1,"duration_seconds":summary["duration_seconds"],"capture":{"width":1920,"height":1200,"fps":summary["fps"],"imu_hz":summary["imu_hz"]},"previews":{"left":preview_left,"right":preview_right},"poster":str(relative/"poster.jpg"),"sample_data_url":str(relative/"summary.json"),"quality_status":"engineering_sample","task_tags":["双目","第一视角","IMU",title],"delivery_contents":["左右目原始视频（HEVC）","逐帧时间戳 CSV","IMU 原始 counts CSV","相机内外参候选文件","手部关键点 JSON（如有）"],"sample_stats":{"frames_per_eye":len(left),"imu_samples":len(imu),"handpose_available":handpose["available"]}}
+
 def curate():
-    p=ROOT/'data/maniformer_data_market.json'; source=json.loads(p.read_text())
-    real=[r for r in source['records'] if r['data_type']!='仿真']
-    if len(real)==60:return
-    pools=defaultdict(list)
-    for r in real:pools[r['primary_scene']].append(r)
-    chosen=[]; features=Counter()
+    path=ROOT/"data/maniformer_data_market.json"; source=json.loads(path.read_text(encoding="utf-8")); real=[r for r in source["records"] if r["data_type"]!="仿真"]
+    if len(real)==60: return
+    pools=defaultdict(list); chosen=[]; features=Counter()
+    for record in real: pools[record["primary_scene"]].append(record)
     for scene in sorted(pools):
         candidates=pools[scene][:]
-        for _ in range(12):
+        for _ in range(min(12,len(candidates))):
             def score(r):
-                fs=[('sub',r['primary_scene'],r['secondary_scene']),('arm',r['arm_type']),('hand',r['hand_type']),('robot',r['robot_body_type']),('tactile',r['tactile_info']),('task',r['task_name'])]
-                return (sum(1/(1+features[f]) for f in fs)+(1 if r['tactile_info']=='有触觉' else 0),r['id'])
-            r=max(candidates,key=score);candidates.remove(r);chosen.append(r)
-            for f in [('sub',r['primary_scene'],r['secondary_scene']),('arm',r['arm_type']),('hand',r['hand_type']),('robot',r['robot_body_type']),('tactile',r['tactile_info']),('task',r['task_name'])]:features[f]+=1
-    keep={r['id'] for r in chosen}; retained=[r for r in source['records'] if r['data_type']=='仿真' or r['id'] in keep]
-    source['records']=retained;source['total']=len(retained)
-    write_json(p,source)
-    cp=ROOT/'data/maniformer_data_market.csv'
-    with cp.open(encoding='utf-8-sig',newline='') as f: reader=csv.DictReader(f);fields=reader.fieldnames;old=list(reader)
-    with cp.open('w',encoding='utf-8-sig',newline='') as f:
-        writer=csv.DictWriter(f,fieldnames=fields);writer.writeheader();writer.writerows(r for r in old if int(r['id']) in {x['id'] for x in retained})
-    sp=ROOT/'data/maniformer_data_market_summary.json'; summary=json.loads(sp.read_text())
-    summary.update(records=len(retained),api_total=len(retained),dimensions={k:dict(Counter(str(r.get(k,'')).strip() for r in retained).most_common()) for k in summary['dimensions']},action_step_count=sum(len(r.get('action_steps_parsed') or json.loads(r['action_steps'])) for r in retained))
-    write_json(sp,summary)
-    write_json(ROOT/'data/robot_curation.json',{'retained_real':60,'removed_real':len(real)-60,'retained_sim':55,'strategy':'每个已有应用场景保留12条，优先覆盖不同细分场景、臂型、手型、机器人型号与触觉配置。','retained_ids':sorted(keep)})
+                keys=[("sub",r["primary_scene"],r["secondary_scene"]),("arm",r["arm_type"]),("hand",r["hand_type"]),("robot",r["robot_body_type"]),("tactile",r["tactile_info"]),("task",r["task_name"])]
+                return (sum(1/(1+features[x]) for x in keys)+(1 if r["tactile_info"]=="有触觉" else 0),r["id"])
+            record=max(candidates,key=score); candidates.remove(record); chosen.append(record)
+            for key in [("sub",record["primary_scene"],record["secondary_scene"]),("arm",record["arm_type"]),("hand",record["hand_type"]),("robot",record["robot_body_type"]),("tactile",record["tactile_info"]),("task",record["task_name"])]: features[key]+=1
+    keep={r["id"] for r in chosen}; source["records"]=[r for r in source["records"] if r["data_type"]=="仿真" or r["id"] in keep]; source["total"]=len(source["records"]); write_json(path,source)
+    csv_path=ROOT/"data/maniformer_data_market.csv"
+    with csv_path.open(encoding="utf-8-sig",newline="") as f: reader=csv.DictReader(f); fields=reader.fieldnames; old=list(reader)
+    with csv_path.open("w",encoding="utf-8-sig",newline="") as f:
+        writer=csv.DictWriter(f,fieldnames=fields); writer.writeheader(); writer.writerows(row for row in old if int(row["id"]) in keep or next((r for r in source["records"] if r["id"]==int(row["id"])),None) and next(r for r in source["records"] if r["id"]==int(row["id"]))["data_type"]=="仿真")
 
-def prepare(source_dir, ffmpeg):
-    datasets=[]
-    for title,slug,scene,subscene,description in SAMPLES:
-        src=source_dir/title; relative=Path('media/stereo/20261106')/slug; dest=ROOT/relative
-        for p in src.rglob('*'):
-            if p.is_file() and p.suffix in ('.mp4','.csv','.yaml') and not p.name.startswith('.'):
-                out=dest/p.relative_to(src);out.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(p,out)
-        subprocess.run([ffmpeg,'-hide_banner','-loglevel','error','-y','-ss','3','-i',str(src/'preview/top_left.mp4'),'-frames:v','1','-vf','scale=960:-2','-q:v','3',str(dest/'poster.jpg')],check=True)
-        left=rows(dest/'timestamps/top_left_camera.csv');right=rows(dest/'timestamps/top_right_camera.csv');imu=rows(dest/'imu/imu.csv')
-        intr=json.loads((dest/'calibration/intrinsics.yaml').read_text());extr=json.loads((dest/'calibration/extrinsics.yaml').read_text());info=json.loads((dest/'imu/imu_info.yaml').read_text())
-        delta=[(float(b['device_timestamp_unwrapped_us'])-float(a['device_timestamp_unwrapped_us']))/1e6 for a,b in zip(left,left[1:])]
-        fps=1/statistics.median(delta);span=(float(left[-1]['device_timestamp_unwrapped_us'])-float(left[0]['device_timestamp_unwrapped_us']))/1e6
-        imu_delta=[(float(b['device_timestamp_unwrapped_us'])-float(a['device_timestamp_unwrapped_us']))/1e6 for a,b in zip(imu,imu[1:])]
-        imu_hz=1/statistics.median(imu_delta)
-        keys=['gyro_x_counts','gyro_y_counts','gyro_z_counts','accel_x_counts','accel_y_counts','accel_z_counts']
-        plot=[]
-        for i in range(0,len(imu),max(1,len(imu)//180)):
-            r=imu[i];plot.append({'t':round((float(r['device_timestamp_unwrapped_us'])-float(imu[0]['device_timestamp_unwrapped_us']))/1e6,4),**{k:int(r[k]) for k in keys}})
-        files=[]
-        for p in sorted(dest.rglob('*')):
-            if p.is_file() and p.name not in ('summary.json','data-files.zip','poster.jpg'):
-                files.append({'path':str(p.relative_to(dest)),'url':str(p.relative_to(ROOT)),'bytes':p.stat().st_size,'sha256':sha(p)})
-        with zipfile.ZipFile(dest/'data-files.zip','w',zipfile.ZIP_DEFLATED) as z:
-            for f in files:
-                if not f['path'].endswith('.mp4'):z.write(dest/f['path'],f['path'])
-        summary={'dataset_id':slug,'title':title,'frames':{'left':len(left),'right':len(right)},'imu_samples':len(imu),'duration_seconds':round(span+statistics.median(delta),3),'fps':round(fps,3),'imu_hz':round(imu_hz,3),'paired_timestamp_max_delta_us':max(abs(float(a['device_timestamp_unwrapped_us'])-float(b['device_timestamp_unwrapped_us'])) for a,b in zip(left,right)),'timestamp_monotonic':all(d>0 for d in delta),'imu_monotonic':all(d>0 for d in imu_delta),'timestamp_status':'设备时钟；主机 Unix 时间为估计值，UTC 对齐待验证','imu_status':'原始 counts；SI 单位列为空，量程与坐标轴待验证','calibration_status':'候选标定，尚未验收','intrinsics':intr,'extrinsics':extr,'imu_info':info,'tables':{'timestamps':{'headers':list(left[0]),'rows':left[:8]},'imu':{'headers':list(imu[0]),'rows':imu[:8]}},'imu_plot':plot,'files':files,'data_archive':str(relative/'data-files.zip')}
-        write_json(dest/'summary.json',summary)
-        datasets.append({'dataset_id':slug,'title':title,'description':description,'scene_id':scene,'subscene':subscene,'availability':'available','episode_count':1,'duration_seconds':summary['duration_seconds'],'capture':{'width':1920,'height':1200,'fps':summary['fps'],'imu_hz':summary['imu_hz']},'previews':{eye:str(relative/f'preview/top_{eye}.mp4') for eye in ['left','right']},'poster':str(relative/'poster.jpg'),'sample_data_url':str(relative/'summary.json'),'quality_status':'engineering_sample','task_tags':['双目','第一视角','IMU',title],'delivery_contents':['左右目原始视频（HEVC）','左右目预览视频（H.264）','逐帧时间戳 CSV','IMU 原始 counts CSV','相机内外参候选文件','IMU 配置信息'],'sample_stats':{'frames_per_eye':len(left),'imu_samples':len(imu)}})
-        print(title,summary['frames'],summary['imu_samples'],summary['duration_seconds'],summary['fps'],summary['imu_hz'])
-    write_json(ROOT/'data/eyecatcher_stereo_datasets.json',{'schema_version':1,'datasets':datasets})
+def main():
+    parser=argparse.ArgumentParser(); parser.add_argument("source_dir",type=Path); parser.add_argument("--ffmpeg",default=""); args=parser.parse_args(); curate()
+    datasets=[prepare(*sample,args.source_dir) for sample in SAMPLES]; write_json(ROOT/"data/eyecatcher_stereo_datasets.json",{"schema_version":1,"datasets":datasets})
+    for item in datasets: print(item["title"],item["capture"],item["sample_stats"])
 
-if __name__=='__main__':
-    import argparse
-    p=argparse.ArgumentParser();p.add_argument('source_dir',type=Path);p.add_argument('--ffmpeg',required=True);a=p.parse_args()
-    curate();prepare(a.source_dir,a.ffmpeg)
+if __name__=="__main__": main()

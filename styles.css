@@ -674,3 +674,22 @@ body[data-page="market"] .market{padding-top:132px}body[data-page="market"] .mar
 @media(max-width:700px){body[data-page="market"] .market,.contact-page{padding-top:110px}.breadcrumbs{margin-bottom:32px}.home-market .market-heading{display:block}.preview-categories{gap:12px;margin-top:32px}.preview-categories a{flex-direction:column;gap:9px;align-items:start;font-size:12px;padding:18px 0}.preview-categories strong{margin:0;font-size:28px}.preview-categories span{font-size:9px}.home-market-grid{grid-template-columns:1fr}.preview-footer{align-items:start;flex-direction:column}.home-market .data-card{padding:22px}.home-market .sample-cover{margin:-22px -22px 22px}.market-v2 .sample-cover{margin:-18px -18px 22px}.contact-teaser{display:block;padding-block:55px}.contact-teaser .button{margin-top:28px}.business-heading{margin-top:40px;gap:16px;flex-wrap:wrap}.business-grid{grid-template-columns:1fr;gap:18px}.business-card{padding:26px}.business-phone{font-size:26px}.business-card h3{margin-top:30px}.business-wechat{align-items:end;flex-direction:row}.business-wechat strong{font-size:14px}.company-information{grid-template-columns:1fr;gap:25px;margin-top:30px}.company-information dl>div{grid-template-columns:70px 1fr;gap:12px}.company-information h2{font-size:22px}.company-information dd{font-size:13px}.contact-page-heading>p{font-size:14px}.contact-page-heading>p br{display:none}.sample-tabs{margin-inline:20px;gap:22px}.sample-tabs button{font-size:12px}.sample-tabs~section{margin-inline:20px}.sample-playbar{align-items:start;flex-direction:column;gap:12px}.sample-video-grid{grid-template-columns:1fr;gap:22px}.sample-stat-grid>div{padding:18px 12px}.sample-stat-grid strong{font-size:19px}.sample-section-heading{align-items:start;flex-direction:column;gap:8px}.sample-section-heading .arrow-link{margin-bottom:10px}.imu-chart{padding:14px}.imu-chart figcaption{gap:12px;font-size:11px}.imu-chart figcaption span{font-size:9px}.chart-legend{gap:12px}.chart-legend>span:last-child{margin-left:0}.sample-status-list>div{font-size:11px;padding:13px 12px;gap:16px}.sample-download-heading{display:block}.sample-download-heading .button{margin-top:16px}.sample-file-list article{gap:14px}.sample-file-list strong{font-size:11px}.sample-file-list .arrow-link{font-size:10px}.task-dialog-bar>span{font-size:8px}.sample-code pre{font-size:10px;padding:12px}.sample-code summary{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.sample-cover img{transition:none}}
 @media(max-width:400px){.business-wechat{flex-direction:column;align-items:start;gap:18px}.business-phone{font-size:23px}.business-wechat strong{overflow-wrap:normal;white-space:nowrap}}
+
+/* Interactive hand keypoint viewer */
+.handpose-viewer{background:#111317;border:1px solid #2d3238;color:#f4f6f2;overflow:hidden}
+.handpose-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 16px;border-bottom:1px solid #2d3238;background:#171a1f}
+.handpose-eyes{display:flex;gap:6px;flex-wrap:wrap}
+.handpose-eye,.handpose-reset{border:1px solid #46505a;background:transparent;color:#c9d0d4;padding:8px 11px;font:11px var(--sans);cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.handpose-eye:hover,.handpose-reset:hover{border-color:#dfff4f;color:#f5f8e9}
+.handpose-eye.is-active{background:#dfff4f;color:#111317;border-color:#dfff4f}
+.handpose-frame-control{display:flex;align-items:center;gap:12px;min-width:min(380px,45%);font:10px var(--mono);color:#aeb8b4}
+.handpose-frame-control span{white-space:nowrap}
+.handpose-frame-control input{width:100%;accent-color:#dfff4f;cursor:pointer}
+.handpose-canvas{display:block;width:100%;height:420px;background:radial-gradient(circle at 50% 48%,#242a2b 0,#14171b 55%,#101216 100%);touch-action:none;cursor:grab}
+.handpose-canvas:active{cursor:grabbing}
+.handpose-caption{display:flex;justify-content:space-between;gap:16px;padding:11px 16px;color:#8f9a98;font:10px/1.6 var(--mono);border-top:1px solid #2d3238}
+.handpose-caption span:last-child{color:#dfff4f}
+.handpose-empty{padding:36px 20px;background:#eef1e6;border:1px solid #d3dac7;color:#66715b}
+.handpose-empty strong{display:block;color:var(--ink);font-size:16px;margin-bottom:10px}
+.handpose-empty p{margin:0;font-size:12px;line-height:1.8}
+@media(max-width:700px){.handpose-toolbar{align-items:stretch;flex-direction:column}.handpose-frame-control{min-width:0}.handpose-canvas{height:320px}.handpose-caption{align-items:start;flex-direction:column;gap:3px}}

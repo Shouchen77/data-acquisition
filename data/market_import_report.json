@@ -1,11 +1,11 @@
 {
   "source_file": "data/maniformer_data_market.json",
   "catalog_file": "data/market_catalog.json",
-  "imported_at_utc": "2026-11-06T05:20:28+00:00",
+  "imported_at_utc": "2026-11-24T06:19:17+00:00",
   "source_total": 115,
-  "imported_records": 119,
+  "imported_records": 121,
   "source_unavailable_count": 0,
-  "stereo_datasets": 4,
+  "stereo_datasets": 6,
   "reference_records": 115,
   "duplicate_ids": 0,
   "video_links": 115,
@@ -15,7 +15,7 @@
     "data_type": {
       "真机": 60,
       "仿真": 55,
-      "": 4
+      "": 6
     },
     "primary_scene": {
       "家居": 46,
@@ -23,8 +23,8 @@
       "工业": 21,
       "办公": 12,
       "餐饮": 12,
-      "农业": 3,
-      "工厂": 1
+      "工厂": 3,
+      "农业": 3
     },
     "secondary_scene": {
       "厨房": 18,
@@ -49,6 +49,8 @@
       "备餐区": 2,
       "卫生间": 2,
       "汽修工位": 1,
+      "缝纫工位": 1,
+      "焊接工位": 1,
       "入户区": 1,
       "组装间": 1,
       "吧台": 1,
@@ -60,29 +62,29 @@
       "双臂": 57,
       "单臂": 50,
       "全身运动": 8,
-      "": 4
+      "": 6
     },
     "tactile_info": {
       "无触觉": 107,
       "有触觉": 8,
-      "": 4
+      "": 6
     },
     "collection_method": {
       "遥操": 111,
-      "": 4,
+      "": 6,
       "动捕": 4
     },
     "robot_body_type": {
       "G2": 66,
       "G1": 49,
-      "": 4
+      "": 6
     },
     "arm_model": {
       "OP": 68,
       "知行": 20,
       "傲意": 10,
       "90D": 7,
-      "": 4,
+      "": 6,
       "傲意灵巧手": 4,
       "因时": 4,
       "因时灵巧手": 2
@@ -90,7 +92,7 @@
     "hand_type": {
       "夹爪": 95,
       "灵巧手": 20,
-      "": 4
+      "": 6
     }
   }
 }

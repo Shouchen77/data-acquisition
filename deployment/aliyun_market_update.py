@@ -42,19 +42,19 @@ def update(c):
         raise RuntimeError('Cannot download '+name+': '+'; '.join(errors))
     with concurrent.futures.ThreadPoolExecutor(max_workers=5) as pool:list(pool.map(core_file,CORE))
     catalog=json.loads((release/'data/market_catalog.json').read_text())
-    if catalog['collections']!={'human_stereo':4,'robot_real':60,'robot_sim':55} or catalog['total']!=119 or len(catalog['records'])!=119:raise ValueError('Catalog count mismatch')
-    shared=SITE/'shared'/('stereo-20261106-'+c['archive_sha256'][:12])
+    if catalog['collections']!={'human_stereo':6,'robot_real':60,'robot_sim':55} or catalog['total']!=121 or len(catalog['records'])!=121:raise ValueError('Catalog count mismatch')
+    shared=SITE/'shared'/('stereo-20261124-'+c['archive_sha256'][:12])
     shared.mkdir(parents=True,exist_ok=True)
     manifest=c['media']
     ready=all((shared/n).is_file() and digest_file(shared/n)==entry['sha256'] for n,entry in manifest.items())
     if not ready and c.get('local_archive'):
         archive=Path(c['local_archive'])
-        if not archive.is_file() or archive.stat().st_size>600*1024*1024 or digest_file(archive)!=c['archive_sha256']:raise ValueError('Uploaded archive hash mismatch')
+        if not archive.is_file() or archive.stat().st_size>800*1024*1024 or digest_file(archive)!=c['archive_sha256']:raise ValueError('Uploaded archive hash mismatch')
         with zipfile.ZipFile(archive) as z:
             if set(z.namelist())!=set(manifest) or len(z.infolist())!=len(manifest):raise ValueError('Uploaded archive contents mismatch')
             for info in z.infolist():
                 n=info.filename
-                if not n.startswith('media/stereo/20261106/') or '..' in PurePosixPath(n).parts or info.file_size!=manifest[n]['bytes'] or (info.external_attr>>16)&0o170000==0o120000:raise ValueError('Unsafe archive entry')
+                if not n.startswith('media/stereo/20261124/') or '..' in PurePosixPath(n).parts or info.file_size!=manifest[n]['bytes'] or (info.external_attr>>16)&0o170000==0o120000:raise ValueError('Unsafe archive entry')
                 p=shared/n;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(z.read(n));p.chmod(0o644)
                 if digest_file(p)!=manifest[n]['sha256']:raise ValueError('Media file hash mismatch: '+n)
         ready=True
@@ -62,7 +62,7 @@ def update(c):
     if not ready:
         def media_file(item):
             name,entry=item
-            if not name.startswith('media/stereo/20261106/') or '..' in PurePosixPath(name).parts or entry['bytes']>80*1024*1024:raise ValueError('Invalid media file')
+            if not name.startswith('media/stereo/20261124/') or '..' in PurePosixPath(name).parts or entry['bytes']>80*1024*1024:raise ValueError('Invalid media file')
             path=shared/name
             if path.is_file() and digest_file(path)==entry['sha256']:return
             path.parent.mkdir(parents=True,exist_ok=True);pending=path.with_name(path.name+'.partial');errors=[]
@@ -102,6 +102,6 @@ def update(c):
         if switched:
             restore=SITE/('restore.'+stamp);restore.symlink_to(previous,target_is_directory=True);os.replace(str(restore),str(current))
         raise
-    result={'status':'UPDATED','release':str(release),'previous_release':previous,'backup':str(backup),'collections':catalog['collections'],'total':119,'core_files_verified':len(CORE),'media_files_verified':len(manifest),'media_range_requests_verified':16,'caddy_unchanged':True,'printlink_healthy':True}
+    result={'status':'UPDATED','release':str(release),'previous_release':previous,'backup':str(backup),'collections':catalog['collections'],'total':121,'core_files_verified':len(CORE),'media_files_verified':len(manifest),'media_range_requests_verified':sum(name.endswith('.mp4') for name in manifest),'caddy_unchanged':True,'printlink_healthy':True}
     (backup/'deployment.json').write_text(json.dumps(result,indent=2));print(json.dumps(result),flush=True)
 if __name__=='__main__':update(json.loads(sys.argv[1]))

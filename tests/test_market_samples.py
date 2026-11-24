@@ -16,8 +16,8 @@ class MarketSampleTests(unittest.TestCase):
         ids={r['id'] for r in source['records']}
         self.assertEqual(csv_ids,ids)
         self.assertEqual(ids,{r['id'] for r in catalog['records'] if r['source_id']=='maniformer'})
-        self.assertEqual(catalog['collections'],{'human_stereo':4,'robot_real':60,'robot_sim':55})
-        self.assertEqual(len(catalog['records']),119)
+        self.assertEqual(catalog['collections'],{'human_stereo':6,'robot_real':60,'robot_sim':55})
+        self.assertEqual(len(catalog['records']),121)
         self.assertEqual(sum(r['data_type']!='仿真' for r in source['records']),60)
 
     def test_sample_summary_counts_and_download_hashes_match_real_files(self):

@@ -2,7 +2,7 @@
 import concurrent.futures,hashlib,json,shutil,tempfile,urllib.request,zipfile
 from pathlib import Path,PurePosixPath
 ROOT=Path(__file__).resolve().parent
-BASE='https://github.com/Shouchen77/data-acquisition/releases/download/stereo-samples-20261106/'
+BASE='https://github.com/Shouchen77/data-acquisition/releases/download/stereo-samples-20261124/'
 
 def fetch():
     release=json.loads((ROOT/'output/stereo_sample_manifest.json').read_text())
@@ -25,7 +25,7 @@ def fetch():
             if set(z.namelist())!=set(manifest):raise ValueError('Archive file list mismatch')
             for info in z.infolist():
                 name=info.filename
-                if not name.startswith('media/stereo/20261106/') or '..' in PurePosixPath(name).parts or info.file_size!=manifest[name]['bytes']:raise ValueError('Unexpected archive path/size')
+                if not name.startswith('media/stereo/20261124/') or '..' in PurePosixPath(name).parts or info.file_size!=manifest[name]['bytes']:raise ValueError('Unexpected archive path/size')
                 data=z.read(name)
                 if hashlib.sha256(data).hexdigest()!=manifest[name]['sha256']:raise ValueError('Sample hash mismatch: '+name)
                 out=ROOT/name;out.parent.mkdir(parents=True,exist_ok=True);out.write_bytes(data)

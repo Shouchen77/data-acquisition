@@ -2,11 +2,11 @@
   "schema_version": 1,
   "datasets": [
     {
-      "dataset_id": "orange-picking",
-      "title": "橘子采摘",
-      "description": "第一视角记录橘子采摘过程中的观察、伸手与摘取。",
-      "scene_id": "agriculture",
-      "subscene": "果园",
+      "dataset_id": "auto-repair",
+      "title": "汽修",
+      "description": "第一视角记录车辆维修场景中的工具使用与操作过程。",
+      "scene_id": "factory",
+      "subscene": "汽修工位",
       "availability": "available",
       "episode_count": 1,
       "duration_seconds": 29.985,
@@ -17,29 +17,70 @@
         "imu_hz": 300.03
       },
       "previews": {
-        "left": "media/stereo/20261106/orange-picking/preview/top_left.mp4",
-        "right": "media/stereo/20261106/orange-picking/preview/top_right.mp4"
+        "left": "media/stereo/20261124/auto-repair/preview/top_left.mp4",
+        "right": "media/stereo/20261124/auto-repair/preview/top_right.mp4"
       },
-      "poster": "media/stereo/20261106/orange-picking/poster.jpg",
-      "sample_data_url": "media/stereo/20261106/orange-picking/summary.json",
+      "poster": "media/stereo/20261124/auto-repair/poster.jpg",
+      "sample_data_url": "media/stereo/20261124/auto-repair/summary.json",
       "quality_status": "engineering_sample",
       "task_tags": [
         "双目",
         "第一视角",
         "IMU",
-        "橘子采摘"
+        "汽修"
       ],
       "delivery_contents": [
         "左右目原始视频（HEVC）",
-        "左右目预览视频（H.264）",
         "逐帧时间戳 CSV",
         "IMU 原始 counts CSV",
         "相机内外参候选文件",
-        "IMU 配置信息"
+        "手部关键点 JSON（如有）"
       ],
       "sample_stats": {
         "frames_per_eye": 901,
-        "imu_samples": 9002
+        "imu_samples": 9002,
+        "handpose_available": true
+      }
+    },
+    {
+      "dataset_id": "tailoring",
+      "title": "裁缝",
+      "description": "第一视角记录裁缝工位中的布料整理、工具使用与手部操作。",
+      "scene_id": "factory",
+      "subscene": "缝纫工位",
+      "availability": "available",
+      "episode_count": 1,
+      "duration_seconds": 34.611,
+      "capture": {
+        "width": 1920,
+        "height": 1200,
+        "fps": 30.106,
+        "imu_hz": 300.03
+      },
+      "previews": {
+        "left": "media/stereo/20261124/tailoring/videos/top_left.mp4",
+        "right": "media/stereo/20261124/tailoring/videos/top_right.mp4"
+      },
+      "poster": "media/stereo/20261124/tailoring/poster.jpg",
+      "sample_data_url": "media/stereo/20261124/tailoring/summary.json",
+      "quality_status": "engineering_sample",
+      "task_tags": [
+        "双目",
+        "第一视角",
+        "IMU",
+        "裁缝"
+      ],
+      "delivery_contents": [
+        "左右目原始视频（HEVC）",
+        "逐帧时间戳 CSV",
+        "IMU 原始 counts CSV",
+        "相机内外参候选文件",
+        "手部关键点 JSON（如有）"
+      ],
+      "sample_stats": {
+        "frames_per_eye": 1042,
+        "imu_samples": 10412,
+        "handpose_available": false
       }
     },
     {
@@ -58,11 +99,11 @@
         "imu_hz": 300.03
       },
       "previews": {
-        "left": "media/stereo/20261106/raspberry-picking/preview/top_left.mp4",
-        "right": "media/stereo/20261106/raspberry-picking/preview/top_right.mp4"
+        "left": "media/stereo/20261124/raspberry-picking/preview/top_left.mp4",
+        "right": "media/stereo/20261124/raspberry-picking/preview/top_right.mp4"
       },
-      "poster": "media/stereo/20261106/raspberry-picking/poster.jpg",
-      "sample_data_url": "media/stereo/20261106/raspberry-picking/summary.json",
+      "poster": "media/stereo/20261124/raspberry-picking/poster.jpg",
+      "sample_data_url": "media/stereo/20261124/raspberry-picking/summary.json",
       "quality_status": "engineering_sample",
       "task_tags": [
         "双目",
@@ -72,15 +113,56 @@
       ],
       "delivery_contents": [
         "左右目原始视频（HEVC）",
-        "左右目预览视频（H.264）",
         "逐帧时间戳 CSV",
         "IMU 原始 counts CSV",
         "相机内外参候选文件",
-        "IMU 配置信息"
+        "手部关键点 JSON（如有）"
       ],
       "sample_stats": {
         "frames_per_eye": 901,
-        "imu_samples": 9002
+        "imu_samples": 9002,
+        "handpose_available": true
+      }
+    },
+    {
+      "dataset_id": "orange-picking",
+      "title": "橘子采摘",
+      "description": "第一视角记录橘子采摘过程中的观察、伸手与摘取。",
+      "scene_id": "agriculture",
+      "subscene": "果园",
+      "availability": "available",
+      "episode_count": 1,
+      "duration_seconds": 29.985,
+      "capture": {
+        "width": 1920,
+        "height": 1200,
+        "fps": 30.048,
+        "imu_hz": 300.03
+      },
+      "previews": {
+        "left": "media/stereo/20261124/orange-picking/preview/top_left.mp4",
+        "right": "media/stereo/20261124/orange-picking/preview/top_right.mp4"
+      },
+      "poster": "media/stereo/20261124/orange-picking/poster.jpg",
+      "sample_data_url": "media/stereo/20261124/orange-picking/summary.json",
+      "quality_status": "engineering_sample",
+      "task_tags": [
+        "双目",
+        "第一视角",
+        "IMU",
+        "橘子采摘"
+      ],
+      "delivery_contents": [
+        "左右目原始视频（HEVC）",
+        "逐帧时间戳 CSV",
+        "IMU 原始 counts CSV",
+        "相机内外参候选文件",
+        "手部关键点 JSON（如有）"
+      ],
+      "sample_stats": {
+        "frames_per_eye": 901,
+        "imu_samples": 9002,
+        "handpose_available": true
       }
     },
     {
@@ -99,11 +181,11 @@
         "imu_hz": 300.03
       },
       "previews": {
-        "left": "media/stereo/20261106/kumquat-picking/preview/top_left.mp4",
-        "right": "media/stereo/20261106/kumquat-picking/preview/top_right.mp4"
+        "left": "media/stereo/20261124/kumquat-picking/preview/top_left.mp4",
+        "right": "media/stereo/20261124/kumquat-picking/preview/top_right.mp4"
       },
-      "poster": "media/stereo/20261106/kumquat-picking/poster.jpg",
-      "sample_data_url": "media/stereo/20261106/kumquat-picking/summary.json",
+      "poster": "media/stereo/20261124/kumquat-picking/poster.jpg",
+      "sample_data_url": "media/stereo/20261124/kumquat-picking/summary.json",
       "quality_status": "engineering_sample",
       "task_tags": [
         "双目",
@@ -113,26 +195,26 @@
       ],
       "delivery_contents": [
         "左右目原始视频（HEVC）",
-        "左右目预览视频（H.264）",
         "逐帧时间戳 CSV",
         "IMU 原始 counts CSV",
         "相机内外参候选文件",
-        "IMU 配置信息"
+        "手部关键点 JSON（如有）"
       ],
       "sample_stats": {
         "frames_per_eye": 901,
-        "imu_samples": 9002
+        "imu_samples": 9002,
+        "handpose_available": true
       }
     },
     {
-      "dataset_id": "auto-repair",
-      "title": "汽修",
-      "description": "第一视角记录车辆维修场景中的工具使用与操作过程。",
+      "dataset_id": "welding",
+      "title": "电焊",
+      "description": "第一视角记录电焊工位中的工具操作、工件处理与连续动作。",
       "scene_id": "factory",
-      "subscene": "汽修工位",
+      "subscene": "焊接工位",
       "availability": "available",
       "episode_count": 1,
-      "duration_seconds": 29.985,
+      "duration_seconds": 29.819,
       "capture": {
         "width": 1920,
         "height": 1200,
@@ -140,29 +222,29 @@
         "imu_hz": 300.03
       },
       "previews": {
-        "left": "media/stereo/20261106/auto-repair/preview/top_left.mp4",
-        "right": "media/stereo/20261106/auto-repair/preview/top_right.mp4"
+        "left": "media/stereo/20261124/welding/videos/top_left.mp4",
+        "right": "media/stereo/20261124/welding/videos/top_right.mp4"
       },
-      "poster": "media/stereo/20261106/auto-repair/poster.jpg",
-      "sample_data_url": "media/stereo/20261106/auto-repair/summary.json",
+      "poster": "media/stereo/20261124/welding/poster.jpg",
+      "sample_data_url": "media/stereo/20261124/welding/summary.json",
       "quality_status": "engineering_sample",
       "task_tags": [
         "双目",
         "第一视角",
         "IMU",
-        "汽修"
+        "电焊"
       ],
       "delivery_contents": [
         "左右目原始视频（HEVC）",
-        "左右目预览视频（H.264）",
         "逐帧时间戳 CSV",
         "IMU 原始 counts CSV",
         "相机内外参候选文件",
-        "IMU 配置信息"
+        "手部关键点 JSON（如有）"
       ],
       "sample_stats": {
-        "frames_per_eye": 901,
-        "imu_samples": 9002
+        "frames_per_eye": 896,
+        "imu_samples": 8952,
+        "handpose_available": false
       }
     }
   ]

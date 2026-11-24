@@ -22,7 +22,7 @@ DIMENSIONS = (
 )
 SCENES = [
     {"id": "agriculture", "label": "农业", "description": "果蔬采摘、田间操作、农产品处理", "subscenes": ["果园", "农田", "分选台"]},
-    {"id": "factory", "label": "工厂", "description": "装配、质检、设备操作", "subscenes": ["装配工位", "质检台", "产线"]},
+    {"id": "factory", "label": "工厂", "description": "装配、质检、设备操作", "subscenes": ["装配工位", "质检台", "产线", "汽修工位", "焊接工位", "缝纫工位"]},
     {"id": "medical", "label": "医疗", "description": "器械整理、物资准备、护理辅助", "subscenes": ["器械准备区", "物资间", "护理实训区"]},
     {"id": "home", "label": "家居", "description": "厨房操作、收纳、清洁", "subscenes": ["厨房", "客厅", "卧室"]},
     {"id": "logistics", "label": "仓储物流", "description": "拣选、分拣、打包", "subscenes": ["货架区", "分拣台", "打包区"]},
