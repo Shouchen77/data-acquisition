@@ -46,6 +46,27 @@ def update(c):
     shared=SITE/'shared'/('stereo-20261124-'+c['archive_sha256'][:12])
     shared.mkdir(parents=True,exist_ok=True)
     manifest=c['media']
+    for name,entry in manifest.items():
+        cached=current/name.replace('20261124','20261106')
+        target=shared/name
+        if target.is_file() and digest_file(target)==entry['sha256']:continue
+        if cached.is_file() and cached.stat().st_size==entry['bytes'] and digest_file(cached)==entry['sha256']:
+            target.parent.mkdir(parents=True,exist_ok=True)
+            pending=target.with_name(target.name+'.reuse')
+            shutil.copyfile(str(cached),str(pending));pending.chmod(0o644);os.replace(str(pending),str(target))
+    if c.get('local_delta'):
+        archive=Path(c['local_delta'])
+        if not archive.is_file() or archive.stat().st_size>800*1024*1024 or digest_file(archive)!=c['delta_sha256']:raise ValueError('Uploaded delta hash mismatch')
+        with zipfile.ZipFile(archive) as z:
+            if set(z.namelist())!=set(c['delta_files']) or len(z.infolist())!=len(c['delta_files']):raise ValueError('Uploaded delta contents mismatch')
+            for info in z.infolist():
+                n=info.filename
+                if n not in manifest or not n.startswith('media/stereo/20261124/') or '..' in PurePosixPath(n).parts or info.file_size!=manifest[n]['bytes'] or (info.external_attr>>16)&0o170000==0o120000:raise ValueError('Unsafe delta entry')
+                p=shared/n;p.parent.mkdir(parents=True,exist_ok=True)
+                pending=p.with_name(p.name+'.uploaded');pending.write_bytes(z.read(n));pending.chmod(0o644)
+                if digest_file(pending)!=manifest[n]['sha256']:raise ValueError('Delta file hash mismatch: '+n)
+                os.replace(str(pending),str(p))
+        print('UPLOADED_DELTA_VERIFIED',len(c['delta_files']),flush=True)
     ready=all((shared/n).is_file() and digest_file(shared/n)==entry['sha256'] for n,entry in manifest.items())
     if not ready and c.get('local_archive'):
         archive=Path(c['local_archive'])

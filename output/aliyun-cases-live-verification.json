@@ -1,0 +1,46 @@
+{
+  "status": "VERIFIED",
+  "url": "https://eyecatcher.cn/",
+  "order": [
+    "汽修",
+    "裁缝",
+    "树莓采摘",
+    "橘子采摘",
+    "金桔采摘",
+    "电焊"
+  ],
+  "server_verification": {
+    "status": "UPDATED",
+    "execution_id": "t-hz074210gjkkdmo",
+    "release": "/srv/eyecatcher/releases/20261124T070013Z",
+    "previous_release": "/srv/eyecatcher/releases/20261106T090820Z",
+    "backup": "/var/backups/eyecatcher/20261124T070013Z",
+    "collections": {
+      "human_stereo": 6,
+      "robot_real": 60,
+      "robot_sim": 55
+    },
+    "total": 121,
+    "core_files_verified": 11,
+    "media_files_verified": 86,
+    "media_range_requests_verified": 24,
+    "caddy_unchanged": true,
+    "printlink_healthy": true,
+    "uploaded_delta_files": 42,
+    "observed_via": "Aliyun Command Assistant execution result"
+  },
+  "browser_checks": {
+    "homepage_first_three": [
+      "汽修",
+      "裁缝",
+      "树莓采摘"
+    ],
+    "auto_repair_handpose_3d": "rendered",
+    "handpose_initial_frame": 130,
+    "handpose_detected_hands": 1
+  },
+  "screenshots": [
+    "output/preview/cases-order-live-20261124.jpg",
+    "output/preview/handpose-live-20261124.jpg"
+  ]
+}

@@ -175,3 +175,20 @@ sudo mv -Tf /srv/eyecatcher/rollback-market-pages /srv/eyecatcher/current
 - Caddy 配置未修改，PrintLink 健康检查通过。
 
 发布回执：`output/aliyun-alignment-deployment-result.json`；验证记录：`output/alignment-audit-20261106.json`、`output/hero-spacing-verification-20261106.json`、`output/alignment-live-verification-20261106.json`；线上截图：`output/preview/workflow-alignment-live.png`。
+
+
+## 2026-11-24 六组案例与手部关键点上线
+
+首页和数据市场统一排序为：汽修、裁缝、树莓采摘、橘子采摘、金桔采摘、电焊。新增裁缝、电焊的双目预览、原始视频、时间戳、IMU 与候选标定；原有四组新增左右目手部关键点 JSON 和可旋转、缩放、逐帧切换的 3D 骨架视图。裁缝、电焊尚无关键点文件，页面保留待补充说明。
+
+- 当前发布：`/srv/eyecatcher/releases/20261124T070013Z`。
+- 上次发布：`/srv/eyecatcher/releases/20261106T090820Z`。
+- 阿里云命令执行 ID：`t-hz074210gjkkdmo`，退出码 0。
+- 回执：`/var/backups/eyecatcher/20261124T070013Z/deployment.json`。
+- 样例共享目录：`/srv/eyecatcher/shared/stereo-20261124-ea587c4eba94/media/`。
+- 目录含 6 组真人双目、60 条机器人实采、55 条仿真，共 121 条。
+- 服务端校验 11 个核心文件与 86 个媒体/数据文件；24 个 MP4 的 HTTP Range 检查通过。Caddy 配置及 PrintLink 健康检查通过。
+
+GitHub Pages 构建与发布分成两个作业，使用 `actions/deploy-pages@v5`；构建 `45341107221` 成功。大文件通过 GitHub Release 的 14 个基础分片与 12 个补充资产分发。阿里云部署复用已有且哈希一致的文件，通过 Workbench 直传 42 个新增或变化文件的增量包，整包 SHA-256 为 `461abc4422af83fb6c3ebc30fff84dcc5aa8bd672faf47bf9067e15a20bc1b4d`。
+
+本地回执：`output/aliyun-cases-deployment-result.json`；验证：`output/aliyun-cases-live-verification.json`；截图：`output/preview/cases-order-live-20261124.jpg`、`output/preview/handpose-live-20261124.jpg`。浏览器已确认首页前三项及汽修手部 3D 骨架显示正常；Python 单元测试 8 项通过，JavaScript 语法与部署脚本语法检查通过。
